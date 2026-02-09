@@ -1,0 +1,36 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function pathMatches(path, pattern) {
+      return path.matches(pattern);
+    }
+    function repoPath(repoId) {
+      return /databases/(default)/documents/repos/$(repoId);
+    }
+    function repoExists(repoId) {
+      return firestore.exists(repoPath(repoId));
+    }
+    function repoOwnerId(repoId) {
+      return firestore.get(repoPath(repoId)).data.ownerId;
+    }
+    function repoIsPublic(repoId) {
+      return firestore.get(repoPath(repoId)).data.visibility == 'public';
+    }
+    match /users/{userId}/repos/{repoId}/{allPaths=**} {
+      // Private repos must not be publicly downloadable.
+      // Public repos: anyone can read.
+      // Private repos: only the owner can read.
+      allow read: if repoExists(repoId)
+        && repoOwnerId(repoId) == userId
+        && (repoIsPublic(repoId) || (request.auth != null && request.auth.uid == userId));
+
+      // Writes: only repo owner, and block common secret/huge folders.
+      allow write: if repoExists(repoId)
+        && repoOwnerId(repoId) == userId
+        && request.auth != null
+        && request.auth.uid == userId
+        && !pathMatches(allPaths, '.*node_modules.*')
+        && !pathMatches(allPaths, '.*\\.env.*');
+    }
+  }
+}

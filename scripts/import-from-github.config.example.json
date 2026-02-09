@@ -1,0 +1,11 @@
+{
+  "githubToken": "YOUR_GITHUB_PAT",
+  "useCategorySearch": true,
+  "numberOfUsers": 10,
+  "uploadOnlySourceFiles": false,
+  "maxRepoSizeKb": 5120,
+  "reposLimit": 30,
+  "firebaseServiceAccountPath": "./path-to-service-account.json",
+  "firebaseProjectId": "your-project-id",
+  "firebaseStorageBucket": "your-project-id.firebasestorage.app"
+}
