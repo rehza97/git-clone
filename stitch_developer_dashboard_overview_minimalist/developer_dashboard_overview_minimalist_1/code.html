@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Developer Portal - Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<!-- Header Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="px-6 lg:px-12 flex h-16 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined">code_blocks</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">Portal</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-1">
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-primary bg-primary/10 transition-colors" href="#">Dashboard</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">My Projects</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Certificates</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 border-2 border-white dark:border-[#101922]"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none text-slate-900 dark:text-white">Amina B.</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Lead Developer</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700" data-alt="User profile picture of a smiling woman" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');">
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
+<!-- Welcome Section -->
+<section class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight mb-3 text-slate-900 dark:text-white">
+                    Overview
+                </h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg">
+                    Manage your software contributions and academic compliance status for Decision 1275.
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    Recent Activity
+                </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium shadow-lg shadow-primary/25 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Submission
+                </button>
+</div>
+</section>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="p-6 rounded-xl bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+<span class="text-sm font-medium">Total Archives</span>
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">12</span>
+<span class="text-xs font-medium text-emerald-500 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span>
+                        2 new
+                    </span>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+<span class="text-sm font-medium">Pending Approvals</span>
+<span class="material-symbols-outlined text-[20px]">pending_actions</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">1</span>
+<span class="text-xs font-medium text-slate-500">In review</span>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32">
+<div class="flex items-center justify-between text-slate-500 dark:text-slate-400">
+<span class="text-sm font-medium">Issued Certificates</span>
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">8</span>
+<span class="text-xs font-medium text-slate-500">Valid</span>
+</div>
+</div>
+</div>
+<!-- Main Actions -->
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bolt</span>
+            Quick Actions
+        </h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+<!-- Action Card 1 -->
+<div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-primary rotate-12">folder_zip</span>
+</div>
+<div class="relative z-10 p-8 flex flex-col h-full justify-between gap-6">
+<div>
+<div class="size-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">backup</span>
+</div>
+<h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Archive New Project</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+                            Submit your source code for official archiving and indexing. Essential for Decision 1275 compliance.
+                        </p>
+</div>
+<button class="w-full sm:w-auto px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        Start Archive Process
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Decorative Gradient -->
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Action Card 2 -->
+<div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:border-primary/50 transition-all duration-300">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-primary -rotate-12">workspace_premium</span>
+</div>
+<div class="relative z-10 p-8 flex flex-col h-full justify-between gap-6">
+<div>
+<div class="size-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[28px]">card_membership</span>
+</div>
+<h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Request Certificate</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm">
+                            Generate and download official deposit certificates for your archived projects for academic purposes.
+                        </p>
+</div>
+<button class="w-full sm:w-auto px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg font-semibold text-sm hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors flex items-center justify-center gap-2">
+                        View Eligible Projects
+                        <span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<!-- Decorative Gradient -->
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</div>
+<!-- Recent Projects Table (Simplified) -->
+<div class="bg-white dark:bg-[#1a2634] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h3 class="font-bold text-slate-900 dark:text-white">Recent Submissions</h3>
+<a class="text-sm font-medium text-primary hover:text-primary/80" href="#">View all</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-[#151f2b]">
+<tr>
+<th class="px-6 py-3 font-medium">Project Name</th>
+<th class="px-6 py-3 font-medium">Date</th>
+<th class="px-6 py-3 font-medium">Status</th>
+<th class="px-6 py-3 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white flex items-center gap-3">
+<div class="size-8 rounded bg-orange-500/10 text-orange-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">javascript</span>
+</div>
+                                AI Traffic Control System
+                            </td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                    Archived
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white flex items-center gap-3">
+<div class="size-8 rounded bg-blue-500/10 text-blue-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+</div>
+                                Smart Irrigation API
+                            </td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Oct 20, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400">
+<span class="size-1.5 rounded-full bg-amber-500"></span>
+                                    Pending Review
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-white flex items-center gap-3">
+<div class="size-8 rounded bg-purple-500/10 text-purple-500 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+                                Distributed Ledger Algier
+                            </td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Sep 15, 2023</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                    Archived
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</body></html>

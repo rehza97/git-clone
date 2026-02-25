@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - Source Code Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#16202a",
+                        "border-dark": "#233648",
+                        "text-secondary": "#92adc9",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for code editor feel */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233648; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #344d63; 
+        }
+        
+        /* Syntax Highlighting Colors Simulation */
+        .syntax-keyword { color: #c678dd; }
+        .syntax-string { color: #98c379; }
+        .syntax-comment { color: #5c6370; font-style: italic; }
+        .syntax-function { color: #61afef; }
+        .syntax-class { color: #e5c07b; }
+        .syntax-number { color: #d19a66; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display overflow-hidden h-screen flex flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-solid border-border-dark bg-background-dark px-6 py-3 h-16 shrink-0 z-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg">
+<span class="material-symbols-outlined text-white text-[20px]">security</span>
+</div>
+<h2 class="text-white text-lg font-bold tracking-tight">ASCAP</h2>
+</div>
+<!-- Breadcrumbs -->
+<div class="hidden md:flex items-center gap-2 text-sm">
+<span class="text-text-secondary">algeria-gov</span>
+<span class="text-text-secondary">/</span>
+<span class="text-text-secondary hover:text-white cursor-pointer transition-colors">core-systems</span>
+<span class="text-text-secondary">/</span>
+<span class="font-medium text-white bg-surface-dark px-2 py-1 rounded border border-border-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+                    encryption_utils.py
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="bg-surface-dark border border-border-dark text-sm rounded-lg pl-10 pr-4 py-2 text-white focus:outline-none focus:border-primary w-64 placeholder:text-text-secondary/50" placeholder="Search files (Cmd+P)" type="text"/>
+</div>
+<div class="h-8 w-[1px] bg-border-dark mx-2"></div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-text-secondary hover:text-white hover:bg-surface-dark rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 border border-border-dark cursor-pointer" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWzb7C93uXcPDwXKCVQPBRuo_aptNhtsnQwrDnwvVG8KE5W_TNwO2HvDn3uKoKcAKVCUsSpniMEU9g5uJXbrtiyRPZEF29mNcOFbmrzN22kykDukWQUwhAJMy101AOIDN5ngRyLfc9WRpbZUhLdEOiF2CB7qurN1I71qF3DAnU574OnZ1C5Z93NaX6w1HiyR3CQHEjMVJ6SbeaJpjfVgkv4QvCT_hXagfzIPDqBXf5GX8fOH4ZxMU8_g4HN9TwOATiesMY1VzI8Q");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar: File Tree -->
+<aside class="w-64 bg-surface-dark border-r border-border-dark flex flex-col shrink-0">
+<div class="p-4 border-b border-border-dark flex justify-between items-center">
+<span class="text-xs font-semibold uppercase tracking-wider text-text-secondary">Explorer</span>
+<button class="text-text-secondary hover:text-white">
+<span class="material-symbols-outlined text-[16px]">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<!-- Folder Structure -->
+<div class="flex flex-col text-sm">
+<div class="flex items-center gap-2 px-4 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] group-hover:text-white transition-colors">folder</span>
+<span class="group-hover:text-white transition-colors">.github</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] group-hover:text-white transition-colors">folder_open</span>
+<span class="group-hover:text-white transition-colors">src</span>
+</div>
+<!-- Sub Items -->
+<div class="pl-4 border-l border-border-dark ml-6 my-1">
+<div class="flex items-center gap-2 px-3 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-yellow-500/80">folder</span>
+<span class="group-hover:text-white transition-colors">auth</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-white font-medium cursor-pointer border-r-2 border-primary">
+<span class="material-symbols-outlined text-[18px] text-blue-400">description</span>
+<span>encryption_utils.py</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-yellow-500/80">folder</span>
+<span class="group-hover:text-white transition-colors">models</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-blue-400">description</span>
+<span class="group-hover:text-white transition-colors">main.py</span>
+</div>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] group-hover:text-white transition-colors">folder</span>
+<span class="group-hover:text-white transition-colors">tests</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-gray-400">description</span>
+<span class="group-hover:text-white transition-colors">README.md</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 text-text-secondary hover:bg-white/5 cursor-pointer group">
+<span class="material-symbols-outlined text-[18px] text-yellow-500">description</span>
+<span class="group-hover:text-white transition-colors">requirements.txt</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-2 text-xs text-text-secondary">
+<div class="size-2 rounded-full bg-green-500"></div>
+                    Verified Repository
+                </div>
+</div>
+</aside>
+<!-- Center: Code Viewer -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-dark">
+<!-- Code Toolbar -->
+<div class="flex items-center justify-between px-6 py-3 border-b border-border-dark bg-surface-dark/50 backdrop-blur-sm sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<div class="flex items-center text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[20px] mr-2">history</span>
+<span>147 lines</span>
+<span class="mx-2">•</span>
+<span>4.2 KB</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex bg-surface-dark border border-border-dark rounded-lg p-0.5">
+<button class="px-3 py-1 text-xs font-medium bg-primary/20 text-primary rounded shadow-sm">Code</button>
+<button class="px-3 py-1 text-xs font-medium text-text-secondary hover:text-white transition-colors">Blame</button>
+<button class="px-3 py-1 text-xs font-medium text-text-secondary hover:text-white transition-colors">Raw</button>
+</div>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-primary hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                        Download
+                    </button>
+</div>
+</div>
+<!-- Editor Area -->
+<div class="flex-1 overflow-auto font-mono text-sm leading-relaxed relative bg-[#0d1117]">
+<table class="w-full text-left border-collapse">
+<tbody>
+<!-- Line 1 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">1</td>
+<td class="pl-4 py-0.5 text-gray-300"><span class="syntax-keyword">import</span> os</td>
+</tr>
+<!-- Line 2 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">2</td>
+<td class="pl-4 py-0.5 text-gray-300"><span class="syntax-keyword">from</span> cryptography.fernet <span class="syntax-keyword">import</span> Fernet</td>
+</tr>
+<!-- Line 3 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">3</td>
+<td class="pl-4 py-0.5 text-gray-300"></td>
+</tr>
+<!-- Line 4 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">4</td>
+<td class="pl-4 py-0.5 text-gray-300"><span class="syntax-keyword">class</span> <span class="syntax-class">EncryptionHandler</span>:</td>
+</tr>
+<!-- Line 5 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">5</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-string">"""Handles secure file encryption for archival storage."""</span></td>
+</tr>
+<!-- Line 6 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">6</td>
+<td class="pl-4 py-0.5 text-gray-300"></td>
+</tr>
+<!-- Line 7 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">7</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">def</span> <span class="syntax-function">__init__</span>(<span class="syntax-class">self</span>, key=<span class="syntax-keyword">None</span>):</td>
+</tr>
+<!-- Line 8 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">8</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">if</span> key:</td>
+</tr>
+<!-- Line 9 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">9</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-class">self</span>.key = key</td>
+</tr>
+<!-- Line 10 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">10</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">else</span>:</td>
+</tr>
+<!-- Line 11 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">11</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-class">self</span>.key = Fernet.generate_key()</td>
+</tr>
+<!-- Line 12 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">12</td>
+<td class="pl-4 py-0.5 text-gray-300"> </td>
+</tr>
+<!-- Line 13 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">13</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-class">self</span>.cipher = Fernet(<span class="syntax-class">self</span>.key)</td>
+</tr>
+<!-- Line 14 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">14</td>
+<td class="pl-4 py-0.5 text-gray-300"></td>
+</tr>
+<!-- Line 15 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">15</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">def</span> <span class="syntax-function">encrypt_file</span>(<span class="syntax-class">self</span>, file_path):</td>
+</tr>
+<!-- Line 16 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">16</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-comment"># Check if file exists before processing</span></td>
+</tr>
+<!-- Line 17 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">17</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">if</span> <span class="syntax-keyword">not</span> os.path.exists(file_path):</td>
+</tr>
+<!-- Line 18 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">18</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">raise</span> FileNotFoundError(<span class="syntax-string">f"File {file_path} not found."</span>)</td>
+</tr>
+<!-- Line 19 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">19</td>
+<td class="pl-4 py-0.5 text-gray-300"></td>
+</tr>
+<!-- Line 20 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">20</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">with</span> <span class="syntax-function">open</span>(file_path, <span class="syntax-string">'rb'</span>) <span class="syntax-keyword">as</span> f:</td>
+</tr>
+<!-- Line 21 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">21</td>
+<td class="pl-4 py-0.5 text-gray-300">             data = f.read()</td>
+</tr>
+<!-- Line 22 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">22</td>
+<td class="pl-4 py-0.5 text-gray-300"></td>
+</tr>
+<!-- Line 23 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">23</td>
+<td class="pl-4 py-0.5 text-gray-300">        encrypted_data = <span class="syntax-class">self</span>.cipher.encrypt(data)</td>
+</tr>
+<!-- Line 24 -->
+<tr class="hover:bg-white/5 group">
+<td class="w-12 text-right pr-4 text-gray-600 select-none border-r border-border-dark/50 bg-surface-dark/30 py-0.5">24</td>
+<td class="pl-4 py-0.5 text-gray-300"> <span class="syntax-keyword">return</span> encrypted_data</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<!-- Right Sidebar: Metadata -->
+<aside class="w-72 bg-surface-dark border-l border-border-dark flex flex-col shrink-0 overflow-y-auto">
+<div class="p-5">
+<h3 class="text-sm font-semibold text-white mb-4">File Details</h3>
+<div class="space-y-6">
+<!-- Last Commit Info -->
+<div class="bg-background-dark rounded-lg p-3 border border-border-dark">
+<div class="flex items-start gap-3">
+<div class="size-8 rounded-full bg-cover bg-center shrink-0 border border-border-dark" data-alt="Author avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnGS0MIaE_qn1aV3LWblnuwnF90u-TyPEy2onhDY0tm0Lv5txKxSAVaZQwO4jgvZRqKbTx48MFC1VEeRaDspdvBXEIKgzByp4P0BM4ooDXKxbAu1Z_2ax8GtA3sFz5qEVpSTOeTEcJc1weuHwi4BU19BmWziYmSWJZcOEFBSXyQtYEc7CT4_SPPQokUX7DaUlUwrPozsFG6wbyONoHwgfzSg53TZ5-NatD6fFLh8pz7vH5RRvy0NYA4M7cYxz86O9cPbRhkf8rFQ");'></div>
+<div>
+<p class="text-xs font-semibold text-white">Amine Khelif</p>
+<p class="text-[10px] text-text-secondary mt-0.5">Updated encryption logic for compliance</p>
+</div>
+</div>
+<div class="mt-3 flex items-center gap-2 text-[10px] text-text-secondary">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                            2 hours ago
+                            <span class="mx-1">•</span>
+<span class="font-mono text-primary bg-primary/10 px-1 rounded">#a1b2c3</span>
+</div>
+</div>
+<!-- Stats -->
+<div>
+<h4 class="text-xs font-medium text-text-secondary uppercase mb-3 tracking-wide">Properties</h4>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-text-secondary">Size</span>
+<span class="text-white font-mono">4.2 KB</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-text-secondary">Lines</span>
+<span class="text-white font-mono">147</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-text-secondary">Language</span>
+<div class="flex items-center gap-1.5 text-white">
+<div class="size-2 rounded-full bg-blue-500"></div>
+                                    Python
+                                </div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-text-secondary">Encoding</span>
+<span class="text-white">UTF-8</span>
+</div>
+</div>
+</div>
+<div class="h-px bg-border-dark w-full"></div>
+<!-- Contributors -->
+<div>
+<h4 class="text-xs font-medium text-text-secondary uppercase mb-3 tracking-wide">Contributors</h4>
+<div class="flex -space-x-2 overflow-hidden">
+<img alt="Contributor 1" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-dark" data-alt="Contributor avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUjp-nhoaT8X0C0WxifcgeRnlsNggOOQWXRB6Pxcl2RMvJPGQOIyeRar6YXl-9thRNSHPFYesac2WgPo_ycQ5tjHkeH-t76nFSUM4majF3JTJB8Wa9dOJCxnbiipDWhCw7h06yFgE1Eph4K7P-H7IXN7JCADFWGyZWLnmi3PbfpkHKeVzBgnBEvNrsrUW49FHGUiizLV89BL-5SDD_XhmCKPw2Yf64GtQeM2X_yuLVMdXScObEptFAE8BNtjKHR7XCCHXJ-V2agg"/>
+<img alt="Contributor 2" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-dark" data-alt="Contributor avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOLXgPh8rAwcqhpB_PPr1c8bpDZ9jsnKgBWaVJBGqD13sABYnnHkm6oBEN4LZ_zjs3w96Lpyg_8i7gyimCLoNjOp-DAuqhMyc7xSaivBWBtOgt9rR8f9eib_E6d53ilQd9pUTixIfJ8K2OspnNn3iSyQgj73yHyhJWdtz8dFd2GPQ5HA5kSd_kT3B2AWygoxrZ6Pgolf3g4rOJ5JBnXZCw6tMXh-0dIRr9ht2WZdMiGxOGMK8YdcW9ta9HCmsiz6h6baR68iblHg"/>
+<img alt="Contributor 3" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-dark" data-alt="Contributor avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA85S28KAYKwkvXUNsLUEPqT2HE4KPAoMtKJOC1XfsGlJYNMKUBR2bsq-7e64kjUaPlRJcgw9rS_r-wDLbOGdBtGgOPhEkERa5gjerJd1JLN8YhRGEX2_q-J76GuzdPol88dny6TiIk7Zat-iAHlZz8QdQlNHAqK4LS3DEvNohR3fhFMeG-Kenh_QvQy4M3M0RMnV5sU3eesGOpIicHnYzGZbu-N1UvGvxTeSiCKLhnPdL8CLi-p26wY8p0vROWhjNp0qtbGwUhNA"/>
+<div class="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-surface-dark bg-background-dark text-[10px] text-text-secondary border border-border-dark z-10">
+                                +4
+                            </div>
+</div>
+</div>
+<!-- Security Badge -->
+<div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="text-xs font-bold text-primary">Security Scan Passed</span>
+</div>
+<p class="text-[10px] text-text-secondary leading-snug">
+                             This file was scanned by ASCAP Sentinel on Oct 24, 2023. No vulnerabilities found.
+                         </p>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4 border-t border-border-dark">
+<button class="w-full py-2 px-4 bg-surface-dark hover:bg-border-dark border border-border-dark rounded-lg text-sm text-text-secondary hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">bug_report</span>
+                    Report Issue
+                </button>
+</div>
+</aside>
+</div>
+</body></html>

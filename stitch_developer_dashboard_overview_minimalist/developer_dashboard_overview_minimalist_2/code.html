@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Developer Portal - Notifications</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="px-6 lg:px-12 flex h-16 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined">code_blocks</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">Portal</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-1">
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Dashboard</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">My Projects</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Certificates</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-primary bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 border-2 border-white dark:border-[#101922]"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none text-slate-900 dark:text-white">Amina B.</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Lead Developer</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700" data-alt="User profile picture of a smiling woman" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');">
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-5xl mx-auto px-6 lg:px-12 py-8">
+<section class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-2">
+<a class="hover:text-primary" href="#">Dashboard</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">Notifications</span>
+</div>
+<h2 class="text-3xl font-black tracking-tight mb-2 text-slate-900 dark:text-white">
+                Notifications &amp; Activity
+            </h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg">
+                Track archive updates, security alerts, and certificate issuance logs.
+            </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+                Mark all as read
+            </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Settings
+            </button>
+</div>
+</section>
+<div class="mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 p-1">
+<div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+<button class="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium whitespace-nowrap shadow-sm">
+                All Activity
+            </button>
+<button class="px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700 text-sm font-medium transition-colors whitespace-nowrap">
+                Unread <span class="ml-1 px-1.5 py-0.5 bg-slate-300 dark:bg-slate-700 rounded-md text-xs">3</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700 text-sm font-medium transition-colors whitespace-nowrap">
+                Archives
+            </button>
+<button class="px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700 text-sm font-medium transition-colors whitespace-nowrap">
+                Security
+            </button>
+<button class="px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700 text-sm font-medium transition-colors whitespace-nowrap">
+                Mentions
+            </button>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="Search logs..." type="text"/>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Today</span>
+<div class="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+</div>
+<div class="group relative flex gap-4 p-5 rounded-xl bg-white dark:bg-[#1a2634] border border-l-4 border-slate-200 dark:border-slate-800 border-l-primary shadow-sm hover:shadow-md transition-all">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-1 text-slate-400 hover:text-primary" title="Mark as read"><span class="material-symbols-outlined text-[18px]">check_circle</span></button>
+<button class="p-1 text-slate-400 hover:text-red-500" title="Delete"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="relative">
+<div class="size-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="absolute -bottom-1 -right-1 size-4 bg-white dark:bg-[#1a2634] rounded-full flex items-center justify-center">
+<span class="size-2.5 bg-emerald-500 rounded-full border border-white dark:border-[#1a2634]"></span>
+</span>
+</div>
+<div class="flex-1 pr-12">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">Project Archived Successfully</h4>
+<span class="text-xs text-slate-500 font-medium">2 hours ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                    Your project <span class="font-medium text-slate-900 dark:text-slate-200">"AI Traffic Control System"</span> has been successfully indexed. The deposit certificate is now available.
+                </p>
+<div class="flex gap-2">
+<button class="text-xs font-semibold text-primary hover:text-primary/80 flex items-center gap-1">
+                        View Certificate
+                        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative flex gap-4 p-5 rounded-xl bg-white dark:bg-[#1a2634] border border-l-4 border-slate-200 dark:border-slate-800 border-l-amber-500 shadow-sm hover:shadow-md transition-all">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-1 text-slate-400 hover:text-primary" title="Mark as read"><span class="material-symbols-outlined text-[18px]">check_circle</span></button>
+<button class="p-1 text-slate-400 hover:text-red-500" title="Delete"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="relative">
+<div class="size-10 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">security</span>
+</div>
+<span class="absolute -bottom-1 -right-1 size-4 bg-white dark:bg-[#1a2634] rounded-full flex items-center justify-center">
+<span class="size-2.5 bg-amber-500 rounded-full border border-white dark:border-[#1a2634]"></span>
+</span>
+</div>
+<div class="flex-1 pr-12">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">Dependency Vulnerability Detected</h4>
+<span class="text-xs text-slate-500 font-medium">5 hours ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                    A moderate severity vulnerability was found in <span class="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">lodash 4.17.15</span> within the "Smart Irrigation API" project.
+                </p>
+<div class="flex gap-2">
+<button class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-primary flex items-center gap-1">
+                        View Details
+                    </button>
+</div>
+</div>
+</div>
+<div class="group relative flex gap-4 p-5 rounded-xl bg-white dark:bg-[#1a2634] border border-l-4 border-slate-200 dark:border-slate-800 border-l-blue-500 shadow-sm hover:shadow-md transition-all">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-1 text-slate-400 hover:text-primary" title="Mark as read"><span class="material-symbols-outlined text-[18px]">check_circle</span></button>
+<button class="p-1 text-slate-400 hover:text-red-500" title="Delete"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="relative">
+<div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">rate_review</span>
+</div>
+<span class="absolute -bottom-1 -right-1 size-4 bg-white dark:bg-[#1a2634] rounded-full flex items-center justify-center">
+<span class="size-2.5 bg-blue-500 rounded-full border border-white dark:border-[#1a2634]"></span>
+</span>
+</div>
+<div class="flex-1 pr-12">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="text-sm font-bold text-slate-900 dark:text-white">Reviewer Feedback</h4>
+<span class="text-xs text-slate-500 font-medium">8 hours ago</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">
+                    Reviewer <span class="font-medium text-slate-900 dark:text-slate-200">@karim_dev</span> left a comment on "Distributed Ledger Algier": <i>"Please update the README to comply with Decision 1275 section 3..."</i>
+</p>
+</div>
+</div>
+<div class="flex items-center gap-4 pt-4">
+<div class="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Yesterday</span>
+<div class="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+</div>
+<div class="group relative flex gap-4 p-5 rounded-xl bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-800 opacity-75 hover:opacity-100 transition-all">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-1 text-slate-400 hover:text-primary" title="Mark as unread"><span class="material-symbols-outlined text-[18px]">mark_chat_unread</span></button>
+<button class="p-1 text-slate-400 hover:text-red-500" title="Delete"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div class="flex-1 pr-12">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">Certificate Generated</h4>
+<span class="text-xs text-slate-500">Oct 23, 10:30 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2">
+                    The archiving certificate for "Smart Home IoT" is ready for download. Reference #ASCAP-2023-892.
+                </p>
+<div class="flex gap-2">
+<button class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">download</span> Download PDF
+                    </button>
+</div>
+</div>
+</div>
+<div class="group relative flex gap-4 p-5 rounded-xl bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-800 opacity-75 hover:opacity-100 transition-all">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="p-1 text-slate-400 hover:text-primary" title="Mark as unread"><span class="material-symbols-outlined text-[18px]">mark_chat_unread</span></button>
+<button class="p-1 text-slate-400 hover:text-red-500" title="Delete"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">settings_system_daydream</span>
+</div>
+<div class="flex-1 pr-12">
+<div class="flex items-baseline justify-between mb-1">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white">System Maintenance Scheduled</h4>
+<span class="text-xs text-slate-500">Oct 23, 09:00 AM</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    The ASCAP portal will undergo scheduled maintenance on Oct 30th from 02:00 AM to 04:00 AM (local time).
+                </p>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center justify-center gap-2">
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="size-9 rounded-lg bg-primary text-white text-sm font-medium">1</button>
+<button class="size-9 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-medium">2</button>
+<button class="size-9 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-medium">3</button>
+<span class="text-slate-400 px-1">...</span>
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</main>
+
+</body></html>

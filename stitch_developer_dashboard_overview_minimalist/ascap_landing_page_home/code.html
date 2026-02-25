@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - The Algerian Platform for Source Code Archiving</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1173d4",
+                        secondary: "#00835c", 
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "Noto Sans Arabic", "sans-serif"],
+                        body: ["Inter", "Noto Sans Arabic", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-[#111a22]/95 backdrop-blur-sm px-4 md:px-10 py-3">
+<div class="flex items-center gap-4">
+<div class="size-8 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight">ASCAP</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Features</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Decision 1275</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Contact</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="truncate">Login</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-secondary hover:bg-secondary/90 text-white text-sm font-bold shadow-sm transition-colors">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+<button class="md:hidden text-slate-900 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex flex-col flex-1 w-full max-w-7xl mx-auto px-4 md:px-10 py-5 gap-12">
+<!-- Hero Section -->
+<div class="@container">
+<div class="rounded-2xl overflow-hidden relative min-h-[560px] flex flex-col items-center justify-center text-center p-8 gap-8 isolate">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 -z-10 bg-cover bg-center" data-alt="Dark computer screen showing complex programming code syntax highlighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCyXzI1qHsI-hFcBKAjYILN6HO-pK85aHG9ogeTqhiJEZlugzh0rP9vXF-zzrSxh3P01evufKimsIq40X1TEalTpRqDW-iTbuJ0TMEwEh2snvgqd0NdcJvRKh1Y4qBOuohL9D-GxiMyWi0QvJ4ybvlZ20DfkrgcPQnQFPFdyvDMv98uvZFU-oRngNrOxRXFLJBV5FQE5Ipq96RVXv2jfvGVpkFKSqsPgSdtYL1AsP6eMtyD3kXmXvgRGBQ7zZG65We6reiEXD9Hfg');"></div>
+<div class="absolute inset-0 -z-10 bg-gradient-to-t from-background-dark via-background-dark/90 to-primary/20 mix-blend-multiply"></div>
+<div class="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark"></div>
+<div class="flex flex-col gap-4 max-w-4xl mx-auto mt-auto mb-auto">
+<div class="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-secondary/20 border border-secondary/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2 w-fit mx-auto backdrop-blur-md">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                                Official Decision 1275 Platform
+                            </div>
+<h1 class="text-white text-4xl md:text-6xl font-black leading-[1.1] tracking-tight">
+                                The Algerian Platform for Source Code Archiving
+                            </h1>
+<h2 class="text-white/90 text-2xl md:text-3xl font-bold font-display" dir="rtl">
+                                المنصة الجزائرية لأرشفة الكود المصدري
+                            </h2>
+<p class="text-slate-300 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto mt-4">
+                                Secure your academic legacy. Supporting digital sovereignty and research innovation across Algerian universities. Archive, share, and collaborate securely.
+                            </p>
+</div>
+<div class="flex flex-wrap gap-4 justify-center w-full mt-4">
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-12 px-6 bg-primary hover:bg-primary/90 text-white text-base font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined mr-2 text-[20px]">archive</span>
+                                Start Archiving
+                            </button>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-xl h-12 px-6 bg-slate-800/80 hover:bg-slate-700/80 backdrop-blur-md border border-slate-600 text-white text-base font-bold transition-all">
+<span>Documentation</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Stats Section -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="flex items-center gap-3 text-primary mb-1">
+<span class="material-symbols-outlined">code</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Developers</p>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">15,000+</p>
+<p class="text-xs text-slate-400">Active contributors</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="flex items-center gap-3 text-secondary mb-1">
+<span class="material-symbols-outlined">folder_open</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Repositories</p>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">42,000+</p>
+<p class="text-xs text-slate-400">Archived projects</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="flex items-center gap-3 text-primary mb-1">
+<span class="material-symbols-outlined">school</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Universities</p>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">85</p>
+<p class="text-xs text-slate-400">Partner institutions</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="flex items-center gap-3 text-secondary mb-1">
+<span class="material-symbols-outlined">public</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Open Source</p>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black tracking-tight">1,200+</p>
+<p class="text-xs text-slate-400">Public projects</p>
+</div>
+</div>
+<!-- Why Choose ASCAP Section -->
+<div class="flex flex-col gap-10 py-10">
+<div class="flex flex-col gap-4 text-center md:text-left">
+<h2 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">
+                            Why Choose ASCAP?
+                        </h2>
+<p class="text-slate-600 dark:text-slate-300 text-lg max-w-2xl font-normal leading-relaxed">
+                            Built specifically for Algeria's academic and tech ecosystem, ensuring data sovereignty, compliance, and ease of access for all wilayas.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="group flex flex-col gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-primary/50 transition-colors">
+<div class="size-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">dns</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">100% Local Hosting</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    All data is hosted within Algerian data centers, guaranteeing full digital sovereignty, low latency access, and data protection under national law.
+                                </p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="group flex flex-col gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-secondary/50 transition-colors">
+<div class="size-12 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">credit_card</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">Edahabia &amp; CIB Integration</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    Seamless payment processing for institutional plans using local DIN cards (Edahabia/CIB) and CCP integration for premium features.
+                                </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="group flex flex-col gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 hover:border-primary/50 transition-colors">
+<div class="size-12 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">Decision 1275 Compliant</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    The only platform fully compliant with Ministerial Decision 1275 for "Startup" and "Patent" labeling projects, streamlining your graduation requirements.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0b4f8f] to-[#042f56] px-6 py-16 md:px-20 md:py-20 text-center">
+<!-- Decorative Elements -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+<svg class="absolute w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+</svg>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-8 max-w-3xl mx-auto">
+<div class="flex flex-col gap-4">
+<h2 class="text-white text-3xl md:text-5xl font-black tracking-tight">
+                                Ready to secure your code?
+                            </h2>
+<p class="text-blue-100 text-lg md:text-xl font-medium leading-relaxed">
+                                Join thousands of Algerian students, researchers, and developers building the future of our digital nation today.
+                            </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+<button class="flex min-w-[200px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-white text-[#0b4f8f] text-base font-bold hover:bg-slate-100 transition-colors shadow-xl">
+<span class="material-symbols-outlined mr-2">school</span>
+                                Register as Student
+                            </button>
+<button class="flex min-w-[200px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-[#00835c] text-white text-base font-bold hover:bg-[#006e4d] border border-transparent transition-colors shadow-xl">
+<span class="material-symbols-outlined mr-2">apartment</span>
+                                Register as Institution
+                            </button>
+</div>
+<p class="text-blue-200/60 text-sm mt-4">
+                            Requires academic email (.dz) for free student tier.
+                        </p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0b1219] py-12 px-4 md:px-10 mt-10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+<div class="flex flex-col gap-4 max-w-sm">
+<div class="flex items-center gap-3">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"></path>
+</svg>
+</div>
+<span class="text-slate-900 dark:text-white font-bold text-lg">ASCAP</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                            The official platform for archiving academic source code in Algeria. Promoting open science and digital sovereignty.
+                        </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white">Platform</h4>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Browse Repos</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Universities</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Pricing</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white">Support</h4>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">API Reference</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white">Legal</h4>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Decision 1275 PDF</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center md:text-left text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+<p>© 2023 ASCAP. All rights reserved.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-600 hover:text-white cursor-pointer">social_leaderboard</span>
+<span class="material-symbols-outlined text-slate-600 hover:text-white cursor-pointer">alternate_email</span>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

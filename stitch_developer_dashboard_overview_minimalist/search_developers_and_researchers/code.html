@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Developers and Researchers - ASCAP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1b2733",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101922; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233648; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #344a61; 
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#233648] bg-background-light dark:bg-background-dark/95 backdrop-blur-md px-6 lg:px-10 py-3">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]">security</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Repositories</a>
+<a class="text-slate-900 dark:text-white text-sm font-medium leading-normal" href="#">Developers</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">Universities</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal transition-colors" href="#">About</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Log In</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors text-slate-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+<button class="md:hidden text-slate-900 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col items-center w-full px-4 py-8 lg:px-40">
+<!-- Search Header Section -->
+<div class="layout-content-container flex flex-col max-w-[960px] w-full mb-12">
+<div class="text-center mb-8">
+<h1 class="text-slate-900 dark:text-white tracking-tight text-[32px] md:text-[40px] font-bold leading-tight mb-2">
+                    Find Developers &amp; Researchers
+                </h1>
+<p class="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-normal">
+                    Connect with the minds securing Algeria's digital future.
+                </p>
+</div>
+<div class="w-full mb-6">
+<label class="flex flex-col h-14 w-full shadow-lg rounded-xl overflow-hidden relative group">
+<div class="flex w-full flex-1 items-stretch bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#2f455a] focus-within:border-primary dark:focus-within:border-primary transition-colors rounded-xl">
+<div class="text-slate-400 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-base font-normal leading-normal h-full" placeholder="Search by name, handle, or expertise..."/>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 font-medium transition-colors hidden sm:block">
+                            Search
+                        </button>
+</div>
+</label>
+</div>
+<div class="flex gap-3 flex-wrap justify-center">
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">University</span>
+<span class="material-symbols-outlined text-base text-slate-500">expand_more</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">Skills</span>
+<span class="material-symbols-outlined text-base text-slate-500">expand_more</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">Contribution Level</span>
+<span class="material-symbols-outlined text-base text-slate-500">expand_more</span>
+</button>
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">Status</span>
+<span class="material-symbols-outlined text-base text-slate-500">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Results Grid -->
+<div class="layout-content-container max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-blue-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a female developer smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCESUo2H7-QnDmKPnjn3U7XXnJbNeLUMJHUaEZgPE7HM2chho6RwI9BMt0UpGRFLqHGGEZ9VnHe8dTcWfxnPWKhd3U-tSVBfmU-nmNxzpjX-rz5Bmzgk8nXoF1yLwrH1pzHHq8azhEjoytJ00cIp-BsYSxtdvRUKhx6assqosPrFjcZJ06RvZ-etc9C17nBfNnr2av2tz7ez92UW7jTig-mIAu-GTb6FhIfuFGG-4pNpSyMOYEs6NeMmF0LGhYo2T2sVCcZJR-5pQ"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Amel Benali</h3>
+<p class="text-primary text-sm font-medium">@amel_codes</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        PhD Researcher in Cryptography at USTHB. Working on secure multiparty computation protocols for national sovereignty.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Rust</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Cryptography</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Security</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">folder_zip</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">algeria-crypto-lib-v2</p>
+<p class="text-slate-500 text-xs truncate">Updated 2 days ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-emerald-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a male developer with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYZh8ffU_vjBk863naz_4fHZjDOga9hbdK5dM2ED_41GR65hQIGKa124WV7C2n447MuedpOtV4RrJA3QX98hByqtnXExloqgjFV5MrjjnhGNrThG1m7mh-qlJ4376LxU5xGZHN912x9zxtTCZFZsLRDYfVHC_mT_bcisGkOgSex3y4wgG4shqY7i5j7n6odW24bXAGWKekHycDBLq5Bm-Hb9BnIYgUzFwdaL_hgXB-r6qpXe7X9MQPRvyqVUOwzb_Yn8ocpldEhQ"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Karim Saidi</h3>
+<p class="text-primary text-sm font-medium">@ksaidi_dev</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        Senior Backend Engineer contributing to open source infrastructure projects. Passionate about distributed systems.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Go</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Kubernetes</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Docker</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">terminal</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">distributed-log-dz</p>
+<p class="text-slate-500 text-xs truncate">Updated 5 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-purple-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a female researcher looking serious" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMSoY5MUqGfSEYT6NM95CjI9YWNMV9aRZPuUW9cFQOJoCq32QyUDrpcN3a88WWphqiVve0qbPt9KmYs6eFMnMveuH95iRVKDY9PDJkDglOKvi4U4lUKo37sWpG-mLtA_BrueGkNszVQ_3vuu_gCziZYjbf5uxVqTPe1nEXZCnlhmHTeS2eo1yJxQWW8zdtVnmBP1OhxpQXUIDfbpIXWNREGegE9nvBIxIehZudt5lmWjUyIMfRprANKA8YUi6IYX7VxA62EitU4g"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Dr. Yasmine Zerrouki</h3>
+<p class="text-primary text-sm font-medium">@yzerrouki</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        Professor at ESI Algiers. Focusing on AI ethics and localized LLM development for Arabic and Tamazight.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Python</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">PyTorch</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">NLP</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">dataset</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">dz-dialect-corpus-2024</p>
+<p class="text-slate-500 text-xs truncate">Updated 1 week ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-orange-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a male developer smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASCxitnShzLheGjsBi1vQKo5dLAi4k1jwVqIKyvcKMFBVm3I-HQAmVsqpXpfol2hfmoY0bPUrbJwBPoL5EYrJQ2vWZMvmV6LFklb_jCHaSwX4EPHS75t5omO5V5nmp_-92G2wcv1SAQQ2yf2O2ilJA9wIo7AMxpTPZeXGkrL6AlMo21DBP2SffSHAKQB4yO5VU9epE8SOyIo3vBXxI6lV5x0C8_5_8fFipMSR9MU0Cf39c8AFNMuqEE4WRVDBFuCUZheLDaL0ZDQ"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Hocine Mokhtari</h3>
+<p class="text-primary text-sm font-medium">@hmokhtari</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        Full Stack Developer &amp; Open Source Advocate. Building accessible web tools for Algerian education.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">JavaScript</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">React</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">A11y</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">web</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">edu-portal-dz-accessible</p>
+<p class="text-slate-500 text-xs truncate">Updated yesterday</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-teal-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a young male researcher in a lab coat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC45KrkBYKSa72p9269hpmeORjQdv59ONhhde130zjInI8rgl4cjeQlmr1YIDDbwHAfU-VkllpwHxiIIf2jGqP3qualDR9emxJ33jJ23x6lS3U5Zxm1-DSs2wMEHfehEkz3CpYzQxe9IBLR5T6Baf6GqGLP9JE3qjORaNWPIXK0oqYjc9EgaRzFhhXJjHgK1uNXMRzAPUK0IpmupHfMynuUnOTtCZ33YdLLpRSI95DbuAKGaV2uPocCgFonk4uApYZCGpE01ZmbQ"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Nassim Bouzidi</h3>
+<p class="text-primary text-sm font-medium">@nbouzidi_iot</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        IoT Systems Architect. Developing smart city solutions for optimizing water distribution networks.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">C++</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Embedded</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">LoRaWAN</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">sensors</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">smart-water-sensor-fw</p>
+<p class="text-slate-500 text-xs truncate">Updated 3 days ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="flex flex-col bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-24 bg-gradient-to-r from-red-900 to-slate-900 relative">
+<div class="absolute -bottom-10 left-4">
+<div class="h-20 w-20 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-slate-800">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a female mobile developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkJm8gzki-7P7h0cRSyDyvx__u95vVZPjcB_6r_T4GTslHE8OihH9a617c-S7m5sDKYyMarDBbMphy2dVxTeAKggCifI95SSmIuXNc8V8noBsp4KYuLygOnVvkDDVgKYaMAJe-fgBKY2q6YQy_KE2R-ARoDUdfD9b5DFtg6ZciEvZwXaas_CmvdUGPKqBlE9mjjhBhWTBh9agMPu1BFv1HiAiFwekw9vUhJwoIs9FaHBOFqTdOXyVE8njaFAgrnZL5ITNWpY-NhA"/>
+</div>
+</div>
+</div>
+<div class="pt-12 px-5 pb-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg">Sarah Khellaf</h3>
+<p class="text-primary text-sm font-medium">@skhellaf_mobile</p>
+</div>
+<button class="bg-primary/10 hover:bg-primary/20 text-primary rounded-lg px-3 py-1.5 text-sm font-bold transition-colors">
+                            Follow
+                        </button>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
+                        Mobile Security Specialist. Auditing and securing national financial applications.
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Swift</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">Kotlin</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md">SecOps</span>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">Latest Archive</p>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">phonelink_lock</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-slate-900 dark:text-slate-200 text-sm font-medium truncate group-hover:text-primary transition-colors">mobile-auth-sdk-secure</p>
+<p class="text-slate-500 text-xs truncate">Updated 8 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex items-center justify-center gap-2">
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-xl">chevron_left</span>
+</button>
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-primary text-white font-bold transition-colors">
+                1
+            </button>
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] font-medium transition-colors">
+                2
+            </button>
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] font-medium transition-colors">
+                3
+            </button>
+<span class="text-slate-400 px-2">...</span>
+<button class="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors">
+<span class="material-symbols-outlined text-xl">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-[#233648] bg-surface-light dark:bg-[#111a22] py-8">
+<div class="layout-content-container max-w-[1200px] w-full mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-center md:text-left">
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2024 ASCAP. Algerian National Platform for Digital Sovereignty.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors text-sm" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors text-sm" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

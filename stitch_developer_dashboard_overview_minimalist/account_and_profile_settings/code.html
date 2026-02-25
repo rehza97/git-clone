@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - Profile Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#182635",
+                        "surface-border": "#233648",
+                        "text-secondary": "#92adc9"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col">
+<!-- Navbar -->
+<div class="w-full bg-surface-dark border-b border-surface-border sticky top-0 z-50">
+<header class="flex items-center justify-between whitespace-nowrap px-4 sm:px-10 py-3 max-w-[1400px] mx-auto w-full">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full group">
+<div class="text-text-secondary flex border-none bg-background-light dark:bg-surface-border items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg rounded-l-none text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-surface-border focus:border-none h-full placeholder:text-text-secondary px-4 pl-2 text-sm font-normal leading-normal" placeholder="Search repositories..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Repositories</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Organizations</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Explore</a>
+</div>
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">New Project</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 ring-2 ring-surface-border cursor-pointer" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDhwzqMvkp1F_ONHdKgR6IJEJfUiuh2yJHM0RSySvL2cE1oOEXIC8dDCZsu_HVuxRQofjX83NzgFv8OKp9mMTbUezE3w7DtKWf5Njbvl7mJ6RH4HEY66fgVwQWu5v26iF-r6mrMB54_S-7AibbE0NkTZEaMEX1FgxuWEmGlqWw8lcRBSwmHMsWTSuNsUiJKTQzDGJHQ9YJHb1y8ZedOAV0jbu7FT0LCsZG5VprZKNwj42L6qW8hUE-WPoyuUVbp4wPOlAndFmMXvA");'></div>
+</div>
+</header>
+</div>
+<!-- Main Content -->
+<div class="flex flex-1 justify-center py-8 px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col max-w-[960px] flex-1 w-full">
+<!-- Page Header -->
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<div class="flex min-w-72 flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-3xl font-bold leading-tight tracking-tight">Account Settings</h1>
+<p class="text-slate-500 dark:text-text-secondary text-base font-normal">Manage your profile, security preferences, and billing information.</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="mb-8 overflow-x-auto">
+<div class="flex border-b border-slate-200 dark:border-surface-border min-w-max">
+<a class="flex items-center justify-center border-b-[2px] border-primary px-6 pb-3 pt-2 group cursor-pointer" href="#">
+<span class="material-symbols-outlined mr-2 text-primary text-[20px]">person</span>
+<p class="text-primary text-sm font-bold leading-normal">Profile Information</p>
+</a>
+<a class="flex items-center justify-center border-b-[2px] border-transparent px-6 pb-3 pt-2 group hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-slate-500 dark:text-text-secondary text-[20px] group-hover:text-slate-700 dark:group-hover:text-slate-300">shield</span>
+<p class="text-slate-500 dark:text-text-secondary text-sm font-medium leading-normal group-hover:text-slate-700 dark:group-hover:text-slate-300">Security &amp; SSH Keys</p>
+</a>
+<a class="flex items-center justify-center border-b-[2px] border-transparent px-6 pb-3 pt-2 group hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-slate-500 dark:text-text-secondary text-[20px] group-hover:text-slate-700 dark:group-hover:text-slate-300">notifications</span>
+<p class="text-slate-500 dark:text-text-secondary text-sm font-medium leading-normal group-hover:text-slate-700 dark:group-hover:text-slate-300">Notifications</p>
+</a>
+<a class="flex items-center justify-center border-b-[2px] border-transparent px-6 pb-3 pt-2 group hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-slate-500 dark:text-text-secondary text-[20px] group-hover:text-slate-700 dark:group-hover:text-slate-300">credit_card</span>
+<p class="text-slate-500 dark:text-text-secondary text-sm font-medium leading-normal group-hover:text-slate-700 dark:group-hover:text-slate-300">Billing</p>
+</a>
+</div>
+</div>
+<!-- Profile Header Card -->
+<div class="flex flex-col md:flex-row gap-6 items-start md:items-center bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-surface-border mb-8 shadow-sm">
+<div class="relative group cursor-pointer">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-24 w-24 ring-4 ring-slate-100 dark:ring-surface-border/50" data-alt="Current user avatar large" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBADtOON-NOl-f_WhbUyK-xDrwRWuPAmFT04q2lIAcIW7RZI158rE1NcfRqTQwb0jaSf_9wb_SUxAj6DOca4QCpL-xKlkyXwKhKpVz3M__-QK22-XrkDHRYTe8JT3t2OZcXGOHO2E9vq6MeYM-yPH6Wn-TeR-GWj63FCN4R_hVflXzMbyJbfkObey1xxWbfkXBvlHyPaUTkt4ow9XDGwHO0TIxOcNM9ELom9Xa-iyCd9y07QuhbQnFlf3tz4XsoE65pHIeeqmGFuA");'></div>
+<div class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-1">Amine Benali</h3>
+<p class="text-slate-500 dark:text-text-secondary text-sm mb-4">Lead Developer • Algiers, DZ</p>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-9 px-4 bg-slate-100 dark:bg-surface-border text-slate-700 dark:text-white text-sm font-medium hover:bg-slate-200 dark:hover:bg-surface-border/80 transition-colors">
+                            Change Avatar
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-9 px-4 border border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+                            Remove
+                        </button>
+</div>
+</div>
+</div>
+<!-- Form Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
+<!-- Left Column: Main Info -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Public Profile Section -->
+<div class="space-y-6">
+<div class="border-b border-slate-200 dark:border-surface-border pb-2">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Public Profile</h3>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Display Name</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 px-4" type="text" value="Amine Benali"/>
+<p class="mt-1.5 text-xs text-slate-500 dark:text-text-secondary">This name will appear on your profile and repositories.</p>
+</label>
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Bio</span>
+<textarea class="form-textarea w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary min-h-[120px] p-4 resize-y" placeholder="Tell us a little bit about yourself">Senior Software Engineer passionate about open source and digital sovereignty. Building the future of Algerian tech.</textarea>
+<p class="mt-1.5 text-xs text-slate-500 dark:text-text-secondary">You can @mention other users and organizations to link to them.</p>
+</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">URL</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px]">link</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 pl-11 pr-4" placeholder="https://website.com" type="url" value="https://amine.dev"/>
+</div>
+</label>
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Company</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px]">apartment</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 pl-11 pr-4" type="text" value="ASCAP Core Team"/>
+</div>
+</label>
+</div>
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Location</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px]">location_on</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 pl-11 pr-4" type="text" value="Algiers, Algeria"/>
+</div>
+</label>
+<div class="flex items-center gap-3 mt-2">
+<input class="form-checkbox rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary h-4 w-4 bg-transparent" id="email-public" type="checkbox"/>
+<label class="text-sm text-slate-700 dark:text-slate-300" for="email-public">Display current email publicly</label>
+</div>
+</div>
+</div>
+<!-- Personal Information Section -->
+<div class="space-y-6 pt-4">
+<div class="border-b border-slate-200 dark:border-surface-border pb-2">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Private Information</h3>
+<p class="text-sm text-slate-500 dark:text-text-secondary mt-1">This information will not be displayed publicly.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Full Name</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 px-4" type="text" value="Amine Benali"/>
+</label>
+<label class="block">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 block">Email Address</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-slate-400 dark:text-slate-500 material-symbols-outlined text-[20px]">mail</span>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-surface-border bg-white dark:bg-surface-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-11 pl-11 pr-4" disabled="" type="email" value="amine.benali@ascap.dz"/>
+<button class="absolute right-2 text-primary hover:text-primary/80 text-xs font-bold px-2 py-1 rounded">Change</button>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Actions -->
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-surface-border p-6 shadow-sm">
+<h4 class="text-slate-900 dark:text-white font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+                            Academic Status
+                        </h4>
+<p class="text-sm text-slate-500 dark:text-text-secondary mb-4">Are you a student or researcher? Get access to ASCAP Pro Education features.</p>
+<button class="w-full py-2 px-4 border border-slate-300 dark:border-surface-border rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-surface-border/50 transition-colors">
+                            Verify Status
+                        </button>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-surface-border p-6 shadow-sm">
+<h4 class="text-slate-900 dark:text-white font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500">terminal</span>
+                            Contribution Graph
+                        </h4>
+<div class="flex items-center gap-3 mb-4">
+<div class="h-4 w-4 bg-green-500 rounded-sm"></div>
+<span class="text-sm text-slate-600 dark:text-slate-400">Show private contributions</span>
+<div class="ml-auto">
+<input checked="" class="form-checkbox rounded border-slate-300 dark:border-slate-600 text-green-500 focus:ring-green-500 h-4 w-4 bg-transparent" type="checkbox"/>
+</div>
+</div>
+<p class="text-xs text-slate-500 dark:text-text-secondary">Your contribution graph will show activity from both public and private repositories.</p>
+</div>
+<div class="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-100 dark:border-red-900/30 p-6">
+<h4 class="text-red-800 dark:text-red-400 font-bold mb-2">Delete Account</h4>
+<p class="text-sm text-red-600 dark:text-red-400/80 mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+<button class="w-full py-2 px-4 bg-white dark:bg-surface-dark border border-red-200 dark:border-red-900/30 rounded-lg text-sm font-bold text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                            Delete Account
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer -->
+<div class="sticky bottom-0 w-full bg-white dark:bg-surface-dark border-t border-slate-200 dark:border-surface-border py-4 px-4 sm:px-10 z-40">
+<div class="max-w-[960px] mx-auto w-full flex items-center justify-between">
+<span class="text-sm text-slate-500 dark:text-text-secondary hidden sm:inline-block">Last saved: 2 minutes ago</span>
+<div class="flex gap-4 ml-auto">
+<button class="px-6 py-2.5 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-surface-border transition-colors">
+                    Cancel
+                </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-bold text-white bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Changes
+                </button>
+</div>
+</div>
+</div>
+</body></html>

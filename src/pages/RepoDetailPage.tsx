@@ -1,24 +1,45 @@
 import { useEffect, useState } from "react"
 import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useAuth } from "@/contexts/AuthContext"
 import { useRepo } from "@/hooks/useRepo"
 import { listRepoFiles, getFileDownloadUrl, type RepoFileWithId } from "@/lib/files"
 import { buildFileTree, type TreeNode } from "@/lib/fileTree"
+import { getProfilesByIds } from "@/lib/users"
 import { CodeBlock } from "@/components/CodeBlock"
 import ReactMarkdown from "react-markdown"
-import { ChevronRightIcon, ChevronsUpIcon, FolderIcon } from "lucide-react"
+import rehypeRaw from "rehype-raw"
+import { markdownComponents } from "@/components/MarkdownImage"
+import {
+  Code2,
+  Bug,
+  Archive,
+  Users,
+  Download,
+  Star,
+  ChevronDown,
+  FolderOpen,
+  Search,
+  Folder,
+  Link2,
+  Shield,
+  Scale,
+  Clock,
+  Tag,
+  BookOpen,
+  GitBranch,
+} from "lucide-react"
 import { getFileIcon } from "@/lib/fileIcons"
 
-const INDENT_PER_LEVEL = 16
+const BORDER_DARK = "#233648"
+const TEXT_SECONDARY = "#92adc9"
 
 const IMAGE_EXT = new Set(["jpg", "jpeg", "png", "gif", "webp", "svg", "ico", "bmp", "avif"])
 const VIDEO_EXT = new Set(["mp4", "webm", "ogg", "mov", "avi", "mkv", "m4v"])
 const AUDIO_EXT = new Set(["mp3", "wav", "ogg", "m4a", "aac", "flac", "weba", "opus"])
 const PDF_EXT = new Set(["pdf"])
+const MD_EXT = new Set(["md", "markdown"])
 
 type PreviewKind = "image" | "video" | "audio" | "pdf"
 
@@ -31,75 +52,48 @@ function getPreviewKind(path: string): PreviewKind | null {
   return null
 }
 
-function FileTree({
-  tree,
-  repoId,
-  selectedPath,
-  onSelectFile,
-  openFolders,
-  onFolderOpenChange,
-  depth = 0,
-}: {
-  tree: TreeNode
-  repoId: string
-  selectedPath: string | null
-  onSelectFile: (path: string) => void
-  openFolders: Set<string>
-  onFolderOpenChange: (path: string, open: boolean) => void
-  depth?: number
-}) {
-  const indentStyle = { paddingRight: depth * INDENT_PER_LEVEL } as const
-
-  if (tree.isFile) {
-    const Icon = getFileIcon(tree.name)
-    const isSelected = selectedPath === tree.path
-    return (
-      <div style={indentStyle}>
-        <button
-          type="button"
-          onClick={() => onSelectFile(tree.path)}
-          className={`flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-sm transition-colors touch-manipulation ${isSelected ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-accent hover:text-foreground"}`}
-        >
-          <Icon className="size-4 shrink-0 opacity-80" />
-          <span className="truncate">{tree.name}</span>
-        </button>
-      </div>
-    )
-  }
-  if (tree.children.length === 0) return null
-  const isOpen = openFolders.has(tree.path)
-  return (
-    <div style={indentStyle} className="min-w-0">
-      <Collapsible
-        open={isOpen}
-        onOpenChange={(open) => onFolderOpenChange(tree.path, open)}
-        className="group/collapse"
-      >
-        <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-sm text-foreground transition-colors hover:bg-accent [&_svg]:shrink-0">
-          <ChevronRightIcon className="size-4 transition-transform duration-200 [[data-state=open]_&]:rotate-90" />
-          <FolderIcon className="size-4 text-amber-500/90 dark:text-amber-400/90" />
-          <span className="truncate font-medium">{tree.name || "الجذر"}</span>
-        </CollapsibleTrigger>
-        <CollapsibleContent className="border-r-2 border-border/60 mr-1 mt-0.5 pr-1">
-          {tree.children.map((child) => (
-            <FileTree
-              key={child.path}
-              tree={child}
-              repoId={repoId}
-              selectedPath={selectedPath}
-              onSelectFile={onSelectFile}
-              openFolders={openFolders}
-              onFolderOpenChange={onFolderOpenChange}
-              depth={depth + 1}
-            />
-          ))}
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
-  )
+function isMarkdownPath(path: string): boolean {
+  const ext = path.includes(".") ? path.slice(path.lastIndexOf(".") + 1).toLowerCase() : ""
+  return MD_EXT.has(ext)
 }
 
+/** Find node at path (path "" = root). Returns null if not found. */
+function findNodeAtPath(root: TreeNode, path: string): TreeNode | null {
+  if (!path) return root
+  const parts = path.split("/").filter(Boolean)
+  let current: TreeNode = root
+  for (const part of parts) {
+    const child = current.children.find((c) => c.name === part)
+    if (!child) return null
+    current = child
+  }
+  return current
+}
+
+/** Get direct children at path (folders first, then files, sorted by name). */
+function getChildrenAtPath(root: TreeNode, path: string): TreeNode[] {
+  const node = findNodeAtPath(root, path)
+  const children = node?.children ?? []
+  return [...children].sort((a, b) => {
+    if (a.isFile !== b.isFile) return a.isFile ? 1 : -1
+    return a.name.localeCompare(b.name)
+  })
+}
+
+function formatTimeAgo(timestamp: { toMillis?: () => number } | undefined): string {
+  if (!timestamp?.toMillis) return "—"
+  const ms = Date.now() - timestamp.toMillis()
+  if (ms < 60 * 60 * 1000) return "1 hour ago"
+  if (ms < 24 * 60 * 60 * 1000) return "2 hours ago"
+  if (ms < 7 * 24 * 60 * 60 * 1000) return "3 days ago"
+  if (ms < 14 * 24 * 60 * 60 * 1000) return "1 week ago"
+  return "2 weeks ago"
+}
+
+type TabId = "code" | "issues" | "archives" | "contributors"
+
 export function RepoDetailPage() {
+  const { t } = useTranslation()
   const { repoId } = useParams<{ repoId: string }>()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -107,30 +101,31 @@ export function RepoDetailPage() {
   const { repo, loading, error } = useRepo(repoId)
   const [files, setFiles] = useState<RepoFileWithId[]>([])
   const [tree, setTree] = useState<TreeNode | null>(null)
+  const [currentPath, setCurrentPath] = useState<string>("")
   const [fileContent, setFileContent] = useState<string | null>(null)
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null)
   const [filePreviewKind, setFilePreviewKind] = useState<PreviewKind | null>(null)
   const [fileContentLoading, setFileContentLoading] = useState(false)
   const [fileContentError, setFileContentError] = useState<string | null>(null)
-  const [openFolders, setOpenFolders] = useState<Set<string>>(() => new Set())
+  const [ownerName, setOwnerName] = useState<string>("—")
+  const [ownerUsername, setOwnerUsername] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<TabId>("code")
 
   const selectedPath = searchParams.get("file")
 
-  const handleFolderOpenChange = (path: string, open: boolean) => {
-    setOpenFolders((prev) => {
-      const next = new Set(prev)
-      if (open) next.add(path)
-      else next.delete(path)
-      return next
-    })
-  }
-
-  const collapseAllFolders = () => setOpenFolders(new Set())
+  /** Sync currentPath when selected file is from URL so breadcrumb shows correct folder */
+  useEffect(() => {
+    if (selectedPath && selectedPath.includes("/")) {
+      const dir = selectedPath.slice(0, selectedPath.lastIndexOf("/"))
+      setCurrentPath(dir)
+    } else if (selectedPath && !selectedPath.includes("/")) {
+      setCurrentPath("")
+    }
+  }, [selectedPath])
 
   const setSelectedFile = (path: string | null) => {
-    if (path) {
-      setSearchParams({ file: path }, { replace: true })
-    } else {
+    if (path) setSearchParams({ file: path }, { replace: true })
+    else {
       searchParams.delete("file")
       setSearchParams(searchParams, { replace: true })
     }
@@ -148,6 +143,15 @@ export function RepoDetailPage() {
   }, [repoId])
 
   useEffect(() => {
+    if (!repo?.ownerId) return
+    getProfilesByIds([repo.ownerId]).then((map) => {
+      const p = map.get(repo.ownerId)
+      setOwnerName(p?.displayName || p?.username || "—")
+      setOwnerUsername(p?.username ?? null)
+    })
+  }, [repo?.ownerId])
+
+  useEffect(() => {
     if (!repoId || !selectedPath) {
       setFileContent(null)
       setFilePreviewUrl(null)
@@ -157,7 +161,7 @@ export function RepoDetailPage() {
     }
     const file = files.find((f) => f.path === selectedPath)
     if (!file) {
-      setFileContentError("الملف غير موجود.")
+      setFileContentError(t("repo.fileNotFound"))
       setFileContent(null)
       setFilePreviewUrl(null)
       setFilePreviewKind(null)
@@ -166,7 +170,6 @@ export function RepoDetailPage() {
     setFileContentLoading(true)
     setFileContentError(null)
     const previewKind = getPreviewKind(selectedPath)
-
     if (previewKind) {
       getFileDownloadUrl(file.storagePath)
         .then((url) => {
@@ -175,7 +178,7 @@ export function RepoDetailPage() {
           setFileContent(null)
         })
         .catch(() => {
-          setFileContentError("تعذر تحميل المحتوى.")
+          setFileContentError(t("repo.failedLoadContent"))
           setFilePreviewUrl(null)
           setFilePreviewKind(null)
         })
@@ -186,16 +189,14 @@ export function RepoDetailPage() {
       getFileDownloadUrl(file.storagePath)
         .then((url) => fetch(url))
         .then((r) => r.text())
-        .then((text) => {
-          setFileContent(text)
-        })
+        .then((text) => setFileContent(text))
         .catch(() => {
-          setFileContentError("تعذر تحميل المحتوى.")
+          setFileContentError(t("repo.failedLoadContent"))
           setFileContent(null)
         })
         .finally(() => setFileContentLoading(false))
     }
-  }, [repoId, selectedPath, files])
+  }, [repoId, selectedPath, files, t])
 
   useEffect(() => {
     if (repo && repo.visibility === "private" && user?.uid !== repo.ownerId) {
@@ -205,17 +206,17 @@ export function RepoDetailPage() {
 
   if (loading || !repoId) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <p className="text-muted-foreground">جاري التحميل...</p>
+      <div className="min-h-screen flex items-center justify-center px-4 bg-background dark:bg-[#101922]">
+        <p className="text-[#92adc9]">{t("repo.loading")}</p>
       </div>
     )
   }
   if (error || !repo) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <p className="text-destructive">المستودع غير موجود.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-background dark:bg-[#101922]">
+        <p className="text-destructive">{t("repo.notFound")}</p>
         <Button variant="link" asChild>
-          <Link to="/">العودة للرئيسية</Link>
+          <Link to="/">{t("common.backToHome")}</Link>
         </Button>
       </div>
     )
@@ -223,156 +224,404 @@ export function RepoDetailPage() {
 
   const isOwner = user?.uid === repo.ownerId
 
+  const currentDirChildren = tree ? getChildrenAtPath(tree, currentPath) : []
+  const breadcrumbSegments = currentPath ? [repo.name, ...currentPath.split("/")] : [repo.name]
+
+  const getFileTime = (path: string): string => {
+    const f = files.find((x) => x.path === path)
+    return f?.uploadedAt ? formatTimeAgo(f.uploadedAt as { toMillis: () => number }) : "—"
+  }
+
+  const languages = repo.languages ?? []
+  const langPercent = languages.length > 0 ? 100 / languages.length : 0
+
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-8">
-      <header className="mb-8 border-b border-border pb-6">
-        <div className="flex flex-wrap items-center gap-2 gap-y-1">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">{repo.name}</h1>
-          <Badge variant={repo.visibility === "public" ? "default" : "secondary"} className="shrink-0">
-            {repo.visibility === "public" ? "عام" : "خاص"}
-          </Badge>
-          {repo.languages?.map((lang) => (
-            <Badge key={lang} variant="outline" className="shrink-0 font-normal">
-              {lang}
-            </Badge>
-          ))}
-          {isOwner && (
-            <Button variant="outline" size="sm" className="shrink-0" asChild>
-              <Link to={`/repo/${repoId}/upload`}>رفع ملفات</Link>
-            </Button>
+    <div className="min-h-screen flex flex-col bg-background dark:bg-[#101922] text-slate-900 dark:text-white">
+      <main className="flex-1 flex justify-center py-6 px-4 md:px-10 lg:px-40">
+        <div className="flex flex-col max-w-[1200px] w-full gap-6">
+          {/* Breadcrumbs */}
+          <nav className="flex flex-wrap gap-2 text-sm">
+            <Link to="/" className="hover:text-primary transition-colors" style={{ color: TEXT_SECONDARY }}>
+              {t("repoDetail.home")}
+            </Link>
+            <span style={{ color: TEXT_SECONDARY }}>/</span>
+            <Link to="/explore" className="hover:text-primary transition-colors" style={{ color: TEXT_SECONDARY }}>
+              {t("repoDetail.repositories")}
+            </Link>
+            <span style={{ color: TEXT_SECONDARY }}>/</span>
+            <span className="font-medium text-slate-900 dark:text-white">{repo.name}</span>
+          </nav>
+
+          {/* Project Header */}
+          <div className="@container">
+            <div className="flex w-full flex-col gap-6 lg:flex-row lg:justify-between lg:items-start">
+              <div className="flex gap-5">
+                <div className="h-24 w-24 shrink-0 rounded-xl bg-gradient-to-br from-blue-900 to-slate-900 border flex items-center justify-center shadow-lg" style={{ borderColor: BORDER_DARK }}>
+                  <Code2 className="size-10 text-blue-400" />
+                </div>
+                <div className="flex flex-col gap-1 min-w-0">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
+                      {repo.name}
+                    </h1>
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium uppercase tracking-wider shrink-0 ${repo.visibility === "public" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "bg-slate-500/10 text-slate-400 border border-slate-500/20"}`}>
+                      {repo.visibility === "public" ? t("common.public") : t("common.private")}
+                    </span>
+                  </div>
+                  {repo.description && (
+                    <p className="text-base max-w-2xl leading-relaxed mt-1" style={{ color: TEXT_SECONDARY }}>
+                      {repo.description}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-4 mt-2 text-sm flex-wrap" style={{ color: TEXT_SECONDARY }}>
+                    <span className="flex items-center gap-1">
+                      <Clock className="size-[18px]" />
+                      {t("repoDetail.updatedAgo")}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Tag className="size-[18px]" />
+                      {t("repoDetail.version")}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Scale className="size-[18px]" />
+                      {t("repoDetail.license")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row min-w-[280px] shrink-0">
+                {(repo.visibility === "public" || isOwner) && (
+                  <Button asChild className="flex-1 h-10 px-5 rounded-lg bg-primary hover:bg-blue-600 text-white text-sm font-bold shadow-sm">
+                    <Link to={`/repo/${repoId}/certificate`}>
+                      <Download className="size-5 mr-2" />
+                      {t("repoDetail.downloadCertificate")}
+                    </Link>
+                  </Button>
+                )}
+                <Button variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-[#192633] dark:border-[#233648] dark:hover:bg-[#233648]">
+                  <Star className="size-5 mr-2" />
+                  {t("repoDetail.star")}
+                  <span className="ml-1 px-1.5 py-0.5 rounded bg-slate-300 dark:bg-black/30 text-xs">0</span>
+                </Button>
+                {isOwner && (
+                  <Button asChild variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-[#192633] dark:border-[#233648]">
+                    <Link to={`/repo/${repoId}/upload`}>{t("repo.uploadFiles")}</Link>
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="border-b mt-2" style={{ borderColor: BORDER_DARK }}>
+            <div className="flex gap-8 overflow-x-auto">
+              <button
+                type="button"
+                onClick={() => setActiveTab("code")}
+                className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "code" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
+                style={activeTab !== "code" ? { color: TEXT_SECONDARY } : undefined}
+              >
+                <Code2 className="size-5" style={activeTab === "code" ? { color: "var(--primary)" } : undefined} />
+                {t("repoDetail.tabCode")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("issues")}
+                className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "issues" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
+                style={activeTab !== "issues" ? { color: TEXT_SECONDARY } : undefined}
+              >
+                <Bug className="size-5" />
+                {t("repoDetail.tabIssues")}
+                <span className="ml-1 px-2 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-[#192633]" style={{ color: TEXT_SECONDARY }}>0</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("archives")}
+                className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "archives" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
+                style={activeTab !== "archives" ? { color: TEXT_SECONDARY } : undefined}
+              >
+                <Archive className="size-5" />
+                {t("repoDetail.tabArchives")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("contributors")}
+                className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "contributors" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
+                style={activeTab !== "contributors" ? { color: TEXT_SECONDARY } : undefined}
+              >
+                <Users className="size-5" />
+                {t("repoDetail.tabContributors")}
+              </button>
+            </div>
+          </div>
+
+          {activeTab === "code" && (
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+              {/* Left Column */}
+              <div className="flex flex-col gap-6 min-w-0">
+                {/* Actions Bar */}
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <button type="button" className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium bg-slate-200 dark:bg-[#192633] border-slate-300 dark:border-[#233648] text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-[#233648] transition-colors">
+                      <GitBranch className="size-[18px]" aria-hidden />
+                      master
+                      <ChevronDown className="size-4" />
+                    </button>
+                    <div className="h-4 w-px bg-slate-300 dark:bg-[#233648] mx-1" />
+                    <nav className="text-sm truncate flex items-center gap-1 min-w-0 flex-wrap" style={{ color: TEXT_SECONDARY }} aria-label="Breadcrumb">
+                      {breadcrumbSegments.map((segment, i) => {
+                        const pathUpToHere = i === 0 ? "" : breadcrumbSegments.slice(1, i + 1).join("/")
+                        const isLast = i === breadcrumbSegments.length - 1
+                        return (
+                          <span key={pathUpToHere || "root"} className="flex items-center gap-1 shrink-0">
+                            {i > 0 && <span className="opacity-70">/</span>}
+                            {isLast ? (
+                              <span className="text-slate-700 dark:text-slate-200 font-medium">{segment}</span>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setCurrentPath(pathUpToHere)}
+                                className="hover:text-primary transition-colors truncate max-w-[120px] sm:max-w-none"
+                              >
+                                {segment}
+                              </button>
+                            )}
+                          </span>
+                        )
+                      })}
+                    </nav>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-2">
+                    <button type="button" className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-[#192633] transition-colors" style={{ color: TEXT_SECONDARY }} title={t("repoDetail.search")} aria-label={t("repoDetail.search")}>
+                      <Search className="size-5" />
+                    </button>
+                    <Button size="sm" variant="outline" className="rounded-md border-slate-300 dark:border-[#233648] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#192633] text-sm font-medium" asChild>
+                      <Link to={selectedPath ? `/repo/${repoId}/code/${encodeURIComponent(selectedPath)}` : `/repo/${repoId}/code`}>
+                        {t("repoDetail.openInCodeEditor")}
+                      </Link>
+                    </Button>
+                    <Button size="sm" className="rounded-md bg-primary text-white text-sm font-medium hover:bg-blue-600 shadow-sm">
+                      {t("repoDetail.goToFile")}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* File Explorer */}
+                <div className="rounded-lg overflow-hidden border bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+                  <div className="flex items-center justify-between px-4 py-3 border-b bg-slate-50 dark:bg-[#192633]" style={{ borderColor: BORDER_DARK }}>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="h-6 w-6 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+                        {(ownerName || "?")[0].toUpperCase()}
+                      </div>
+                      {ownerUsername ? (
+                        <Link to={`/${ownerUsername}`} className="text-sm font-medium text-slate-900 dark:text-white truncate hover:text-primary hover:underline transition-colors">
+                          {ownerName}
+                        </Link>
+                      ) : (
+                        <span className="text-sm font-medium text-slate-900 dark:text-white truncate">{ownerName}</span>
+                      )}
+                      <span className="text-sm truncate max-w-[200px] sm:max-w-none" style={{ color: TEXT_SECONDARY }}>
+                        {t("repoDetail.latestCommit")}
+                      </span>
+                    </div>
+                    <span className="text-xs whitespace-nowrap shrink-0" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.updatedAgo")}</span>
+                  </div>
+                  <div className="divide-y divide-slate-100 dark:divide-[#233648]/50">
+                    {currentDirChildren.length === 0 ? (
+                      <div className="px-4 py-6 text-center text-sm" style={{ color: TEXT_SECONDARY }}>
+                        {currentPath ? t("repoDetail.folderEmpty") : t("repo.noFiles")}
+                      </div>
+                    ) : (
+                      currentDirChildren.map((node) => {
+                        const isSelected = selectedPath === node.path
+                        const Icon = node.isFile ? getFileIcon(node.name) : Folder
+                        return (
+                          <button
+                            key={node.path}
+                            type="button"
+                            onClick={() => {
+                              if (node.isFile) {
+                                setSelectedFile(node.path)
+                              } else {
+                                setCurrentPath(node.path)
+                              }
+                            }}
+                            className={`group flex items-center justify-between px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${isSelected ? "bg-primary/10" : "hover:bg-slate-50 dark:hover:bg-[#192633]/50"}`}
+                          >
+                            <div className="flex items-center gap-3 min-w-0">
+                              <Icon className={`size-5 shrink-0 ${node.isFile ? "text-slate-400" : "text-blue-400"}`} />
+                              <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{node.name}</span>
+                            </div>
+                            <span className="text-xs hidden sm:block truncate max-w-[120px]" style={{ color: TEXT_SECONDARY }}>—</span>
+                            <span className="text-xs w-24 text-right shrink-0" style={{ color: TEXT_SECONDARY }}>{node.isFile ? getFileTime(node.path) : "—"}</span>
+                          </button>
+                        )
+                      })
+                    )}
+                  </div>
+                </div>
+
+                {/* README or File Content */}
+                <div className="rounded-lg border overflow-hidden bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+                  <div className="px-4 py-3 border-b bg-slate-50 dark:bg-[#192633] flex items-center gap-2 sticky top-0" style={{ borderColor: BORDER_DARK }}>
+                    <BookOpen className="size-5 text-slate-500" />
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                      {selectedPath ?? "README.md"}
+                    </h3>
+                    {selectedPath && (
+                      <Button variant="ghost" size="sm" className="ml-auto shrink-0" onClick={() => setSelectedFile(null)}>
+                        {t("repo.viewReadme")}
+                      </Button>
+                    )}
+                  </div>
+                  <div className="p-6 min-h-[200px] min-w-0 overflow-x-auto">
+                    {selectedPath ? (
+                      <>
+                        {fileContentError && <p className="mb-3 text-sm text-destructive">{fileContentError}</p>}
+                        {fileContentLoading && (
+                          <div className="flex items-center justify-center py-12">
+                            <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("common.loading")}</p>
+                          </div>
+                        )}
+                        {!fileContentLoading && filePreviewUrl && filePreviewKind && (
+                          <div className="rounded-lg border p-4 overflow-auto" style={{ borderColor: BORDER_DARK }}>
+                            {filePreviewKind === "image" && <img src={filePreviewUrl} alt={selectedPath} className="max-w-full rounded object-contain max-h-[70vh]" />}
+                            {filePreviewKind === "video" && <video src={filePreviewUrl} controls className="max-w-full rounded max-h-[70vh]" preload="metadata" />}
+                            {filePreviewKind === "audio" && <audio src={filePreviewUrl} controls className="w-full max-w-md" preload="metadata" />}
+                            {filePreviewKind === "pdf" && <iframe src={filePreviewUrl} title={selectedPath} className="w-full h-[70vh] min-h-[400px] rounded border-0" />}
+                          </div>
+                        )}
+                        {!fileContentLoading && fileContent != null && !filePreviewUrl && (
+                          isMarkdownPath(selectedPath) ? (
+                            <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-[#233648] prose-pre:text-green-400 prose-a:text-primary prose-img:rounded-lg prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
+                              <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{fileContent}</ReactMarkdown>
+                            </div>
+                          ) : (
+                            <div className="rounded-md overflow-hidden border border-slate-800 dark:border-[#233648]">
+                              <CodeBlock code={fileContent} filePath={selectedPath} />
+                            </div>
+                          )
+                        )}
+                        {!fileContentLoading && fileContent == null && !filePreviewUrl && !fileContentError && (
+                          <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repo.selectFile")}</p>
+                        )}
+                      </>
+                    ) : (
+                      repo.readme ? (
+                        <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-[#233648] prose-pre:text-green-400 prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
+                          <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{repo.readme}</ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="text-sm" style={{ color: TEXT_SECONDARY }}>
+                          {files.length === 0 && isOwner ? t("repo.emptyHint") : t("repo.selectFile")}
+                        </p>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Sidebar */}
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4 pt-2">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t("repoDetail.about")}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
+                    {repo.description || t("repoDetail.aboutPlaceholder")}
+                  </p>
+                  <div className="flex flex-col gap-3 mt-2">
+                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                      <Link2 className="size-[18px] shrink-0" />
+                      <Link to={`/repo/${repoId}`} className="text-primary hover:underline truncate">
+                        {repo.name}
+                      </Link>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                      <Shield className="size-[18px]" />
+                      <span>{t("repoDetail.securityPolicy")}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                      <Scale className="size-[18px]" />
+                      <span>{t("repoDetail.decision1275")}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-px w-full bg-slate-200 dark:bg-[#233648]" />
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t("repoDetail.languages")}</h3>
+                  {languages.length > 0 ? (
+                    <>
+                      <div className="w-full h-2.5 rounded-full flex overflow-hidden bg-slate-200 dark:bg-[#192633]">
+                        {languages.slice(0, 5).map((_, i) => (
+                          <div
+                            key={i}
+                            className="h-full"
+                            style={{
+                              width: `${langPercent}%`,
+                              backgroundColor: i === 0 ? "#eab308" : i === 1 ? "#3b82f6" : i === 2 ? "#a855f7" : i === 3 ? "#22c55e" : "#64748b",
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-x-4 gap-y-2">
+                        {languages.map((lang, i) => (
+                          <div key={lang} className="flex items-center gap-2">
+                            <div
+                              className="w-2.5 h-2.5 rounded-full"
+                              style={{ backgroundColor: i === 0 ? "#eab308" : i === 1 ? "#3b82f6" : i === 2 ? "#a855f7" : "#64748b" }}
+                            />
+                            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                              {lang} <span className="text-slate-400">{languages.length > 0 ? Math.round(100 / languages.length) : 0}%</span>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-xs" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.noLanguages")}</p>
+                  )}
+                </div>
+                <div className="h-px w-full bg-slate-200 dark:bg-[#233648]" />
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                    {t("repoDetail.contributors")} <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-[#192633]" style={{ color: TEXT_SECONDARY }}>1</span>
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {ownerUsername ? (
+                    <Link to={`/${ownerUsername}`} className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all bg-gradient-to-tr from-blue-400 to-cyan-300 block" title={ownerName} />
+                  ) : (
+                    <span className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-transparent bg-gradient-to-tr from-blue-400 to-cyan-300 block" title={ownerName} />
+                  )}
+                    <span className="flex items-center justify-center h-9 w-9 rounded-full bg-slate-100 dark:bg-[#192633] border border-dashed border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors cursor-pointer">
+                      +0
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "issues" && (
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+              <Bug className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
+              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.issuesPlaceholder")}</p>
+            </div>
+          )}
+
+          {activeTab === "archives" && (
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+              <Archive className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
+              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.archivesPlaceholder")}</p>
+            </div>
+          )}
+
+          {activeTab === "contributors" && (
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+              <Users className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
+              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.contributorsPlaceholder")}</p>
+            </div>
           )}
         </div>
-        {repo.description && (
-          <p className="mt-3 text-muted-foreground leading-relaxed">{repo.description}</p>
-        )}
-      </header>
-
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr]">
-        <Card className="min-w-0 overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-3">
-            <h2 className="text-sm font-semibold text-foreground">الملفات</h2>
-            {tree && tree.children.length > 0 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="shrink-0 h-8 px-2 text-muted-foreground hover:text-foreground"
-                onClick={collapseAllFolders}
-                title="طي كل المجلدات"
-              >
-                <ChevronsUpIcon className="size-4" />
-                <span className="mr-1 text-xs">طي الكل</span>
-              </Button>
-            )}
-          </CardHeader>
-          <CardContent className="p-0">
-            {tree && tree.children.length > 0 ? (
-              <div className="max-h-[min(70vh,600px)] overflow-y-auto p-2">
-                {tree.children.map((child) => (
-                  <FileTree
-                    key={child.path}
-                    tree={child}
-                    repoId={repoId!}
-                    selectedPath={selectedPath}
-                    onSelectFile={setSelectedFile}
-                    openFolders={openFolders}
-                    onFolderOpenChange={handleFolderOpenChange}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="p-4 text-center">
-                <p className="text-muted-foreground text-sm">لا ملفات بعد.</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="min-w-0 flex flex-col overflow-hidden">
-          <CardHeader className="flex flex-row items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-3">
-            <h2 className="min-w-0 truncate text-sm font-semibold text-foreground" title={selectedPath ?? undefined}>
-              {selectedPath ? (
-                <span className="font-mono text-xs">{selectedPath}</span>
-              ) : (
-                "القراءة"
-              )}
-            </h2>
-            {selectedPath && (
-              <Button variant="ghost" size="sm" className="shrink-0" onClick={() => setSelectedFile(null)}>
-                عرض القراءة
-              </Button>
-            )}
-          </CardHeader>
-          <CardContent className="min-h-[min(70vh,600px)] flex flex-1 flex-col overflow-hidden p-0">
-            {selectedPath ? (
-              <div className="flex flex-1 flex-col overflow-hidden p-4">
-                {fileContentError && (
-                  <p className="mb-3 text-sm text-destructive">{fileContentError}</p>
-                )}
-                {fileContentLoading && (
-                  <div className="flex flex-1 items-center justify-center rounded-lg bg-muted/30 p-8">
-                    <p className="text-sm text-muted-foreground">جاري التحميل...</p>
-                  </div>
-                )}
-                {!fileContentLoading && filePreviewUrl && filePreviewKind && (
-                  <div className="flex flex-1 flex-col items-center overflow-auto rounded-lg border border-border bg-muted/20 p-4">
-                    {filePreviewKind === "image" && (
-                      <img
-                        src={filePreviewUrl}
-                        alt={selectedPath ?? ""}
-                        className="max-h-[min(70vh,600px)] max-w-full rounded object-contain"
-                      />
-                    )}
-                    {filePreviewKind === "video" && (
-                      <video
-                        src={filePreviewUrl}
-                        controls
-                        className="max-h-[min(70vh,600px)] max-w-full rounded"
-                        preload="metadata"
-                      />
-                    )}
-                    {filePreviewKind === "audio" && (
-                      <audio src={filePreviewUrl} controls className="w-full max-w-md" preload="metadata" />
-                    )}
-                    {filePreviewKind === "pdf" && (
-                      <iframe
-                        src={filePreviewUrl}
-                        title={selectedPath ?? "PDF"}
-                        className="h-[min(70vh,600px)] w-full min-h-[400px] rounded border-0"
-                      />
-                    )}
-                  </div>
-                )}
-                {!fileContentLoading && fileContent != null && !filePreviewUrl && (
-                  <div className="flex-1 overflow-auto rounded-lg border border-border">
-                    <CodeBlock code={fileContent} filePath={selectedPath} />
-                  </div>
-                )}
-                {!fileContentLoading && fileContent == null && !filePreviewUrl && !fileContentError && (
-                  <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
-                    اختر ملفاً من القائمة.
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex-1 overflow-auto p-4">
-                {repo.readme ? (
-                  <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
-                    <ReactMarkdown>{repo.readme}</ReactMarkdown>
-                  </div>
-                ) : (
-                  <div className="flex h-full min-h-[200px] items-center justify-center text-center">
-                    <p className="text-muted-foreground text-sm">
-                      {files.length === 0 && isOwner
-                        ? "ارفع ملفات أو أضف README في الإعدادات."
-                        : "اختر ملفاً من القائمة لعرضه هنا."}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+      </main>
     </div>
   )
 }

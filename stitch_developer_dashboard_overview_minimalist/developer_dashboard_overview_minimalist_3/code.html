@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Developer API Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "code-bg": "#0d1117",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Fira Code", "monospace"],
+                    },
+                },
+            },
+        }
+    </script>
+<style>.custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col overflow-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="px-6 lg:px-8 flex h-16 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined">code_blocks</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">API</span></h1>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">v1.2.0</span>
+</div>
+<nav class="hidden md:flex items-center gap-1">
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Dashboard</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">My Projects</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-primary bg-primary/10 transition-colors" href="#">API Reference</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-md px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-[18px] text-slate-400 mr-2">search</span>
+<input class="bg-transparent border-none text-sm w-32 focus:ring-0 p-0 text-slate-900 dark:text-slate-200 placeholder-slate-500" placeholder="Search docs..." type="text"/>
+<kbd class="hidden sm:inline-block ml-2 text-[10px] font-mono text-slate-400 border border-slate-300 dark:border-slate-600 rounded px-1">⌘K</kbd>
+</div>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700 cursor-pointer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');"></div>
+</div>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 overflow-y-auto bg-white dark:bg-[#101922] hidden lg:block">
+<div class="p-6">
+<nav class="space-y-8">
+<div>
+<h3 class="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Getting Started</h3>
+<ul class="space-y-1">
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Introduction</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Authentication</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Errors</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Rate Limits</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Projects</h3>
+<ul class="space-y-1">
+<li><a class="block px-3 py-2 text-sm font-medium text-primary bg-primary/5 dark:bg-primary/10 rounded-md border-l-2 border-primary" href="#">Create Project</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">List Projects</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Get Project Details</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Update Project</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Certificates</h3>
+<ul class="space-y-1">
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Request Certificate</a></li>
+<li><a class="block px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-md" href="#">Verify Certificate</a></li>
+</ul>
+</div>
+</nav>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto scroll-smooth">
+<div class="max-w-[1600px] mx-auto">
+<section class="flex flex-col xl:flex-row border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1 p-8 lg:p-12 xl:max-w-2xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="inline-flex items-center rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 ring-1 ring-inset ring-green-600/20">POST</span>
+<code class="text-sm font-mono text-slate-500 dark:text-slate-400">/v1/projects</code>
+</div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Create a Project</h2>
+<p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            This endpoint initiates the archiving process for a new software project. It accepts metadata about the project and returns a unique project ID along with an upload URL for the source code archive.
+                        </p>
+<div class="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-8">
+<div class="flex">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 mr-3">info</span>
+<div>
+<h5 class="text-sm font-bold text-blue-800 dark:text-blue-300 mb-1">Compliance Note</h5>
+<p class="text-sm text-blue-700 dark:text-blue-400">Projects must adhere to Decision 1275 guidelines. Ensure all contributors are listed correctly.</p>
+</div>
+</div>
+</div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Request Body</h3>
+<div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
+<table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
+<thead class="bg-slate-50 dark:bg-slate-800/50">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Parameter</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Type</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Description</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-[#151f2b] divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+<tr>
+<td class="px-6 py-4 font-mono font-medium text-primary">name</td>
+<td class="px-6 py-4 text-slate-500">string</td>
+<td class="px-6 py-4 text-slate-600 dark:text-slate-400">The official name of the project. <span class="text-red-500">*Required</span></td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-mono font-medium text-primary">version</td>
+<td class="px-6 py-4 text-slate-500">string</td>
+<td class="px-6 py-4 text-slate-600 dark:text-slate-400">Semantic versioning (e.g., 1.0.0).</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-mono font-medium text-primary">contributors</td>
+<td class="px-6 py-4 text-slate-500">array</td>
+<td class="px-6 py-4 text-slate-600 dark:text-slate-400">List of researcher IDs or emails.</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-mono font-medium text-primary">license</td>
+<td class="px-6 py-4 text-slate-500">string</td>
+<td class="px-6 py-4 text-slate-600 dark:text-slate-400">SPDX license identifier (e.g., MIT, Apache-2.0).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex-1 bg-[#0d1117] min-w-0 border-l border-slate-800">
+<div class="sticky top-0">
+<div class="flex items-center border-b border-slate-800 bg-[#0d1117]">
+<button class="px-6 py-3 text-sm font-medium text-white border-b-2 border-primary bg-slate-800/30">cURL</button>
+<button class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/30 transition-colors">Python</button>
+<button class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/30 transition-colors">JavaScript</button>
+</div>
+<div class="p-6 lg:p-12 overflow-x-auto custom-scrollbar">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-mono text-slate-500">Request</span>
+<button class="text-slate-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">content_copy</span></button>
+</div>
+<pre class="font-mono text-sm leading-relaxed text-slate-300"><code><span class="text-purple-400">curl</span> -X POST https://api.ascap.dz/v1/projects \
+  -H <span class="text-green-400">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="text-green-400">"Content-Type: application/json"</span> \
+  -d <span class="text-green-400">'{
+    "name": "AI Traffic Control System",
+    "version": "1.0.0",
+    "description": "An AI model for optimizing traffic flow in Algiers.",
+    "license": "MIT",
+    "contributors": [
+      "researcher_12345", 
+      "researcher_67890"
+    ],
+    "tags": ["AI", "Smart City", "Transport"]
+  }'</span></code></pre>
+<div class="flex justify-between items-center mt-12 mb-4">
+<span class="text-xs font-mono text-slate-500">Response (201 Created)</span>
+</div>
+<pre class="font-mono text-sm leading-relaxed text-slate-300"><code>{
+  <span class="text-blue-400">"id"</span>: <span class="text-green-400">"proj_8923fd2"</span>,
+  <span class="text-blue-400">"status"</span>: <span class="text-green-400">"pending_upload"</span>,
+  <span class="text-blue-400">"upload_url"</span>: <span class="text-green-400">"https://storage.ascap.dz/upload/v1/signed/..."</span>,
+  <span class="text-blue-400">"expires_at"</span>: <span class="text-green-400">"2023-10-25T14:30:00Z"</span>,
+  <span class="text-blue-400">"created_at"</span>: <span class="text-green-400">"2023-10-25T13:30:00Z"</span>
+}</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col xl:flex-row border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1 p-8 lg:p-12 xl:max-w-2xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="inline-flex items-center rounded-md bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-600/20">GET</span>
+<code class="text-sm font-mono text-slate-500 dark:text-slate-400">/v1/projects/{id}/certificate</code>
+</div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Download Certificate</h2>
+<p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            Retrieve the official PDF certificate of deposit for an archived project. This document serves as proof of registration for academic defenses.
+                        </p>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Path Parameters</h3>
+<div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 mb-6">
+<table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
+<thead class="bg-slate-50 dark:bg-slate-800/50">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Parameter</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Type</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" scope="col">Description</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-[#151f2b] divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+<tr>
+<td class="px-6 py-4 font-mono font-medium text-primary">id</td>
+<td class="px-6 py-4 text-slate-500">string</td>
+<td class="px-6 py-4 text-slate-600 dark:text-slate-400">The unique identifier of the project.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex-1 bg-[#0d1117] min-w-0 border-l border-slate-800">
+<div class="p-6 lg:p-12 overflow-x-auto custom-scrollbar">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-mono text-slate-500">Request</span>
+<button class="text-slate-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">content_copy</span></button>
+</div>
+<pre class="font-mono text-sm leading-relaxed text-slate-300"><code><span class="text-purple-400">curl</span> -X GET https://api.ascap.dz/v1/projects/proj_8923fd2/certificate \
+  -H <span class="text-green-400">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -o certificate.pdf</code></pre>
+<div class="flex justify-between items-center mt-12 mb-4">
+<span class="text-xs font-mono text-slate-500">Response (200 OK)</span>
+</div>
+<div class="text-sm font-mono text-slate-400 italic">
+                                &lt; Binary PDF data stream &gt;
+                            </div>
+</div>
+</div>
+</section>
+<section class="flex flex-col xl:flex-row border-b border-slate-200 dark:border-slate-800">
+<div class="flex-1 p-8 lg:p-12 xl:max-w-2xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="inline-flex items-center rounded-md bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-600/20">GET</span>
+<code class="text-sm font-mono text-slate-500 dark:text-slate-400">/v1/search</code>
+</div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Search Archive</h2>
+<p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            Search the public archive for projects. Useful for discovering existing solutions and verifying project uniqueness.
+                        </p>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Query Parameters</h3>
+<ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400 list-disc list-outside ml-4 mb-6">
+<li><code class="text-primary font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">q</code> (string): The search query.</li>
+<li><code class="text-primary font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">university</code> (string): Filter by university affiliation.</li>
+<li><code class="text-primary font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">year</code> (integer): Filter by academic year.</li>
+</ul>
+</div>
+<div class="flex-1 bg-[#0d1117] min-w-0 border-l border-slate-800">
+<div class="p-6 lg:p-12 overflow-x-auto custom-scrollbar">
+<div class="flex justify-between items-center mb-4">
+<span class="text-xs font-mono text-slate-500">Request</span>
+<button class="text-slate-500 hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">content_copy</span></button>
+</div>
+<pre class="font-mono text-sm leading-relaxed text-slate-300"><code><span class="text-purple-400">import</span> requests
+response = requests.get(
+    <span class="text-green-400">"https://api.ascap.dz/v1/search"</span>,
+    params={
+        <span class="text-green-400">"q"</span>: <span class="text-green-400">"machine learning"</span>, 
+        <span class="text-green-400">"university"</span>: <span class="text-green-400">"USTHB"</span>
+    },
+    headers={<span class="text-green-400">"Authorization"</span>: <span class="text-green-400">"Bearer YOUR_API_KEY"</span>}
+)
+<span class="text-blue-400">print</span>(response.json())</code></pre>
+<div class="flex justify-between items-center mt-12 mb-4">
+<span class="text-xs font-mono text-slate-500">Response (200 OK)</span>
+</div>
+<pre class="font-mono text-sm leading-relaxed text-slate-300"><code>{
+  <span class="text-blue-400">"count"</span>: <span class="text-orange-400">14</span>,
+  <span class="text-blue-400">"results"</span>: [
+    {
+      <span class="text-blue-400">"id"</span>: <span class="text-green-400">"proj_123"</span>,
+      <span class="text-blue-400">"name"</span>: <span class="text-green-400">"ML for Image Proc"</span>,
+      <span class="text-blue-400">"author"</span>: <span class="text-green-400">"Yacine K."</span>
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</section>
+</div>
+<footer class="border-t border-slate-200 dark:border-slate-800 p-8 text-center text-sm text-slate-500">
+<p>© 2023 ASCAP. All rights reserved. <a class="text-primary hover:underline" href="#">Terms of Service</a></p>
+</footer>
+</main>
+</div>
+
+</body></html>

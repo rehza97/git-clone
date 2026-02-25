@@ -13,11 +13,16 @@ export interface UserProfile {
 /** Firestore repos/{repoId} */
 export type RepoVisibility = "public" | "private"
 
+/** Project category for Decision 1275 compliance */
+export type RepoProjectType = "startup" | "research" | "personal"
+
 export interface Repo {
   name: string
   description?: string
   ownerId: string
   visibility: RepoVisibility
+  /** Optional category from onboarding (startup / research / personal) */
+  projectType?: RepoProjectType
   createdAt: Timestamp
   updatedAt?: Timestamp
   readme?: string

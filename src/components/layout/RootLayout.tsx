@@ -1,11 +1,26 @@
-import { Outlet, NavLink } from "react-router-dom"
+import { Outlet, NavLink, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/AuthContext"
 import { useUserProfile } from "@/hooks/useUserProfile"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useTranslation } from "react-i18next"
+import { persistLanguage } from "@/i18n"
 
 export function RootLayout() {
   const { user, loading, signOut } = useAuth()
   const profile = useUserProfile()
+  const { t } = useTranslation()
+  const location = useLocation()
+  const isStandalone = location.pathname === "/" || location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/create-project"
+
+  if (isStandalone) {
+    return <Outlet />
+  }
 
   return (
     <div className="min-h-svh flex flex-col">
@@ -14,59 +29,139 @@ export function RootLayout() {
         style={{ backgroundColor: "var(--header-bg)", color: "var(--header-fg)" }}
       >
         <div className="container mx-auto flex h-14 items-center justify-between px-4">
-          <NavLink to="/" className="text-lg font-semibold hover:opacity-90">
-            مستضيف الأكواد
+          <NavLink to="/" className="text-lg font-semibold hover:opacity-90 shrink-0">
+            ASCAP
           </NavLink>
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-1 flex-wrap justify-end">
             <NavLink to="/explore">
               {({ isActive }) => (
                 <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  استكشف
+                  {t("nav.explore")}
                 </Button>
               )}
             </NavLink>
-            <NavLink to="/users">
+            {user && !loading && (
+              <>
+                <NavLink to="/dashboard">
+                  {({ isActive }) => (
+                    <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                      {t("nav.dashboard")}
+                    </Button>
+                  )}
+                </NavLink>
+                <NavLink to="/certificates">
+                  {({ isActive }) => (
+                    <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                      {t("nav.certificates")}
+                    </Button>
+                  )}
+                </NavLink>
+                <NavLink to="/notifications">
+                  {({ isActive }) => (
+                    <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                      {t("profile.notifications")}
+                    </Button>
+                  )}
+                </NavLink>
+              </>
+            )}
+            <NavLink to="/about">
               {({ isActive }) => (
                 <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  المستخدمون
+                  {t("nav.about")}
                 </Button>
               )}
             </NavLink>
+            <NavLink to="/institutions">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.institutions")}
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/docs">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.docs")}
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/api">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.api")}
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/support">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.support")}
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/training">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.training")}
+                </Button>
+              )}
+            </NavLink>
+            <NavLink to="/pricing">
+              {({ isActive }) => (
+                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
+                  {t("nav.pricing")}
+                </Button>
+              )}
+            </NavLink>
+            {/* Language switcher placeholder - wired in i18n phase */}
+            <LanguageSwitcher />
             {!loading &&
               (user ? (
                 <>
-                  <NavLink to="/dashboard">
+                  <NavLink to="/users">
                     {({ isActive }) => (
                       <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                        لوحة التحكم
+                        {t("nav.users")}
                       </Button>
                     )}
                   </NavLink>
                   <NavLink to="/profile">
                     {({ isActive }) => (
                       <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                        الإعدادات
+                        {t("nav.settings")}
                       </Button>
                     )}
                   </NavLink>
                   {profile?.username && (
-                    <span className="text-sm opacity-80">@{profile.username}</span>
+                    <NavLink to={`/${profile.username}`}>
+                      <span className="text-sm opacity-90 hover:opacity-100">@{profile.username}</span>
+                    </NavLink>
                   )}
-                  <Button variant="ghost" size="sm" onClick={() => signOut()}>
-                    خروج
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm">
+                        {t("nav.account")}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => signOut()}>
+                        {t("nav.signOut")}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </>
               ) : (
                 <>
                   <NavLink to="/login">
                     {({ isActive }) => (
                       <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                        تسجيل الدخول
+                        {t("nav.login")}
                       </Button>
                     )}
                   </NavLink>
                   <NavLink to="/register">
-                    <Button size="sm" variant="default">إنشاء حساب</Button>
+                    <Button size="sm" variant="default">{t("nav.register")}</Button>
                   </NavLink>
                 </>
               ))}
@@ -76,6 +171,44 @@ export function RootLayout() {
       <main className="flex-1">
         <Outlet />
       </main>
+      <footer className="border-t border-border py-6 mt-auto" style={{ backgroundColor: "var(--header-bg)", color: "var(--header-fg)" }}>
+        <div className="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-sm">
+            <span className="font-semibold">{t("footer.appName")}</span>
+            <span className="opacity-80 ml-1">— {t("footer.tagline")}</span>
+          </div>
+          <nav className="flex items-center gap-4 text-sm">
+            <NavLink to="/about" className="opacity-80 hover:opacity-100">{t("nav.about")}</NavLink>
+            <NavLink to="/support" className="opacity-80 hover:opacity-100">{t("nav.support")}</NavLink>
+            <NavLink to="/institutions" className="opacity-80 hover:opacity-100">{t("nav.institutions")}</NavLink>
+            <NavLink to="/training" className="opacity-80 hover:opacity-100">{t("nav.training")}</NavLink>
+          </nav>
+        </div>
+      </footer>
     </div>
+  )
+}
+
+function LanguageSwitcher() {
+  const { i18n, t } = useTranslation()
+  const lang = i18n.language || "en"
+  const label = lang === "ar" ? "AR" : lang === "fr" ? "FR" : "EN"
+  function setLang(lng: string) {
+    i18n.changeLanguage(lng)
+    persistLanguage(lng)
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="sm" className="text-muted-foreground">
+          {label}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setLang("en")}>{t("language.en")}</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLang("fr")}>{t("language.fr")}</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLang("ar")}>{t("language.ar")}</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

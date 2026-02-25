@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - Welcome Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "primary-dark": "#0d5fb0",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .step-line {
+                @apply absolute top-5 left-0 w-full h-0.5 bg-slate-200 dark:bg-slate-700 -z-10;
+            }
+            .step-active .step-line {
+                @apply bg-primary;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-surface-dark/90 backdrop-blur-md">
+<div class="px-6 lg:px-12 flex h-16 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined">code_blocks</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">Onboarding</span></h1>
+</div>
+<div class="flex items-center gap-4">
+<a class="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Help Center</a>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none text-slate-900 dark:text-white">Amina B.</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">New User</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-5xl mx-auto px-6 lg:px-8 py-12 flex flex-col justify-center">
+<div class="text-center mb-12">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">
+                Welcome to ASCAP
+            </h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                Let's set up your developer environment for digital sovereignty. Complete these steps to archive your first project.
+            </p>
+</div>
+<div class="mb-12 max-w-3xl mx-auto w-full relative">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 dark:bg-slate-700 -translate-y-1/2 -z-10"></div>
+<div class="absolute top-1/2 left-0 w-1/2 h-0.5 bg-primary -translate-y-1/2 -z-10 transition-all duration-500"></div>
+<div class="flex justify-between w-full">
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="size-10 rounded-full bg-primary text-white flex items-center justify-center font-bold ring-4 ring-white dark:ring-background-dark shadow-sm">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<span class="text-sm font-semibold text-primary">University Link</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="size-10 rounded-full bg-white dark:bg-surface-dark border-2 border-primary text-primary flex items-center justify-center font-bold ring-4 ring-white dark:ring-background-dark shadow-sm z-10 relative">
+<span class="absolute inset-0 rounded-full bg-primary/20 animate-ping"></span>
+                        2
+                    </div>
+<span class="text-sm font-semibold text-slate-900 dark:text-white">Project Type</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer opacity-50">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 flex items-center justify-center font-bold ring-4 ring-white dark:ring-background-dark">
+                        3
+                    </div>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Archive Settings</span>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative">
+<div class="p-8 md:p-10">
+<div class="animate-fade-in-up">
+<div class="mb-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+                            Step 2 of 3
+                        </div>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Select Project Category</h3>
+<p class="text-slate-600 dark:text-slate-400">
+                            Choose the category that best describes your repository. This impacts how your code is indexed for Decision 1275 compliance.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<label class="group relative cursor-pointer">
+<input checked="" class="peer sr-only" name="project_type" type="radio"/>
+<div class="h-full p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-surface-dark hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 transition-all duration-200">
+<div class="size-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">rocket_launch</span>
+</div>
+<h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Startup Project</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                                    For projects filed under the "Startup Label" or "Decision 1275". Includes patent assistance.
+                                </p>
+<div class="flex items-center gap-2 text-xs font-medium text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                    Recommended
+                                </div>
+</div>
+<div class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[24px]">check_circle</span>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="project_type" type="radio"/>
+<div class="h-full p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-surface-dark hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 transition-all duration-200">
+<div class="size-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">school</span>
+</div>
+<h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Research</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                                    For Master's/PhD thesis code, academic papers, or laboratory research outputs.
+                                </p>
+<div class="flex items-center gap-2 text-xs font-medium text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                    Selected
+                                </div>
+</div>
+<div class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[24px]">check_circle</span>
+</div>
+</label>
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="project_type" type="radio"/>
+<div class="h-full p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-surface-dark hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 transition-all duration-200">
+<div class="size-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">person</span>
+</div>
+<h4 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Personal</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                                    Open source contributions, side projects, or portfolio work not linked to a university.
+                                </p>
+<div class="flex items-center gap-2 text-xs font-medium text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                    Selected
+                                </div>
+</div>
+<div class="absolute top-4 right-4 text-primary opacity-0 peer-checked:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[24px]">check_circle</span>
+</div>
+</label>
+</div>
+<div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-8">
+<button class="flex items-center gap-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white font-medium transition-colors px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back
+                        </button>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-semibold shadow-lg shadow-primary/25 transition-all hover:scale-[1.02]">
+                            Continue to Settings
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="absolute top-4 right-4 hidden">
+<div class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                    University Account Linked
+                </div>
+</div>
+</div>
+<div class="mt-8 text-center">
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                Need help deciding? <a class="text-primary hover:underline" href="#">Read the Decision 1275 Guidelines</a> or contact support.
+            </p>
+</div>
+</main>
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark py-6">
+<div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+<p>© 2024 ASCAP. Algerian Digital Sovereignty Initiative.</p>
+<div class="flex gap-6">
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Privacy</a>
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Terms</a>
+</div>
+</div>
+</footer>
+
+</body></html>

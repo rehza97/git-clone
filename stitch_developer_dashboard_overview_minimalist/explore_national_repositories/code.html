@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explore National Repositories - ASCAP</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#233648] px-10 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-6 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 dark:text-[#92adc9] flex border-none bg-slate-100 dark:bg-[#233648] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined" style="font-size: 24px;">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-[#233648] focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-[#92adc9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search repositories..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-slate-900 dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Explore</a>
+<a class="text-slate-900 dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Repositories</a>
+<a class="text-slate-900 dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Institutions</a>
+<a class="text-slate-900 dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">About</a>
+</div>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-primary/90 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Sign Up</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2d445b] text-slate-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Log In</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1 px-4 md:px-10">
+<!-- Hero Section -->
+<div class="@container">
+<div class="flex flex-col gap-6 py-8 @[864px]:flex-row @[864px]:items-center">
+<div class="flex flex-col gap-4 flex-1">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl">
+                                Explore Algeria's <span class="text-primary">Digital Heritage</span>
+</h1>
+<p class="text-slate-600 dark:text-slate-300 text-lg font-normal leading-relaxed max-w-2xl">
+                                Browse thousands of open-source projects, research codes, and datasets from Algerian universities and public institutions.
+                            </p>
+<!-- Search Filters Area -->
+<div class="flex flex-col sm:flex-row gap-3 mt-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-3 text-slate-500 dark:text-[#92adc9]">search</span>
+<input class="w-full h-12 rounded-lg bg-slate-100 dark:bg-[#233648] border-none text-slate-900 dark:text-white pl-10 pr-4 focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500 dark:placeholder:text-[#92adc9]" placeholder="Search by name, topic, or university..." type="text"/>
+</div>
+<select class="h-12 rounded-lg bg-slate-100 dark:bg-[#233648] border-none text-slate-900 dark:text-white px-4 pr-10 focus:ring-2 focus:ring-primary/50 cursor-pointer">
+<option>All Universities</option>
+<option>USTHB</option>
+<option>ESI Algiers</option>
+<option>Constantine 2</option>
+<option>Oran 1</option>
+</select>
+<button class="h-12 px-6 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors">
+                                    Search
+                                </button>
+</div>
+</div>
+<div class="hidden @[864px]:block w-[300px] h-[200px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl border border-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-6xl">code_blocks</span>
+</div>
+</div>
+</div>
+<!-- Categories -->
+<div class="py-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Browse by Category</h2>
+<a class="text-primary text-sm font-medium hover:underline" href="#">View all</a>
+</div>
+<div class="flex gap-3 flex-wrap">
+<button class="flex h-10 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] px-5 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648] transition-all group">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_toy</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium">Artificial Intelligence</span>
+</button>
+<button class="flex h-10 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] px-5 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648] transition-all group">
+<span class="material-symbols-outlined text-primary text-[20px]">language</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium">Web Development</span>
+</button>
+<button class="flex h-10 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] px-5 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648] transition-all group">
+<span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium">Data Science</span>
+</button>
+<button class="flex h-10 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] px-5 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648] transition-all group">
+<span class="material-symbols-outlined text-primary text-[20px]">security</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium">Cybersecurity</span>
+</button>
+<button class="flex h-10 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] px-5 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648] transition-all group">
+<span class="material-symbols-outlined text-primary text-[20px]">memory</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium">Embedded Systems</span>
+</button>
+</div>
+</div>
+<!-- Trending Repositories Grid -->
+<div class="py-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em] mb-6">Trending Repositories</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">dz-nlp-toolkit</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">USTHB • AI Lab</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">124</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    A comprehensive natural language processing toolkit specifically designed for the Algerian Darija dialect and Modern Standard Arabic.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">Python</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Public Archive</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">algeria-geo-data</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Ministry of Interior</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">89</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    Open dataset containing GeoJSON files for all Algerian Wilayas, Dairas, and Baladyas with updated population statistics.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-slate-400"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">JSON</span>
+</div>
+<span class="text-xs text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">Official Data</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">genomic-sequencer</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Constantine 3 Univ</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">56</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    High-performance algorithms for DNA sequencing analysis optimized for local hardware clusters.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-blue-600"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">C++</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Research Code</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">smart-grid-sim</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Sonelgaz R&amp;D</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">210</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    Simulation environment for smart grid distribution networks, focusing on renewable energy integration in the Sahara region.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-500"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">Java</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Public Archive</span>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+<span class="material-symbols-outlined">dns</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">cerist-cloud-api</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">CERIST</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">145</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    SDK for interacting with the national academic cloud infrastructure provided by CERIST.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-blue-400"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">Go</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Infrastructure</span>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+<div class="p-5 flex flex-col gap-4 h-full">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-500">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-base group-hover:text-primary transition-colors">chifa-analytics</h3>
+<p class="text-slate-500 dark:text-slate-400 text-xs">ESI SBA</p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="text-xs font-medium">78</span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    Data visualization dashboard components for public health statistics derived from anonymized Chifa card data.
+                                </p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-yellow-300"></span>
+<span class="text-slate-600 dark:text-slate-400 text-xs font-medium">JavaScript</span>
+</div>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded">Research Code</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action Banner -->
+<div class="my-10 w-full rounded-2xl bg-cover bg-center overflow-hidden relative" data-alt="Abstract blue digital network background representing technology and connectivity" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApGtsn_q7A0MLmhlhv_wKXoeF2aeG3dGJq0rwVCL8NOO7BaLGivA5bQeHyzmkCRPdHdCrlNx4e3W-IlcPACNzvg316RA_tcZqag6Dd4WATFtyuOXV1uaG4P3O_icoXMb-sYpjKFWwLweqHKv18P8D2hfmSxbT6ioAXj2LsNhZa7gAG55BpWWByTfVCwEkZsbSiNmDoeU9mqoqus7bBygnaGG73-l0oQhYTNokkQXiVHSlLs_1kcbF2t6jpU6lml_QpSxmWaVIZPQ');">
+<div class="absolute inset-0 bg-background-dark/80 backdrop-blur-[2px]"></div>
+<div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="max-w-xl">
+<h2 class="text-white text-3xl font-bold mb-3">Contribute to the National Archive</h2>
+<p class="text-slate-300 text-base">
+                                Are you a researcher or a student? Archive your code and ensure its long-term preservation and discoverability.
+                            </p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors whitespace-nowrap">
+                                Submit Repository
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-[#233648] bg-white dark:bg-[#111a22] py-12 px-10">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between gap-10">
+<div class="flex flex-col gap-4 max-w-sm">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<div class="size-5 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold">ASCAP</h2>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                        The Algerian Platform for Source Code Archiving and Preservation. Ensuring our digital sovereignty through open source collaboration.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-12">
+<div class="flex flex-col gap-3">
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Platform</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Browse</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Submit Code</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">API</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Resources</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Documentation</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Guidelines</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Software Heritage</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Contact</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Support</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Partners</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-slate-200 dark:border-[#233648] flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2023 ASCAP. All rights reserved.</p>
+<div class="flex gap-4">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

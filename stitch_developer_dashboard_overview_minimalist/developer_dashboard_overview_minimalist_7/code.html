@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP University Portal - Department Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="px-6 lg:px-12 flex h-16 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">UniPortal</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-1">
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Overview</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-primary bg-primary/10 transition-colors" href="#">Department Projects</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Compliance Reports</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 border-2 border-white dark:border-[#101922]"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none text-slate-900 dark:text-white">Dr. Amrani</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Head of CS Dept</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');">
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
+<section class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<div class="flex items-center gap-2 mb-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">domain</span>
+                    USTHB
+                    <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+                    Computer Science Department
+                </div>
+<h2 class="text-3xl md:text-4xl font-black tracking-tight mb-3 text-slate-900 dark:text-white">
+                    Department Projects
+                </h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg">
+                    Browse archived student projects, track Decision 1275 compliance, and export reports.
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                    Export CSV
+                </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium shadow-lg shadow-primary/25 transition-all">
+<span class="material-symbols-outlined text-[18px]">add_chart</span>
+                    Generate Report
+                </button>
+</div>
+</section>
+<div class="bg-white dark:bg-[#1a2634] rounded-xl border border-slate-200 dark:border-slate-800 p-4 mb-8 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<div class="md:col-span-4 relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white placeholder-slate-500" placeholder="Search by student, project title, or ID..." type="text"/>
+</div>
+<div class="md:col-span-2 relative">
+<select class="w-full pl-3 pr-8 py-2.5 bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white appearance-none cursor-pointer">
+<option>Academic Year</option>
+<option selected="">2023-2024</option>
+<option>2022-2023</option>
+<option>2021-2022</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px] pointer-events-none">expand_more</span>
+</div>
+<div class="md:col-span-3 relative">
+<select class="w-full pl-3 pr-8 py-2.5 bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white appearance-none cursor-pointer">
+<option>Degree Type (All)</option>
+<option>Startup (Label Project)</option>
+<option>Patent (Invention)</option>
+<option>Classic Master Thesis</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px] pointer-events-none">expand_more</span>
+</div>
+<div class="md:col-span-3 relative">
+<select class="w-full pl-3 pr-8 py-2.5 bg-slate-50 dark:bg-[#151f2b] border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-slate-900 dark:text-white appearance-none cursor-pointer">
+<option>1275 Compliance Status</option>
+<option>Fully Compliant</option>
+<option>Pending Validation</option>
+<option>Missing Documents</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-[20px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="p-4 rounded-lg bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-medium text-slate-500 uppercase">Total Projects</p>
+<p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">142</p>
+</div>
+<div class="p-4 rounded-lg bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-medium text-slate-500 uppercase">Startups Label</p>
+<p class="text-2xl font-bold text-primary mt-1">38</p>
+</div>
+<div class="p-4 rounded-lg bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-medium text-slate-500 uppercase">Patents Filed</p>
+<p class="text-2xl font-bold text-purple-500 mt-1">12</p>
+</div>
+<div class="p-4 rounded-lg bg-white dark:bg-[#1a2634] border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-medium text-slate-500 uppercase">1275 Compliant</p>
+<p class="text-2xl font-bold text-emerald-500 mt-1">89%</p>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a2634] rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-[#151f2b] border-b border-slate-200 dark:border-slate-800">
+<tr>
+<th class="px-6 py-4 font-medium">Project Title</th>
+<th class="px-6 py-4 font-medium">Student Team</th>
+<th class="px-6 py-4 font-medium">Type</th>
+<th class="px-6 py-4 font-medium">Submission Date</th>
+<th class="px-6 py-4 font-medium">1275 Status</th>
+<th class="px-6 py-4 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white truncate max-w-[200px]" title="AI-Driven Crop Yield Prediction">AI-Driven Crop Yield Prediction</p>
+<p class="text-xs text-slate-500">ID: #CS-2024-042</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-slate-900 dark:text-white font-medium">Brahimi L.</span>
+<span class="text-slate-500 text-xs">Zerrouki M.</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-200 dark:border-blue-900">
+                                Startup
+                            </span>
+</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">
+                            Jun 12, 2024
+                        </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+<span class="text-emerald-700 dark:text-emerald-400 font-medium text-xs">Compliant</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="View Details">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Download Archive">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white truncate max-w-[200px]" title="Smart Grid Energy Optimization">Smart Grid Energy Optimization</p>
+<p class="text-xs text-slate-500">ID: #CS-2024-015</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-slate-900 dark:text-white font-medium">Amraoui S.</span>
+<span class="text-slate-500 text-xs">Bouzid K.</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400 border border-purple-200 dark:border-purple-900">
+                                Patent
+                            </span>
+</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">
+                            May 28, 2024
+                        </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+</span>
+<span class="text-amber-700 dark:text-amber-400 font-medium text-xs">Validation Pending</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="View Details">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Download Archive">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-500/10 text-slate-500 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">school</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white truncate max-w-[200px]" title="E-Learning Platform for Remote Areas">E-Learning Platform</p>
+<p class="text-xs text-slate-500">ID: #CS-2024-089</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-slate-900 dark:text-white font-medium">Haddad F.</span>
+<span class="text-slate-500 text-xs">--</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-700/30 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                                Master Thesis
+                            </span>
+</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">
+                            Jun 05, 2024
+                        </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+</span>
+<span class="text-emerald-700 dark:text-emerald-400 font-medium text-xs">Compliant</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="View Details">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Download Archive">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white truncate max-w-[200px]" title="FinTech Micro-Payment Gateway">FinTech Micro-Payment Gateway</p>
+<p class="text-xs text-slate-500">ID: #CS-2024-112</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-slate-900 dark:text-white font-medium">Kader B.</span>
+<span class="text-slate-500 text-xs">Mansouri A.</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 border border-blue-200 dark:border-blue-900">
+                                Startup
+                            </span>
+</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">
+                            Jun 15, 2024
+                        </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="relative flex h-2.5 w-2.5">
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+</span>
+<span class="text-red-700 dark:text-red-400 font-medium text-xs">Missing Docs</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="View Details">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors p-1" title="Notify Student">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">4</span> of <span class="font-medium text-slate-900 dark:text-white">142</span> results
+                </p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled="">
+                        Previous
+                    </button>
+<button class="px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        Next
+                    </button>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

@@ -30,15 +30,20 @@ export async function listPublicReposPage(opts: {
 
   try {
     const ref = collection(db, "repos")
-    const constraints = [
-      where("visibility", "==", "public"),
-      orderBy("createdAt", "desc"),
-      limit(pageSize),
-    ]
-    if (opts.startAfterDoc) {
-      constraints.push(startAfter(opts.startAfterDoc))
-    }
-    const q = query(ref, ...constraints)
+    const q = opts.startAfterDoc
+      ? query(
+          ref,
+          where("visibility", "==", "public"),
+          orderBy("createdAt", "desc"),
+          limit(pageSize),
+          startAfter(opts.startAfterDoc)
+        )
+      : query(
+          ref,
+          where("visibility", "==", "public"),
+          orderBy("createdAt", "desc"),
+          limit(pageSize)
+        )
     const snap = await getDocs(q)
     let list = snap.docs.map((d: QueryDocumentSnapshot) => ({ id: d.id, ...d.data() } as RepoWithId))
     if (opts.languageFilter) {

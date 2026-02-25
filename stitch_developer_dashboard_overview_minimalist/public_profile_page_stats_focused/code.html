@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - Public Profile Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1b2733",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-[#111a22] px-4 py-3 md:px-10">
+<div class="flex items-center gap-4 md:gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="hidden md:block text-lg font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full relative">
+<div class="text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#233648] h-full placeholder:text-slate-400 dark:placeholder:text-slate-500 px-4 pl-10 text-base font-normal leading-normal transition-all" placeholder="Search resources..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8 items-center">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Repositories</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Researchers</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Projects</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">About</a>
+</div>
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em] shadow-sm">
+<span class="truncate">Upload Code</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 border border-slate-200 dark:border-slate-700" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDatCH7FB8U-L09N48wUxJ476drn5vprcDw6s-T1JJuJB7NF96hr5zaZSQGaSr1v3yPyhQAFPxvFG4ZDmlAuhMtL95ETb8LFz3MH8HG6ptYUOQ1tn4H6niXmMYJ7XYN5A47cY0bdU5a3tQE_8jVW3n0-HSrJS7o1NIAOsnoXpN91U4N5FtdTIuS9jPFpSpi53sAaCGLk4g5e6-wngcLM7-f69FgxQFvrCad2oU7P-nhQAtkywjh5SdO-VxrF9Kg2khEt-SkRPL9A");'></div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-6 px-4 md:px-8">
+<div class="flex flex-col w-full max-w-[1024px]">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 px-0 pb-4">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Home</a>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">/</span>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Researchers</a>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">/</span>
+<span class="text-slate-900 dark:text-white text-sm font-medium leading-normal">Dr. Ahmed Benali</span>
+</div>
+<!-- Profile Header -->
+<div class="flex flex-col gap-6 p-6 rounded-xl bg-surface-light dark:bg-surface-dark shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
+<div class="flex w-full flex-col gap-6 md:flex-row md:justify-between md:items-start">
+<div class="flex gap-6 items-start">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-24 md:size-32 border-4 border-white dark:border-surface-dark shadow-md" data-alt="Profile picture of Dr. Ahmed Benali" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDezr-Vy1QtMQlxBLc2ZgW9XR-8-n3AN6_HiV7MNyIiwnqS1e4_7mbJJArMH2SZvUTUu-x3fxoM02crR7E7XvuyotYT8nyMdMbwSwNbXoq89p4Q0qXMDXs_UKga6u8C-ktSPo4cCNf9WGXm4RsCSN4hqobmURBshp3-r9jJKc126j0W7HOP8MIp5WPQMbsJqmVdFGBXVOivtkzy4lJCBJuwgWfno1jKaHMaOLkx8OMyXtoZ8VCOQv1xLU9QAtSFDb9tSLIZpx1qJw");'></div>
+<div class="absolute bottom-1 right-1 bg-green-500 size-4 rounded-full border-2 border-white dark:border-surface-dark" title="Available for collaboration"></div>
+</div>
+<div class="flex flex-col justify-center pt-2">
+<h1 class="text-slate-900 dark:text-white text-2xl md:text-3xl font-bold leading-tight tracking-[-0.015em]">Dr. Ahmed Benali</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal mt-1">Senior Researcher, USTHB | Digital Sovereignty Advocate</p>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-sm mt-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Algiers, Algeria</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300">Distributed Systems</span>
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300">Open Science</span>
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300">AI Ethics</span>
+</div>
+</div>
+</div>
+<div class="flex w-full md:w-auto gap-3 mt-2 md:mt-0">
+<button class="flex-1 md:flex-none h-10 px-6 cursor-pointer items-center justify-center rounded-lg bg-surface-light dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors text-sm font-bold shadow-sm">
+                            Follow
+                        </button>
+<button class="flex-1 md:flex-none h-10 px-6 cursor-pointer items-center justify-center rounded-lg bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold shadow-sm flex gap-2">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                            Contact
+                        </button>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="mb-6 overflow-x-auto">
+<div class="flex border-b border-slate-200 dark:border-slate-800 min-w-max">
+<a class="px-6 py-3 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary hover:border-slate-300 dark:hover:border-slate-700 transition-all font-medium text-sm" href="#">Overview</a>
+<a class="px-6 py-3 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary hover:border-slate-300 dark:hover:border-slate-700 transition-all font-medium text-sm" href="#">Repositories <span class="ml-1 text-xs bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded-full">12</span></a>
+<a class="px-6 py-3 border-b-2 border-primary text-primary font-bold text-sm" href="#">Statistics</a>
+<a class="px-6 py-3 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-primary hover:border-slate-300 dark:hover:border-slate-700 transition-all font-medium text-sm" href="#">Publications <span class="ml-1 text-xs bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded-full">4</span></a>
+</div>
+</div>
+<!-- Stats Content -->
+<div class="flex flex-col gap-6">
+<!-- Headline Metrics -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-5 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined">code</span>
+</div>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Code</span>
+</div>
+<p class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">124k <span class="text-sm font-normal text-slate-400 ml-1">LOC</span></p>
+</div>
+<div class="p-5 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">folder_open</span>
+</div>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Projects</span>
+</div>
+<p class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">18 <span class="text-sm font-normal text-slate-400 ml-1">Active</span></p>
+</div>
+<div class="p-5 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Impact</span>
+</div>
+<p class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">850+ <span class="text-sm font-normal text-slate-400 ml-1">Citations</span></p>
+</div>
+<div class="p-5 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Rank</span>
+</div>
+<p class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Top 5% <span class="text-sm font-normal text-slate-400 ml-1">National</span></p>
+</div>
+</div>
+<!-- Main Analysis Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Language Radar -->
+<div class="lg:col-span-1 p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6">Language Proficiency</h3>
+<div class="flex-1 flex items-center justify-center relative min-h-[300px]">
+<!-- Using a CSS-only Radar Chart Approximation for visualization since no JS allowed -->
+<div class="relative w-64 h-64">
+<!-- Background polygons -->
+<div class="absolute inset-0 m-auto w-full h-full border border-slate-200 dark:border-slate-700 rounded-full opacity-20"></div>
+<div class="absolute inset-0 m-auto w-3/4 h-3/4 border border-slate-200 dark:border-slate-700 rounded-full opacity-40"></div>
+<div class="absolute inset-0 m-auto w-2/4 h-2/4 border border-slate-200 dark:border-slate-700 rounded-full opacity-60"></div>
+<div class="absolute inset-0 m-auto w-1/4 h-1/4 border border-slate-200 dark:border-slate-700 rounded-full opacity-80"></div>
+<!-- Axes -->
+<div class="absolute inset-0 m-auto w-px h-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="absolute inset-0 m-auto h-px w-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="absolute inset-0 m-auto w-px h-full bg-slate-200 dark:bg-slate-700 rotate-45"></div>
+<div class="absolute inset-0 m-auto h-px w-full bg-slate-200 dark:bg-slate-700 rotate-45"></div>
+<!-- Data Shape (Approximated with CSS clip-path for visual effect) -->
+<div class="absolute inset-0 m-auto w-full h-full bg-primary/20 border-2 border-primary" style="clip-path: polygon(50% 10%, 85% 35%, 80% 80%, 45% 90%, 20% 65%, 25% 25%);"></div>
+<!-- Labels -->
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-bold text-slate-600 dark:text-slate-300">Python</span>
+<span class="absolute top-[15%] -right-8 text-xs font-bold text-slate-600 dark:text-slate-300">Java</span>
+<span class="absolute bottom-[15%] -right-6 text-xs font-bold text-slate-600 dark:text-slate-300">C++</span>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-slate-600 dark:text-slate-300">Rust</span>
+<span class="absolute bottom-[15%] -left-8 text-xs font-bold text-slate-600 dark:text-slate-300">Go</span>
+<span class="absolute top-[15%] -left-10 text-xs font-bold text-slate-600 dark:text-slate-300">JavaScript</span>
+</div>
+</div>
+<div class="mt-6 flex justify-center gap-4 text-xs">
+<div class="flex items-center gap-2">
+<div class="size-3 bg-primary rounded-sm"></div>
+<span class="text-slate-500 dark:text-slate-400">Current</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 bg-slate-300 dark:bg-slate-600 rounded-sm"></div>
+<span class="text-slate-500 dark:text-slate-400">Last Year</span>
+</div>
+</div>
+</div>
+<!-- Contribution Activity -->
+<div class="lg:col-span-2 p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Contribution History</h3>
+<div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
+<button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-600 text-slate-900 dark:text-white rounded shadow-sm">Year</button>
+<button class="px-3 py-1 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Month</button>
+</div>
+</div>
+<!-- Heatmap Grid -->
+<div class="flex flex-col gap-2 overflow-x-auto pb-2">
+<div class="flex gap-1 min-w-max">
+<!-- Days of week labels -->
+<div class="flex flex-col gap-1 text-[10px] text-slate-400 dark:text-slate-500 w-8 pt-1">
+<span>Mon</span>
+<span class="mt-2">Wed</span>
+<span class="mt-2">Fri</span>
+</div>
+<!-- Columns of weeks -->
+<div class="flex gap-1">
+<!-- Generate a visual pattern of contribution squares -->
+<!-- Repeating block for demo purposes -->
+<style>
+                                         .cell { width: 12px; height: 12px; border-radius: 2px; }
+                                         .l0 { background-color: #e2e8f0; } /* Light mode empty */
+                                         .dark .l0 { background-color: #1e293b; } /* Dark mode empty */
+                                         .l1 { background-color: #93c5fd; } /* Low */
+                                         .dark .l1 { background-color: #0f4a8a; } 
+                                         .l2 { background-color: #3b82f6; } /* Med */
+                                         .dark .l2 { background-color: #1d4ed8; }
+                                         .l3 { background-color: #1e40af; } /* High */
+                                         .dark .l3 { background-color: #60a5fa; }
+                                         .l4 { background-color: #172554; } /* Max */
+                                         .dark .l4 { background-color: #bfdbfe; }
+                                     </style>
+<!-- Creating a long strip of contribution cells -->
+<!-- We will create 20 columns as a representation -->
+<div class="flex gap-1">
+<!-- Column 1 --> <div class="flex flex-col gap-1"><div class="cell l1"></div><div class="cell l2"></div><div class="cell l0"></div><div class="cell l3"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l0"></div></div>
+<!-- Column 2 --> <div class="flex flex-col gap-1"><div class="cell l2"></div><div class="cell l3"></div><div class="cell l1"></div><div class="cell l4"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l1"></div></div>
+<!-- Column 3 --> <div class="flex flex-col gap-1"><div class="cell l1"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l0"></div></div>
+<!-- Column 4 --> <div class="flex flex-col gap-1"><div class="cell l3"></div><div class="cell l4"></div><div class="cell l2"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l2"></div></div>
+<!-- Column 5 --> <div class="flex flex-col gap-1"><div class="cell l0"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l2"></div></div>
+<!-- Column 6 --> <div class="flex flex-col gap-1"><div class="cell l4"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div></div>
+<!-- Column 7 --> <div class="flex flex-col gap-1"><div class="cell l1"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l1"></div></div>
+<!-- Column 8 --> <div class="flex flex-col gap-1"><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l2"></div></div>
+<!-- Column 9 --> <div class="flex flex-col gap-1"><div class="cell l0"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div></div>
+<!-- Column 10 --> <div class="flex flex-col gap-1"><div class="cell l3"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l3"></div></div>
+<!-- Column 11 --> <div class="flex flex-col gap-1"><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l0"></div></div>
+<!-- Column 12 --> <div class="flex flex-col gap-1"><div class="cell l1"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div></div>
+<!-- Column 13 --> <div class="flex flex-col gap-1"><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l2"></div></div>
+<!-- Column 14 --> <div class="flex flex-col gap-1"><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div></div>
+<!-- Column 15 --> <div class="flex flex-col gap-1"><div class="cell l3"></div><div class="cell l4"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l3"></div><div class="cell l4"></div><div class="cell l3"></div></div>
+<!-- Column 16 --> <div class="flex flex-col gap-1"><div class="cell l2"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l2"></div></div>
+<!-- Column 17 --> <div class="flex flex-col gap-1"><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div><div class="cell l0"></div><div class="cell l1"></div></div>
+<!-- Column 18 --> <div class="flex flex-col gap-1"><div class="cell l4"></div><div class="cell l3"></div><div class="cell l2"></div><div class="cell l1"></div><div class="cell l2"></div><div class="cell l3"></div><div class="cell l4"></div></div>
+<!-- Column 19 --> <div class="flex flex-col gap-1"><div class="cell l2"></div><div class="cell l2"></div><div class="cell l2"></div><div class="cell l2"></div><div class="cell l2"></div><div class="cell l2"></div><div class="cell l2"></div></div>
+<!-- Column 20 --> <div class="flex flex-col gap-1"><div class="cell l3"></div><div class="cell l1"></div><div class="cell l3"></div><div class="cell l1"></div><div class="cell l3"></div><div class="cell l1"></div><div class="cell l3"></div></div>
+<!-- Column 21 --> <div class="flex flex-col gap-1"><div class="cell l0"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l0"></div><div class="cell l0"></div></div>
+<!-- Column 22 --> <div class="flex flex-col gap-1"><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div><div class="cell l4"></div></div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2 px-8">
+<span class="text-xs text-slate-400">Mar</span>
+<span class="text-xs text-slate-400">Apr</span>
+<span class="text-xs text-slate-400">May</span>
+<span class="text-xs text-slate-400">Jun</span>
+<span class="text-xs text-slate-400">Jul</span>
+<span class="text-xs text-slate-400">Aug</span>
+</div>
+</div>
+<div class="mt-6 flex flex-col md:flex-row gap-6">
+<div class="flex-1 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Longest Streak</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">24 Days</span>
+<span class="text-xs text-slate-500">Dec 12 - Jan 05</span>
+</div>
+</div>
+<div class="flex-1 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Current Streak</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">5 Days</span>
+<span class="text-xs text-slate-500">Since Feb 20</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Top Projects Card -->
+<div class="p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Top Repositories</h3>
+<a class="text-sm text-primary font-medium hover:underline" href="#">View all</a>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Repo Item -->
+<div class="flex flex-col gap-2 pb-4 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">book</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">DZ-OpenData-Toolkit</span>
+</div>
+<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Public</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">Python library for accessing Algerian public datasets efficiently.</p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1">
+<div class="size-2 rounded-full bg-yellow-400"></div>
+<span class="text-xs text-slate-500">Python</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-400">star</span>
+<span class="text-xs text-slate-500">124</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-400">fork_right</span>
+<span class="text-xs text-slate-500">32</span>
+</div>
+</div>
+</div>
+<!-- Repo Item -->
+<div class="flex flex-col gap-2 pb-4 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">book</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">Arabiz-NLP</span>
+</div>
+<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Public</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">Natural Language Processing model for Algerian dialect.</p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1">
+<div class="size-2 rounded-full bg-blue-500"></div>
+<span class="text-xs text-slate-500">TypeScript</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-400">star</span>
+<span class="text-xs text-slate-500">89</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-400">fork_right</span>
+<span class="text-xs text-slate-500">15</span>
+</div>
+</div>
+</div>
+<!-- Repo Item -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">lock</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">USTHB-Grid-Sim</span>
+</div>
+<span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">Research</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">Simulation environment for distributed grid computing.</p>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1">
+<div class="size-2 rounded-full bg-orange-500"></div>
+<span class="text-xs text-slate-500">Rust</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-400">star</span>
+<span class="text-xs text-slate-500">45</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Topics & Interests -->
+<div class="p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Research Impact</h3>
+<div class="relative pt-2">
+<div class="flex items-end gap-2 mb-1">
+<span class="text-3xl font-bold text-slate-900 dark:text-white">h-index: 14</span>
+<span class="text-sm text-green-500 flex items-center mb-1"><span class="material-symbols-outlined text-[16px]">arrow_upward</span> +2</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Measures both the productivity and citation impact of the publications.</p>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-slate-700 dark:text-slate-300">Distributed Computing</span>
+<span class="text-slate-500">65%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-slate-700 dark:text-slate-300">Natural Language Proc.</span>
+<span class="text-slate-500">25%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-purple-500 w-[25%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium text-slate-700 dark:text-slate-300">Data Sovereignty</span>
+<span class="text-slate-500">10%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-[10%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Achievements -->
+<div class="p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Badges &amp; Achievements</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center text-center gap-2">
+<div class="size-10 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600 dark:text-yellow-400">
+<span class="material-symbols-outlined">emoji_events</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-900 dark:text-white">Top Contributor</p>
+<p class="text-[10px] text-slate-500">2023</p>
+</div>
+</div>
+<div class="p-3 rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center text-center gap-2">
+<div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-900 dark:text-white">Open Science</p>
+<p class="text-[10px] text-slate-500">Advocate</p>
+</div>
+</div>
+<div class="p-3 rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center text-center gap-2">
+<div class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-900 dark:text-white">Mentor</p>
+<p class="text-[10px] text-slate-500">Active</p>
+</div>
+</div>
+<div class="p-3 rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center text-center gap-2">
+<div class="size-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-900 dark:text-white">Verified</p>
+<p class="text-[10px] text-slate-500">Researcher</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-[#111a22] py-8 mt-10">
+<div class="max-w-[1024px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2024 ASCAP. Algerian Source Code Archiving Platform.</p>
+<div class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

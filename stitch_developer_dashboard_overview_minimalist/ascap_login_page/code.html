@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Login Page</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom subtle pattern for background */
+        .bg-pattern {
+            background-color: #101922;
+            background-image: radial-gradient(#1c2a38 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col bg-pattern">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md px-6 lg:px-10 py-4 fixed w-full z-50 top-0">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">shield_lock</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-transparent border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Language</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-transparent border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Help</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex items-center justify-center px-4 py-24 sm:px-6 lg:px-8 relative overflow-hidden">
+<!-- Abstract geometric decoration inspired by Algerian patterns (simplified with CSS) -->
+<div class="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="w-full max-w-md space-y-8 bg-white dark:bg-[#151f2b] p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 relative z-10">
+<!-- Welcome Section -->
+<div class="text-center">
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Welcome Back</h1>
+<p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                    Secure login for Algerian academic and government personnel
+                </p>
+</div>
+<!-- University Login Button -->
+<div class="mt-8 space-y-6">
+<button class="relative flex w-full justify-center items-center gap-3 rounded-lg bg-slate-900 dark:bg-white px-4 py-3.5 text-sm font-semibold text-white dark:text-slate-900 shadow-sm hover:bg-slate-700 dark:hover:bg-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 transition-colors group">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-500 group-hover:text-white dark:group-hover:text-slate-900 transition-colors">school</span>
+</span>
+                    Login with University Email
+                </button>
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="bg-white dark:bg-[#151f2b] px-2 text-slate-500 dark:text-slate-400">Or continue with credentials</span>
+</div>
+</div>
+<!-- Standard Form -->
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-200" for="email">Email Address</label>
+<div class="mt-2 relative rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">mail</span>
+</div>
+<input autocomplete="email" class="block w-full rounded-lg border-0 py-3 pl-10 text-slate-900 dark:text-white bg-slate-50 dark:bg-[#101922] ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6" id="email" name="email" placeholder="user@univ-dz.com" required="" type="email"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium leading-6 text-slate-900 dark:text-slate-200" for="password">Password</label>
+<div class="mt-2 relative rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">lock</span>
+</div>
+<input autocomplete="current-password" class="block w-full rounded-lg border-0 py-3 pl-10 pr-10 text-slate-900 dark:text-white bg-slate-50 dark:bg-[#101922] ring-1 ring-inset ring-slate-300 dark:ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer hover:text-primary transition-colors text-slate-400">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<input class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-slate-100 dark:bg-[#101922]" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-2 block text-sm text-slate-900 dark:text-slate-300" for="remember-me">Remember me</label>
+</div>
+<div class="text-sm">
+<a class="font-medium text-primary hover:text-primary/80 transition-colors" href="#">Forgot password?</a>
+</div>
+</div>
+<div>
+<button class="flex w-full justify-center rounded-lg bg-primary px-3 py-3.5 text-sm font-bold leading-6 text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all" type="submit">
+                            Sign in
+                        </button>
+</div>
+</form>
+<p class="mt-10 text-center text-sm text-slate-500 dark:text-slate-400">
+                    Not a member?
+                    <a class="font-semibold leading-6 text-primary hover:text-primary/80 transition-colors" href="#">Register for an account</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="w-full py-6 text-center text-xs text-slate-500 dark:text-slate-600 border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-[#101922]/50 backdrop-blur-sm">
+<p>© 2024 ASCAP. All rights reserved. Algerian Source Code Archive Platform.</p>
+</footer>
+</body></html>

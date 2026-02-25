@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP - Repository Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#192633",
+                        "border-dark": "#233648",
+                        "text-secondary": "#92adc9"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-white min-h-screen flex flex-col">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-border-dark px-10 py-3 bg-white dark:bg-[#111a22]">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64 hidden md:flex">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full ring-1 ring-slate-200 dark:ring-border-dark bg-slate-50 dark:bg-surface-dark">
+<div class="text-slate-500 dark:text-text-secondary flex border-none items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 dark:placeholder:text-text-secondary px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search repositories..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-slate-600 hover:text-primary dark:text-white text-sm font-medium leading-normal transition-colors" href="#">Repositories</a>
+<a class="text-slate-600 hover:text-primary dark:text-white text-sm font-medium leading-normal transition-colors" href="#">Projects</a>
+<a class="text-slate-600 hover:text-primary dark:text-white text-sm font-medium leading-normal transition-colors" href="#">Help</a>
+<a class="text-slate-600 hover:text-primary dark:text-white text-sm font-medium leading-normal transition-colors" href="#">About</a>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Sign In</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-slate-200 hover:bg-slate-300 dark:bg-surface-dark dark:hover:bg-border-dark text-slate-900 dark:text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Register</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex justify-center py-6 px-4 md:px-10 lg:px-40">
+<div class="flex flex-col max-w-[1200px] w-full gap-6">
+<!-- Breadcrumbs -->
+<nav class="flex flex-wrap gap-2 text-sm">
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-text-secondary">/</span>
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">Repositories</a>
+<span class="text-text-secondary">/</span>
+<span class="text-slate-900 dark:text-white font-medium">Project Alpha</span>
+</nav>
+<!-- Project Header -->
+<div class="@container">
+<div class="flex w-full flex-col gap-6 lg:flex-row lg:justify-between lg:items-start">
+<div class="flex gap-5">
+<div class="h-24 w-24 shrink-0 rounded-xl bg-gradient-to-br from-blue-900 to-slate-900 border border-border-dark flex items-center justify-center shadow-lg" data-alt="Abstract geometric logo for Project Alpha">
+<span class="material-symbols-outlined text-4xl text-blue-400">deployed_code</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 flex-wrap">
+<h1 class="text-2xl md:text-3xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white">Project Alpha - AI Research</h1>
+<span class="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-medium uppercase tracking-wider">Public</span>
+</div>
+<p class="text-slate-500 dark:text-text-secondary text-base max-w-2xl leading-relaxed">
+                                    A comprehensive AI framework for academic research under Decision 1275. Designed for modular scalability and high-performance computing clusters in Algerian universities.
+                                </p>
+<div class="flex items-center gap-4 mt-2 text-sm text-slate-500 dark:text-text-secondary">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span>Updated 2 hours ago</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">sell</span>
+<span>v1.0.4</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">scale</span>
+<span>MIT License</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row min-w-[280px]">
+<button class="flex flex-1 items-center justify-center gap-2 rounded-lg h-10 px-5 bg-primary hover:bg-blue-600 text-white text-sm font-bold shadow-sm transition-all hover:shadow-md">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Download Certificate</span>
+</button>
+<button class="flex flex-1 items-center justify-center gap-2 rounded-lg h-10 px-5 bg-slate-200 dark:bg-surface-dark hover:bg-slate-300 dark:hover:bg-border-dark text-slate-900 dark:text-white text-sm font-bold border border-transparent dark:border-border-dark transition-all">
+<span class="material-symbols-outlined text-[20px]">star</span>
+<span>Star</span>
+<span class="ml-1 px-1.5 py-0.5 rounded bg-slate-300 dark:bg-black/30 text-xs">128</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tabs Navigation -->
+<div class="border-b border-slate-200 dark:border-border-dark mt-2">
+<div class="flex gap-8 overflow-x-auto no-scrollbar">
+<a class="group flex items-center gap-2 border-b-[3px] border-primary pb-3 px-1" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary group-hover:text-primary transition-colors">code</span>
+<span class="text-slate-900 dark:text-white text-sm font-bold">Code</span>
+</a>
+<a class="group flex items-center gap-2 border-b-[3px] border-transparent pb-3 px-1 hover:border-slate-300 dark:hover:border-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-slate-400 dark:text-text-secondary group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">bug_report</span>
+<span class="text-slate-500 dark:text-text-secondary group-hover:text-slate-700 dark:group-hover:text-slate-200 text-sm font-bold transition-colors">Issues</span>
+<span class="bg-slate-200 dark:bg-surface-dark text-slate-600 dark:text-text-secondary text-xs rounded-full px-2 py-0.5">12</span>
+</a>
+<a class="group flex items-center gap-2 border-b-[3px] border-transparent pb-3 px-1 hover:border-slate-300 dark:hover:border-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-slate-400 dark:text-text-secondary group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">inventory_2</span>
+<span class="text-slate-500 dark:text-text-secondary group-hover:text-slate-700 dark:group-hover:text-slate-200 text-sm font-bold transition-colors">Archives</span>
+</a>
+<a class="group flex items-center gap-2 border-b-[3px] border-transparent pb-3 px-1 hover:border-slate-300 dark:hover:border-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-slate-400 dark:text-text-secondary group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">group</span>
+<span class="text-slate-500 dark:text-text-secondary group-hover:text-slate-700 dark:group-hover:text-slate-200 text-sm font-bold transition-colors">Contributors</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+<!-- Left Column: File Explorer & README -->
+<div class="flex flex-col gap-6">
+<!-- Actions Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-200 dark:bg-surface-dark border border-slate-300 dark:border-border-dark text-sm font-medium text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined text-[18px]">call_split</span>
+                                    master
+                                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<div class="h-4 w-[1px] bg-slate-300 dark:bg-border-dark mx-1"></div>
+<span class="text-sm text-slate-500 dark:text-text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+<b>Project-Alpha</b>
+                                    / src / models
+                                </span>
+</div>
+<div class="hidden sm:flex items-center gap-2">
+<button class="p-1.5 rounded-md text-slate-500 dark:text-text-secondary hover:bg-slate-200 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<button class="px-3 py-1.5 rounded-md bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm">
+                                    Go to file
+                                </button>
+</div>
+</div>
+<!-- File Explorer -->
+<div class="border border-slate-200 dark:border-border-dark rounded-lg overflow-hidden bg-white dark:bg-[#161b22]">
+<!-- Commit Header -->
+<div class="flex items-center justify-between bg-slate-50 dark:bg-surface-dark px-4 py-3 border-b border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3">
+<div class="h-6 w-6 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white">AK</div>
+<span class="text-sm font-medium text-slate-900 dark:text-white">Amine Khelil</span>
+<span class="text-sm text-slate-500 dark:text-text-secondary truncate max-w-[200px] sm:max-w-none">feat: implemented new attention mechanism for LSTM</span>
+</div>
+<span class="text-xs text-slate-500 dark:text-text-secondary whitespace-nowrap">2 hours ago</span>
+</div>
+<!-- File List -->
+<div class="divide-y divide-slate-100 dark:divide-border-dark/50">
+<div class="group flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-surface-dark/50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-blue-400">folder</span>
+<span class="text-sm text-slate-700 dark:text-slate-200 truncate">data_processing</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">Update preprocessing.py</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 w-24 text-right">3 days ago</span>
+</div>
+<div class="group flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-surface-dark/50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-blue-400">folder</span>
+<span class="text-sm text-slate-700 dark:text-slate-200 truncate">neural_networks</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">Fix gradient clipping bug</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 w-24 text-right">yesterday</span>
+</div>
+<div class="group flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-surface-dark/50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-slate-400">description</span>
+<span class="text-sm text-slate-700 dark:text-slate-200 truncate">config.yaml</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">Update hyperparameters</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 w-24 text-right">2 hours ago</span>
+</div>
+<div class="group flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-surface-dark/50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-slate-400">description</span>
+<span class="text-sm text-slate-700 dark:text-slate-200 truncate">main.py</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">Initial commit</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 w-24 text-right">5 days ago</span>
+</div>
+<div class="group flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-surface-dark/50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-slate-400">description</span>
+<span class="text-sm text-slate-700 dark:text-slate-200 truncate">requirements.txt</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:block">Add numpy dependency</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 w-24 text-right">1 week ago</span>
+</div>
+</div>
+</div>
+<!-- Readme Card -->
+<div class="rounded-lg border border-slate-200 dark:border-border-dark overflow-hidden bg-white dark:bg-[#161b22]">
+<div class="px-4 py-3 border-b border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-surface-dark flex items-center gap-2 sticky top-0">
+<span class="material-symbols-outlined text-[20px] text-slate-500">menu_book</span>
+<h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">README.md</h3>
+</div>
+<div class="p-6">
+<h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-200 dark:border-border-dark">Project Alpha - Setup Guide</h1>
+<p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                                    Welcome to Project Alpha. This repository contains the source code for the AI Research framework mandated by Decision 1275. Follow the instructions below to set up your environment.
+                                </p>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mt-6 mb-3">Installation</h2>
+<div class="bg-slate-900 dark:bg-black rounded-md p-4 mb-4 overflow-x-auto border border-slate-800 dark:border-border-dark">
+<code class="text-sm font-mono text-green-400">
+                                        git clone https://ascap.dz/repo/project-alpha.git<br/>
+                                        cd project-alpha<br/>
+                                        pip install -r requirements.txt
+                                    </code>
+</div>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white mt-6 mb-3">Architecture</h2>
+<div class="aspect-video w-full rounded-lg bg-slate-100 dark:bg-surface-dark/50 border border-slate-200 dark:border-border-dark flex flex-col items-center justify-center p-8 text-center gap-4" data-alt="Diagram placeholder showing system architecture flow">
+<span class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600">schema</span>
+<p class="text-sm text-slate-400 dark:text-slate-500 italic">System architecture diagram preview</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="flex flex-col gap-6">
+<!-- About Sidebar -->
+<div class="flex flex-col gap-4 pt-2">
+<h3 class="text-sm font-bold text-slate-900 dark:text-white">About</h3>
+<p class="text-sm text-slate-600 dark:text-text-secondary">
+                                A strategic research repository focused on NLP for Arabic and Tamazight languages.
+                            </p>
+<div class="flex flex-col gap-3 mt-2">
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[18px]">link</span>
+<a class="text-primary hover:underline truncate" href="#">research.ascap.dz/alpha</a>
+</div>
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Security Policy</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span>Decision 1275 Compliant</span>
+</div>
+</div>
+</div>
+<div class="h-[1px] bg-slate-200 dark:bg-border-dark w-full"></div>
+<!-- Languages -->
+<div class="flex flex-col gap-3">
+<h3 class="text-sm font-bold text-slate-900 dark:text-white">Languages</h3>
+<div class="w-full h-2.5 rounded-full flex overflow-hidden bg-slate-200 dark:bg-surface-dark">
+<div class="w-[65%] bg-yellow-400 h-full"></div>
+<div class="w-[25%] bg-blue-500 h-full"></div>
+<div class="w-[10%] bg-purple-500 h-full"></div>
+</div>
+<div class="flex flex-wrap gap-x-4 gap-y-2">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+<span class="text-xs font-medium text-slate-700 dark:text-slate-300">Python <span class="text-slate-400">65%</span></span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+<span class="text-xs font-medium text-slate-700 dark:text-slate-300">TypeScript <span class="text-slate-400">25%</span></span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-purple-500"></div>
+<span class="text-xs font-medium text-slate-700 dark:text-slate-300">Shell <span class="text-slate-400">10%</span></span>
+</div>
+</div>
+</div>
+<div class="h-[1px] bg-slate-200 dark:bg-border-dark w-full"></div>
+<!-- Contributors -->
+<div class="flex flex-col gap-3">
+<h3 class="text-sm font-bold text-slate-900 dark:text-white">Contributors <span class="ml-1 bg-slate-200 dark:bg-surface-dark px-1.5 py-0.5 rounded-full text-xs font-normal text-slate-600 dark:text-text-secondary">4</span></h3>
+<div class="flex flex-wrap gap-2">
+<a class="h-9 w-9 rounded-full bg-slate-300 overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all" href="#">
+<div class="w-full h-full bg-gradient-to-tr from-blue-400 to-cyan-300" data-alt="Avatar gradient for user 1"></div>
+</a>
+<a class="h-9 w-9 rounded-full bg-slate-300 overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all" href="#">
+<div class="w-full h-full bg-gradient-to-tr from-purple-400 to-pink-300" data-alt="Avatar gradient for user 2"></div>
+</a>
+<a class="h-9 w-9 rounded-full bg-slate-300 overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all" href="#">
+<div class="w-full h-full bg-gradient-to-tr from-green-400 to-emerald-300" data-alt="Avatar gradient for user 3"></div>
+</a>
+<a class="flex items-center justify-center h-9 w-9 rounded-full bg-slate-100 dark:bg-surface-dark border border-dashed border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors" href="#">
+                                    +1
+                                </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-border-dark py-8 bg-white dark:bg-[#111a22]">
+<div class="flex flex-col md:flex-row justify-between items-center px-10 gap-4 text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">code</span>
+<span>© 2024 ASCAP Platform. All rights reserved.</span>
+</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Security</a>
+<a class="hover:text-primary transition-colors" href="#">Status</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

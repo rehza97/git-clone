@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Documentation Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .prose h2 {
+                @apply text-2xl font-bold mt-8 mb-4 text-slate-900 dark:text-white;
+            }
+            .prose h3 {
+                @apply text-xl font-semibold mt-6 mb-3 text-slate-900 dark:text-white;
+            }
+            .prose p {
+                @apply text-slate-600 dark:text-slate-400 leading-7 mb-4;
+            }
+            .prose ul {
+                @apply list-disc list-outside ml-6 mb-4 text-slate-600 dark:text-slate-400;
+            }
+            .prose li {
+                @apply mb-2;
+            }
+            .prose code {
+                @apply font-mono text-sm bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-pink-600 dark:text-pink-400;
+            }
+            .prose pre {
+                @apply bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto mb-6 font-mono text-sm;
+            }
+            .sidebar-link {
+                @apply flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors;
+            }
+            .sidebar-link.active {
+                @apply text-primary bg-primary/10 hover:bg-primary/15;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="px-6 lg:px-8 flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined">code_blocks</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">ASCAP <span class="font-normal text-slate-500 dark:text-slate-400">Docs</span></h1>
+</div>
+<div class="hidden md:flex relative group w-96">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-lg leading-5 bg-slate-50 dark:bg-[#151f2b] text-slate-900 dark:text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-colors" placeholder="Search documentation (e.g. 'git push', '1275')" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="text-xs text-slate-400 font-mono border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5">Ctrl K</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden lg:flex items-center gap-1 mr-4">
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Dashboard</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-primary bg-primary/10 transition-colors" href="#">Documentation</a>
+<a class="px-3 py-2 text-sm font-medium rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">Support</a>
+</nav>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-800 hidden lg:block"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold leading-none text-slate-900 dark:text-white">Amina B.</p>
+</div>
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800 bg-center bg-cover border border-slate-300 dark:border-slate-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUnD4ntDRYfPYPjuqxoCZxg7eZ5cB9M7WJDD7WWujUvj_hGlFwCL_NTYpNUOiB1DUfVlDsEkrgPPo0lEMvYQeFiaZ1b_PXcO4SgNW-Cu8SFgyr31brpJCoqctfSKkVW24ZpisKZoWvOf3k0A1_ZgWpBc5wU8ujctm6wYYz4FX-jTiz93CzCx7w2LfjtIJd1cR6xCshQyoBEcmCxp2tMCxGIhHQQ_y1G1QRV7aShGkbQFVc9ilAhEs2vjqBO0x7Ii5SIDZB_d5qdg');"></div>
+</div>
+</div>
+</div>
+</header>
+<div class="flex-1 w-full max-w-7xl mx-auto flex items-start">
+<aside class="hidden lg:block w-64 shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r border-slate-200 dark:border-slate-800 py-8 pr-6">
+<nav class="space-y-8">
+<div>
+<h5 class="px-3 text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Getting Started</h5>
+<ul class="space-y-1">
+<li><a class="sidebar-link" href="#">Introduction</a></li>
+<li><a class="sidebar-link" href="#">Account Setup</a></li>
+<li><a class="sidebar-link" href="#">Platform Overview</a></li>
+</ul>
+</div>
+<div>
+<h5 class="px-3 text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Source Code Archiving</h5>
+<ul class="space-y-1">
+<li><a class="sidebar-link active" href="#">Archiving for Decision 1275</a></li>
+<li><a class="sidebar-link" href="#">Getting Started with Git</a></li>
+<li><a class="sidebar-link" href="#">Remote Repository URL</a></li>
+<li><a class="sidebar-link" href="#">Verification Process</a></li>
+</ul>
+</div>
+<div>
+<h5 class="px-3 text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">API Reference</h5>
+<ul class="space-y-1">
+<li><a class="sidebar-link" href="#">Authentication</a></li>
+<li><a class="sidebar-link" href="#">Endpoints</a></li>
+<li><a class="sidebar-link" href="#">Rate Limits</a></li>
+<li><a class="sidebar-link" href="#">SDKs</a></li>
+</ul>
+</div>
+<div>
+<h5 class="px-3 text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Legal &amp; Privacy</h5>
+<ul class="space-y-1">
+<li><a class="sidebar-link" href="#">Data Sovereignty Policy</a></li>
+<li><a class="sidebar-link" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</nav>
+</aside>
+<main class="flex-1 min-w-0 py-8 px-6 lg:px-12">
+<nav class="flex items-center text-sm text-slate-500 mb-6">
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Docs</a>
+<span class="mx-2 text-slate-300 dark:text-slate-700">/</span>
+<a class="hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Source Code Archiving</a>
+<span class="mx-2 text-slate-300 dark:text-slate-700">/</span>
+<span class="text-slate-900 dark:text-white font-medium">Archiving for Decision 1275</span>
+</nav>
+<article class="prose max-w-none">
+<div class="mb-10 border-b border-slate-200 dark:border-slate-800 pb-8">
+<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">Archiving for Decision 1275</h1>
+<p class="text-xl text-slate-600 dark:text-slate-400">
+                    A complete guide on how to properly format, upload, and archive your academic project source code to comply with Ministerial Decision 1275.
+                </p>
+<div class="flex items-center gap-4 mt-6">
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-500/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/20">Updated 2 days ago</span>
+<span class="inline-flex items-center rounded-md bg-slate-50 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-slate-600 dark:text-slate-400 ring-1 ring-inset ring-slate-500/10 dark:ring-slate-400/20">~ 5 min read</span>
+</div>
+</div>
+<h2>Prerequisites</h2>
+<p>Before you begin the archiving process on the ASCAP platform, ensure your project meets the following criteria:</p>
+<ul>
+<li>You have a valid student or researcher account on ASCAP.</li>
+<li>Your project source code is hosted on a Git repository (local or remote).</li>
+<li>You have generated a <a class="text-primary hover:underline" href="#">README.md</a> file explaining the project structure.</li>
+</ul>
+<div class="my-8 p-4 bg-amber-50 dark:bg-amber-500/10 border-l-4 border-amber-500 text-amber-800 dark:text-amber-200 rounded-r-lg">
+<div class="flex">
+<div class="shrink-0">
+<span class="material-symbols-outlined text-amber-500">warning</span>
+</div>
+<div class="ml-3">
+<h3 class="text-sm font-medium text-amber-800 dark:text-amber-200 !mt-0 !mb-1">Important Compliance Notice</h3>
+<p class="text-sm !mb-0 text-amber-700 dark:text-amber-300">
+                            Ensure no sensitive data (API keys, passwords, database credentials) is included in your source code commits. The platform scans for secrets automatically and will reject insecure submissions.
+                        </p>
+</div>
+</div>
+</div>
+<h2>Step 1: Preparing Your Repository</h2>
+<p>
+                To ensure long-term preservation, we recommend structuring your repository cleanly. Use a <code>.gitignore</code> file to exclude build artifacts and temporary files.
+            </p>
+<h3>Standard .gitignore configuration</h3>
+<pre><code class="language-bash"># Node.js
+node_modules/
+dist/
+.env
+# Python
+__pycache__/
+*.pyc
+venv/
+# IDEs
+.vscode/
+.idea/</code></pre>
+<h2>Step 2: Pushing to ASCAP Remote</h2>
+<p>
+                Once your code is ready, you need to add the ASCAP remote repository URL to your local git configuration. You can find your specific repository URL in your dashboard.
+            </p>
+<pre><code class="language-bash"># Initialize git if you haven't already
+git init
+# Add all files
+git add .
+git commit -m "Initial submission for Decision 1275"
+# Add ASCAP remote (replace with your unique URL)
+git remote add ascap https://git.ascap.dz/username/project-slug.git
+# Push to the archiving platform
+git push -u ascap main</code></pre>
+<h2>Step 3: Generating the Certificate</h2>
+<p>
+                After a successful push, the system will automatically run static analysis. Once passed, navigate to the <span class="font-semibold text-slate-900 dark:text-white">Certificates</span> tab in your dashboard to download your official deposit proof.
+            </p>
+</article>
+<div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<a class="group flex flex-col items-start p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="text-xs font-medium text-slate-500 mb-1">Previous</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Platform Overview</span>
+</a>
+<a class="group flex flex-col items-end p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="text-xs font-medium text-slate-500 mb-1">Next</span>
+<span class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Getting Started with Git</span>
+</a>
+</div>
+<div class="mt-12 text-center">
+<p class="text-sm text-slate-500 mb-4">Did this page help you?</p>
+<div class="flex items-center justify-center gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span> Yes
+                </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-[16px]">thumb_down</span> No
+                </button>
+</div>
+</div>
+</main>
+<aside class="hidden xl:block w-64 shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto py-8 pl-6">
+<h5 class="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">On this page</h5>
+<ul class="space-y-3 text-sm border-l border-slate-200 dark:border-slate-800">
+<li><a class="block pl-4 text-primary font-medium border-l-2 border-primary -ml-[1px]" href="#">Prerequisites</a></li>
+<li><a class="block pl-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Compliance Notice</a></li>
+<li><a class="block pl-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Step 1: Preparing Repo</a></li>
+<li><a class="block pl-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Step 2: Pushing to Remote</a></li>
+<li><a class="block pl-4 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Step 3: Certificates</a></li>
+</ul>
+</aside>
+</div>
+<div class="fixed bottom-8 right-8 z-50">
+<button class="group flex items-center gap-0 hover:gap-2 px-4 py-4 bg-primary text-white rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300">
+<span class="material-symbols-outlined text-[24px]">support_agent</span>
+<span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out font-medium text-sm">Contact Support</span>
+</button>
+</div>
+
+</body></html>

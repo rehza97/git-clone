@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Registration Page</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom radio style to match the example but using Tailwind classes where possible */
+        input[type="radio"]:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='rgb(17,114,212)' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden antialiased">
+<div class="flex flex-col h-full grow">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-10 py-4 bg-white dark:bg-[#111a22] sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">code_blocks</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">ASCAP</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">About</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Projects</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Contact</a>
+</nav>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-md shadow-blue-500/20">
+<span class="truncate">Login</span>
+</button>
+</div>
+<!-- Mobile Menu Icon -->
+<button class="md:hidden text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex justify-center py-8 px-4 md:px-6 lg:px-8">
+<div class="w-full max-w-[800px] flex flex-col gap-8">
+<!-- Hero / Title Section -->
+<div class="flex flex-col gap-2 pt-4">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span class="text-xs font-bold uppercase tracking-wider">Secure Registration</span>
+</div>
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Create your ASCAP Account</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base md:text-lg font-normal leading-relaxed">
+                        Join the national platform for digital sovereignty and contribute to Algeria's open source future.
+                    </p>
+</div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-4 bg-white dark:bg-[#192633] p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">Step 1 of 4: Identity</p>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium">25% completed</span>
+</div>
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+<div class="h-full rounded-full bg-primary transition-all duration-500 ease-in-out shadow-[0_0_10px_rgba(17,115,212,0.5)]" style="width: 25%;"></div>
+</div>
+</div>
+<!-- Form Container -->
+<form class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+<!-- Identity Selection -->
+<div class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Select your role</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Student -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#192633] p-5 cursor-pointer transition-all hover:border-primary dark:hover:border-primary hover:shadow-md hover:shadow-primary/5">
+<input checked="" class="mt-1 h-5 w-5 border-2 border-slate-400 dark:border-slate-500 bg-transparent text-primary focus:ring-primary focus:ring-offset-0 dark:bg-[#101922] dark:checked:bg-[#101922]" name="role" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">Student</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Currently enrolled in an Algerian university or institute.</p>
+</div>
+<div class="absolute inset-0 rounded-xl ring-2 ring-primary opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></div>
+</label>
+<!-- Researcher -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#192633] p-5 cursor-pointer transition-all hover:border-primary dark:hover:border-primary hover:shadow-md hover:shadow-primary/5">
+<input class="mt-1 h-5 w-5 border-2 border-slate-400 dark:border-slate-500 bg-transparent text-primary focus:ring-primary focus:ring-offset-0 dark:bg-[#101922] dark:checked:bg-[#101922]" name="role" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">science</span>
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">Researcher</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Academic or independent researcher in computer science.</p>
+</div>
+</label>
+<!-- Developer -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#192633] p-5 cursor-pointer transition-all hover:border-primary dark:hover:border-primary hover:shadow-md hover:shadow-primary/5">
+<input class="mt-1 h-5 w-5 border-2 border-slate-400 dark:border-slate-500 bg-transparent text-primary focus:ring-primary focus:ring-offset-0 dark:bg-[#101922] dark:checked:bg-[#101922]" name="role" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">Developer</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Software engineer, contributor, or freelance developer.</p>
+</div>
+</label>
+<!-- Institution -->
+<label class="group relative flex items-start gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#192633] p-5 cursor-pointer transition-all hover:border-primary dark:hover:border-primary hover:shadow-md hover:shadow-primary/5">
+<input class="mt-1 h-5 w-5 border-2 border-slate-400 dark:border-slate-500 bg-transparent text-primary focus:ring-primary focus:ring-offset-0 dark:bg-[#101922] dark:checked:bg-[#101922]" name="role" type="radio"/>
+<div class="flex grow flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">Institution</p>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Official organization, government body, or university department.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Affiliation Field -->
+<div class="flex flex-col gap-4 pt-2">
+<label class="flex flex-col w-full gap-2">
+<span class="text-slate-900 dark:text-white text-sm font-semibold leading-normal">University / Organization Affiliation</span>
+<div class="relative">
+<input class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#192633] focus:border-primary h-14 placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] pr-12 text-base font-normal leading-normal transition-shadow shadow-sm" placeholder="e.g. USTHB, CERIST, ESI..." type="text" value=""/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400">Start typing to search for your registered institution.</p>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-6 border-t border-slate-200 dark:border-slate-800 mt-2">
+<button class="px-6 h-12 rounded-lg text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button">
+                            Cancel
+                        </button>
+<button class="flex items-center gap-2 px-8 h-12 rounded-lg bg-primary hover:bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]" type="submit">
+<span>Continue</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Footer Links -->
+<div class="flex justify-center gap-6 mt-4">
+<a class="text-xs text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-xs text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>

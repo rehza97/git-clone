@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCAP Developer Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1a2632",
+                        "border-dark": "#2a3b4d",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<div class="hidden md:flex flex-col w-72 h-full bg-surface-dark border-r border-border-dark flex-shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white">code</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white">ASCAP</h1>
+</div>
+<div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3 mt-4">Platform</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20 group transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">travel_explore</span>
+<span class="text-sm font-medium">Explore</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">folder_open</span>
+<span class="text-sm font-medium">Repositories</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">school</span>
+<span class="text-sm font-medium">Certificates</span>
+</a>
+<div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3 mt-6">Settings</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Account</span>
+</a>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 cursor-pointer transition-colors">
+<div class="w-10 h-10 rounded-full bg-slate-700 overflow-hidden border border-slate-600">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Portrait of a male developer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAruecN1QcedyCGpoxJsiIss75xUo9wPcNpnE3lX8b53dGldivRXJMUcLGSvK6KW3uhEhqCwbkLEqSxduc4JoJtkoyAIgkr_8S8R174URmVggPtH2alup8NCLk1DiorrQkFPs0lNWWuAQCO8UiS1v2U64C5obLCRfqBHFFioadP0MApbkTdUZoDw-Kmfo4IQr8-mUcfBffBosmtQ55qtsIYx1291-7rzq9xO0eFm_-J7N1sd35oR-N2bKcrY6VgzU-ERglvY_YlCA"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-medium text-white truncate">Amine K.</span>
+<span class="text-xs text-slate-400 truncate">Senior Developer</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 ml-auto">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
+<!-- Header -->
+<header class="h-16 border-b border-border-dark bg-background-dark/80 backdrop-blur-md sticky top-0 z-20 flex items-center justify-between px-6 lg:px-10">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-xl font-bold text-white">Dashboard</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="h-9 w-64 bg-surface-dark border border-border-dark rounded-full pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search repositories..." type="text"/>
+</div>
+<button class="flex items-center gap-2 h-9 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+<span class="hidden sm:inline">New Repository</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-10 scrollbar-thin scrollbar-thumb-border-dark scrollbar-track-transparent">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Welcome Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h3 class="text-2xl font-bold text-white mb-1">Welcome back, Amine</h3>
+<p class="text-slate-400 text-sm">Contribute to Algeria's digital sovereignty. Decision 1275 compliant.</p>
+</div>
+<div class="flex gap-3">
+<button class="h-9 px-4 rounded-lg bg-surface-dark border border-border-dark text-slate-300 text-sm hover:text-white hover:border-slate-500 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">upload_file</span>
+                                Upload Code
+                            </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">folder_zip</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Total Repositories</p>
+<div class="flex items-end gap-3">
+<p class="text-3xl font-bold text-white">12</p>
+<span class="text-green-500 text-sm font-medium mb-1 flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +2
+                                </span>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">terminal</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Active Projects</p>
+<div class="flex items-end gap-3">
+<p class="text-3xl font-bold text-white">4</p>
+<span class="text-slate-500 text-sm font-medium mb-1">--</span>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">commit</span>
+</div>
+<p class="text-slate-400 text-sm font-medium mb-1">Contributions</p>
+<div class="flex items-end gap-3">
+<p class="text-3xl font-bold text-white">342</p>
+<span class="text-green-500 text-sm font-medium mb-1 flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +15%
+                                </span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Main Column -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Contribution Graph -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 relative overflow-hidden">
+<!-- Cultural Pattern Overlay (Abstract geometric pattern suggestion) -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#1173d4 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="flex items-center justify-between mb-6 relative z-10">
+<h3 class="text-lg font-bold text-white">Contribution Activity</h3>
+<select class="bg-background-dark border border-border-dark text-xs text-slate-300 rounded px-2 py-1 outline-none">
+<option>Last Year</option>
+<option>Last 6 Months</option>
+</select>
+</div>
+<div class="h-48 flex items-end justify-between gap-1 relative z-10 w-full overflow-x-auto pb-2">
+<!-- Simulated Graph Bars -->
+<div class="w-full h-full flex items-end justify-between gap-1 px-1">
+<!-- Generating some bars with varying heights and primary color opacity -->
+<div class="w-3 rounded-t-sm bg-primary/20 hover:bg-primary/80 transition-colors h-[20%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/40 hover:bg-primary/80 transition-colors h-[40%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/30 hover:bg-primary/80 transition-colors h-[30%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/60 hover:bg-primary/80 transition-colors h-[60%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/20 hover:bg-primary/80 transition-colors h-[25%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/80 hover:bg-primary transition-colors h-[80%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/40 hover:bg-primary/80 transition-colors h-[45%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/30 hover:bg-primary/80 transition-colors h-[35%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/50 hover:bg-primary/80 transition-colors h-[55%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/20 hover:bg-primary/80 transition-colors h-[15%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/90 hover:bg-primary transition-colors h-[90%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/40 hover:bg-primary/80 transition-colors h-[42%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/30 hover:bg-primary/80 transition-colors h-[28%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/60 hover:bg-primary/80 transition-colors h-[65%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/20 hover:bg-primary/80 transition-colors h-[22%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/70 hover:bg-primary/80 transition-colors h-[75%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/40 hover:bg-primary/80 transition-colors h-[48%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/30 hover:bg-primary/80 transition-colors h-[32%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/50 hover:bg-primary/80 transition-colors h-[52%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/20 hover:bg-primary/80 transition-colors h-[18%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/90 hover:bg-primary transition-colors h-[88%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/40 hover:bg-primary/80 transition-colors h-[38%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/30 hover:bg-primary/80 transition-colors h-[28%]"></div>
+<div class="w-3 rounded-t-sm bg-primary/60 hover:bg-primary/80 transition-colors h-[62%]"></div>
+</div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-2 px-1">
+<span>Jan</span>
+<span>Mar</span>
+<span>May</span>
+<span>Jul</span>
+<span>Sep</span>
+<span>Nov</span>
+</div>
+</div>
+<!-- Recent Repositories -->
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-white">Recent Repositories</h3>
+<a class="text-sm text-primary hover:text-blue-400 font-medium" href="#">View all</a>
+</div>
+<div class="grid gap-4">
+<!-- Repo Card 1 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-background-dark text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">book</span>
+</div>
+<div>
+<h4 class="text-white font-semibold text-sm group-hover:text-primary transition-colors">dz-university-archive</h4>
+<p class="text-xs text-slate-500">Updated 2 hours ago</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 text-xs font-medium">Public</span>
+</div>
+<p class="text-slate-400 text-sm mb-4 line-clamp-2">A centralized archive system for university thesis submissions compliant with Ministry guidelines.</p>
+<div class="flex items-center gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+<span>JavaScript</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span>
+<span>12</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call_split</span>
+<span>4</span>
+</div>
+</div>
+</div>
+<!-- Repo Card 2 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4 hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-background-dark text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<div>
+<h4 class="text-white font-semibold text-sm group-hover:text-primary transition-colors">ascap-core-module</h4>
+<p class="text-xs text-slate-500">Updated yesterday</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-xs font-medium">Private</span>
+</div>
+<p class="text-slate-400 text-sm mb-4 line-clamp-2">Core logic for the archival process including hashing and timestamping services.</p>
+<div class="flex items-center gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span>Python</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span>
+<span>8</span>
+</div>
+</div>
+</div>
+<!-- Repo Card 3 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4 hover:border-primary/40 transition-all cursor-pointer group opacity-75">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded-lg bg-background-dark text-slate-300 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">archive</span>
+</div>
+<div>
+<h4 class="text-white font-semibold text-sm group-hover:text-primary transition-colors">legacy-data-migration</h4>
+<p class="text-xs text-slate-500">Updated 3 weeks ago</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-orange-900/30 text-orange-400 border border-orange-900/50 text-xs font-medium">Archived</span>
+</div>
+<p class="text-slate-400 text-sm mb-4 line-clamp-2">Scripts used for the 2023 data migration from previous university servers.</p>
+<div class="flex items-center gap-4 text-xs text-slate-500">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<span>Shell</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Activity Feed) -->
+<div class="lg:col-span-1">
+<h3 class="text-lg font-bold text-white mb-4">Latest Activity</h3>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-0 overflow-hidden">
+<div class="divide-y divide-border-dark">
+<!-- Activity Item 1 -->
+<div class="p-4 hover:bg-white/5 transition-colors">
+<div class="flex gap-3">
+<div class="mt-1">
+<span class="material-symbols-outlined text-green-500 text-sm bg-green-900/20 p-1 rounded-full border border-green-900/50">check</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-slate-400">10 minutes ago</p>
+<p class="text-sm text-slate-200">Pushed 3 commits to <span class="text-primary font-medium">dz-university-archive</span></p>
+<p class="text-xs text-slate-500 font-mono bg-background-dark p-1 rounded inline-block w-fit">2f3a1c: Fix header auth</p>
+</div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="p-4 hover:bg-white/5 transition-colors">
+<div class="flex gap-3">
+<div class="mt-1">
+<span class="material-symbols-outlined text-purple-500 text-sm bg-purple-900/20 p-1 rounded-full border border-purple-900/50">merge</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-slate-400">4 hours ago</p>
+<p class="text-sm text-slate-200">Merged pull request <span class="text-white font-medium">#42</span> in <span class="text-primary font-medium">ascap-core-module</span></p>
+</div>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="p-4 hover:bg-white/5 transition-colors">
+<div class="flex gap-3">
+<div class="mt-1">
+<span class="material-symbols-outlined text-blue-500 text-sm bg-blue-900/20 p-1 rounded-full border border-blue-900/50">add_circle</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-slate-400">Yesterday</p>
+<p class="text-sm text-slate-200">Created new repository <span class="text-primary font-medium">research-paper-scraper</span></p>
+</div>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="p-4 hover:bg-white/5 transition-colors">
+<div class="flex gap-3">
+<div class="mt-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm bg-yellow-900/20 p-1 rounded-full border border-yellow-900/50">star</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-xs text-slate-400">2 days ago</p>
+<p class="text-sm text-slate-200">Starred repository <span class="text-primary font-medium">ministry-guidelines-pdf</span></p>
+</div>
+</div>
+</div>
+<div class="p-3 text-center">
+<button class="text-xs font-medium text-slate-400 hover:text-white transition-colors">View All Activity</button>
+</div>
+</div>
+</div>
+<!-- Promo / Info Box -->
+<div class="mt-6 bg-gradient-to-br from-primary/20 to-surface-dark border border-primary/20 rounded-xl p-5 relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-primary">policy</span>
+</div>
+<h4 class="text-white font-bold text-sm mb-2">Decision 1275 Guidelines</h4>
+<p class="text-xs text-slate-300 mb-3 leading-relaxed">Ensure your startup thesis project is archived correctly before final defense. Review the updated submission protocols.</p>
+<button class="text-xs font-bold text-primary hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    Read Documentation
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

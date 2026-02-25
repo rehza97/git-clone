@@ -13,7 +13,7 @@ import {
   type QueryDocumentSnapshot,
 } from "firebase/firestore"
 import { db } from "@/config/firebase"
-import type { Repo, RepoVisibility } from "@/types/schema"
+import type { Repo, RepoProjectType, RepoVisibility } from "@/types/schema"
 
 const REPOS = "repos"
 
@@ -23,17 +23,19 @@ export interface RepoWithId extends Repo {
 
 export async function createRepo(
   ownerId: string,
-  data: { name: string; description?: string; visibility: RepoVisibility }
+  data: { name: string; description?: string; visibility: RepoVisibility; projectType?: RepoProjectType }
 ): Promise<string> {
   const ref = collection(db, REPOS)
-  const docRef = await addDoc(ref, {
+  const doc: Record<string, unknown> = {
     name: data.name.trim(),
     description: (data.description ?? "").trim() || undefined,
     ownerId,
     visibility: data.visibility,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  })
+  }
+  if (data.projectType) doc.projectType = data.projectType
+  const docRef = await addDoc(ref, doc)
   return docRef.id
 }
 

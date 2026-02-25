@@ -30,3 +30,26 @@ export function buildFileTree(paths: string[]): TreeNode {
   })
   return root
 }
+
+/** Find node at path (path "" = root). Returns null if not found. */
+export function findNodeAtPath(root: TreeNode, path: string): TreeNode | null {
+  if (!path) return root
+  const parts = path.split("/").filter(Boolean)
+  let current: TreeNode = root
+  for (const part of parts) {
+    const child = current.children.find((c) => c.name === part)
+    if (!child) return null
+    current = child
+  }
+  return current
+}
+
+/** Get direct children at path (folders first, then files, sorted by name). */
+export function getChildrenAtPath(root: TreeNode, path: string): TreeNode[] {
+  const node = findNodeAtPath(root, path)
+  const children = node?.children ?? []
+  return [...children].sort((a, b) => {
+    if (a.isFile !== b.isFile) return a.isFile ? 1 : -1
+    return a.name.localeCompare(b.name)
+  })
+}
