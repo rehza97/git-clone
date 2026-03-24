@@ -170,6 +170,17 @@ export function RootLayout() {
           <div className="text-sm">
             <span className="font-semibold">{t("footer.appName")}</span>
             <span className="opacity-80 ml-1">— {t("footer.tagline")}</span>
+            <span className="opacity-80 ml-2">
+              Developed by{" "}
+              <a
+                href="https://dataforgestack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-100"
+              >
+                dataforgestack.com
+              </a>
+            </span>
           </div>
           <nav className="flex items-center gap-4 text-sm">
             <NavLink to="/about" className="opacity-80 hover:opacity-100">{t("nav.about")}</NavLink>
