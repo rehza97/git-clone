@@ -21,9 +21,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-const PRIMARY = "#1173d4"
-const CARD_BG = "#1a2634"
-const CARD_READ_BG = "#151f2b"
 
 type FilterId = "all" | "unread" | "archives" | "security" | "mentions"
 
@@ -107,7 +104,7 @@ export function NotificationsPage() {
   const [filter, setFilter] = useState<FilterId>("all")
   const [search, setSearch] = useState("")
   const [items, setItems] = useState(MOCK_NOTIFICATIONS)
-  const [page, setPage] = useState(1)
+  const [, setPage] = useState(1)
 
   const unreadCount = items.filter((n) => !n.read).length
 
@@ -149,11 +146,11 @@ export function NotificationsPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8 lg:px-12" style={{ backgroundColor: "#101922" }}>
+    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8 lg:px-12 bg-background text-foreground">
       {/* Breadcrumb + Title */}
       <section className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
-          <div className="mb-2 flex items-center gap-2 text-sm text-slate-400">
+          <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
             <Link to="/dashboard" className="hover:text-[#1173d4]">
               {t("nav.dashboard")}
             </Link>
@@ -163,7 +160,7 @@ export function NotificationsPage() {
           <h2 className="mb-2 text-3xl font-black tracking-tight text-white">
             {t("notificationsPage.title")}
           </h2>
-          <p className="text-lg text-slate-400">
+          <p className="text-lg text-muted-foreground">
             {t("notificationsPage.subtitle")}
           </p>
         </div>

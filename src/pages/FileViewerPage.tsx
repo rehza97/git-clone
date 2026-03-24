@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import { markdownComponents } from "@/components/MarkdownImage"
 import { SourceCodeViewer } from "@/components/SourceCodeViewer"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Lock, ArrowLeft } from "lucide-react"
 
 const MD_EXT = new Set(["md", "markdown"])
@@ -135,6 +136,7 @@ export function FileViewerPage() {
           </nav>
           <span className="sm:hidden font-mono text-sm text-muted-foreground truncate max-w-[180px]">{filePath}</span>
         </div>
+        <ThemeToggle className="text-muted-foreground hover:text-foreground" />
       </header>
 
       {/* Main: code viewer or markdown */}

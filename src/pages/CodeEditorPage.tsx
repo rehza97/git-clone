@@ -11,6 +11,7 @@ import { SourceCodeViewer } from "@/components/SourceCodeViewer"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 import { markdownComponents } from "@/components/MarkdownImage"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import {
   ArrowLeft,
   Lock,
@@ -29,7 +30,6 @@ const BORDER_DARK = "#233648"
 const SURFACE_DARK = "#16202a"
 const BG_DARK = "#101922"
 const TEXT_MUTED = "#92adc9"
-const CODE_BG = "#0d1117"
 
 const MD_EXT = new Set(["md", "markdown"])
 const IMAGE_EXT = new Set(["jpg", "jpeg", "png", "gif", "webp", "svg", "ico", "bmp", "avif"])
@@ -200,7 +200,7 @@ export function CodeEditorPage() {
   const langLabel = selectedPath ? getLanguageLabel(selectedPath) : "—"
   const previewKind = selectedPath ? getPreviewKind(selectedPath) : null
 
-  function renderTreeNodes(nodes: TreeNode[], parentPath: string, depth: number): React.ReactNode {
+  function renderTreeNodes(nodes: TreeNode[], _parentPath: string, depth: number): React.ReactNode {
     const sorted = [...nodes].sort((a, b) => {
       if (a.isFile !== b.isFile) return a.isFile ? 1 : -1
       return a.name.localeCompare(b.name)
@@ -287,6 +287,7 @@ export function CodeEditorPage() {
           </nav>
         </div>
         <div className="flex items-center gap-4 shrink-0">
+          <ThemeToggle className="text-[#92adc9] hover:bg-white/5 hover:text-white" />
           <div className="relative hidden sm:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5" style={{ color: TEXT_MUTED }} />
             <input

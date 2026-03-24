@@ -24,9 +24,11 @@ const TEAM_IMAGES = [
 
 export function AboutPage() {
   const { t } = useTranslation()
+  const projectGoals = t("about.projectGoals", { returnObjects: true }) as string[]
+  const projectAspects = t("about.projectAspects", { returnObjects: true }) as string[]
 
   return (
-    <div className="min-h-screen w-full bg-[#101922] text-slate-100">
+    <div className="min-h-screen w-full bg-background text-foreground">
       <div className="flex flex-1 flex-col items-center w-full">
         <div className="flex max-w-[960px] flex-col w-full gap-12 px-4 py-8 md:px-10 lg:px-16">
           {/* Hero with background image */}
@@ -45,10 +47,10 @@ export function AboutPage() {
                   {t("about.badge")}
                 </span>
               </div>
-              <h1 className="text-4xl font-black leading-tight tracking-tight text-white md:text-5xl">
+              <h1 className="text-4xl font-black leading-tight tracking-tight text-foreground md:text-5xl">
                 {t("about.heroTitle")}
               </h1>
-              <p className="text-lg leading-relaxed text-slate-300">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 {t("about.heroDesc")}
               </p>
             </div>
@@ -56,24 +58,24 @@ export function AboutPage() {
 
           {/* Mission stats / highlights */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="flex flex-col gap-3 rounded-xl border border-[#233648] bg-[#192633] p-6 transition-colors hover:border-primary/50">
+            <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
               <Database className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold text-white">{t("about.centralizedTitle")}</h3>
-              <p className="text-sm leading-relaxed text-[#92adc9]">
+              <h3 className="text-xl font-bold text-foreground">{t("about.centralizedTitle")}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {t("about.centralizedDesc")}
               </p>
             </div>
-            <div className="flex flex-col gap-3 rounded-xl border border-[#233648] bg-[#192633] p-6 transition-colors hover:border-primary/50">
+            <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
               <Scale className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold text-white">{t("about.decreeTitle")}</h3>
-              <p className="text-sm leading-relaxed text-[#92adc9]">
+              <h3 className="text-xl font-bold text-foreground">{t("about.decreeTitle")}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {t("about.decreeDesc")}
               </p>
             </div>
-            <div className="flex flex-col gap-3 rounded-xl border border-[#233648] bg-[#192633] p-6 transition-colors hover:border-primary/50">
+            <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
               <Lock className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold text-white">{t("about.sovereigntyTitle")}</h3>
-              <p className="text-sm leading-relaxed text-[#92adc9]">
+              <h3 className="text-xl font-bold text-foreground">{t("about.sovereigntyTitle")}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {t("about.sovereigntyDesc")}
               </p>
             </div>
@@ -82,14 +84,14 @@ export function AboutPage() {
           {/* Vision: two columns */}
           <div className="grid grid-cols-1 gap-12 py-8 md:grid-cols-12">
             <div className="flex flex-col gap-6 md:col-span-5">
-              <h2 className="text-3xl font-bold leading-tight text-white">
+              <h2 className="text-3xl font-bold leading-tight text-foreground">
                 {t("about.heritageTitle")}
               </h2>
               <div className="h-1 w-12 rounded-full bg-primary" />
-              <p className="leading-relaxed text-[#92adc9]">{t("about.heritageP1")}</p>
-              <p className="leading-relaxed text-[#92adc9]">{t("about.heritageP2")}</p>
+              <p className="leading-relaxed text-muted-foreground">{t("about.heritageP1")}</p>
+              <p className="leading-relaxed text-muted-foreground">{t("about.heritageP2")}</p>
               <div className="mt-4 rounded-r-lg border-l-4 border-primary bg-primary/10 p-4">
-                <p className="italic text-slate-200">
+                <p className="italic text-foreground">
                   &quot;{t("about.heritageQuote")}&quot;
                 </p>
               </div>
@@ -103,13 +105,51 @@ export function AboutPage() {
             </div>
           </div>
 
+          {/* Who We Are */}
+          <section className="flex flex-col gap-8 py-8">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl font-bold text-foreground">{t("about.whoWeAreTitle")}</h2>
+              <p className="leading-relaxed text-muted-foreground">{t("about.whoWeAreIntro")}</p>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="rounded-xl border border-border bg-card p-6">
+                <h3 className="mb-4 text-lg font-bold text-foreground">{t("about.projectGoalsTitle")}</h3>
+                <ul className="list-disc space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+                  {projectGoals.map((goal, index) => (
+                    <li key={`goal-${index}`}>{goal}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-xl border border-border bg-card p-6">
+                <h3 className="mb-4 text-lg font-bold text-foreground">{t("about.projectAspectsTitle")}</h3>
+                <ul className="list-disc space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+                  {projectAspects.map((aspect, index) => (
+                    <li key={`aspect-${index}`}>{aspect}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="mb-3 text-lg font-bold text-foreground">{t("about.foundingTeamTitle")}</h3>
+              <p className="text-sm font-semibold text-primary">{t("about.foundersLabel")}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{t("about.founder1")}</p>
+              <p className="text-sm text-muted-foreground">{t("about.founder2")}</p>
+              <p className="mt-4 text-sm font-semibold text-primary">{t("about.supervisorLabel")}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{t("about.supervisorName")}</p>
+              <p className="mt-4 text-sm font-semibold text-primary">{t("about.contactInfoTitle")}</p>
+            </div>
+          </section>
+
           {/* Roadmap */}
           <section className="flex flex-col gap-8 py-8">
             <div className="flex flex-col gap-2">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-foreground">
                 {t("about.roadmapTitle")}
               </h2>
-              <p className="text-[#92adc9]">{t("about.roadmapSubtitle")}</p>
+              <p className="text-muted-foreground">{t("about.roadmapSubtitle")}</p>
             </div>
             <div className="relative">
               <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-[#233648] md:left-1/2 md:-ml-px" />

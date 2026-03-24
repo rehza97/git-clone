@@ -1,13 +1,17 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom"
+import { Outlet, NavLink, Link, useLocation } from "react-router-dom"
+import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/AuthContext"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { useTranslation } from "react-i18next"
 import { persistLanguage } from "@/i18n"
 
@@ -72,27 +76,6 @@ export function RootLayout() {
                 </Button>
               )}
             </NavLink>
-            <NavLink to="/institutions">
-              {({ isActive }) => (
-                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  {t("nav.institutions")}
-                </Button>
-              )}
-            </NavLink>
-            <NavLink to="/docs">
-              {({ isActive }) => (
-                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  {t("nav.docs")}
-                </Button>
-              )}
-            </NavLink>
-            <NavLink to="/api">
-              {({ isActive }) => (
-                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  {t("nav.api")}
-                </Button>
-              )}
-            </NavLink>
             <NavLink to="/support">
               {({ isActive }) => (
                 <Button variant={isActive ? "secondary" : "ghost"} size="sm">
@@ -100,13 +83,30 @@ export function RootLayout() {
                 </Button>
               )}
             </NavLink>
-            <NavLink to="/training">
-              {({ isActive }) => (
-                <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                  {t("nav.training")}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <span>Resources</span>
+                  <ChevronDown className="ml-1 h-3.5 w-3.5 opacity-80" />
                 </Button>
-              )}
-            </NavLink>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuLabel>Resources</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/institutions">{t("nav.institutions")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/docs">{t("nav.docs")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/api">{t("nav.api")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/training">{t("nav.training")}</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <NavLink to="/pricing">
               {({ isActive }) => (
                 <Button variant={isActive ? "secondary" : "ghost"} size="sm">
@@ -114,25 +114,12 @@ export function RootLayout() {
                 </Button>
               )}
             </NavLink>
+            <ThemeToggle />
             {/* Language switcher placeholder - wired in i18n phase */}
             <LanguageSwitcher />
             {!loading &&
               (user ? (
                 <>
-                  <NavLink to="/users">
-                    {({ isActive }) => (
-                      <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                        {t("nav.users")}
-                      </Button>
-                    )}
-                  </NavLink>
-                  <NavLink to="/profile">
-                    {({ isActive }) => (
-                      <Button variant={isActive ? "secondary" : "ghost"} size="sm">
-                        {t("nav.settings")}
-                      </Button>
-                    )}
-                  </NavLink>
                   {profile?.username && (
                     <NavLink to={`/${profile.username}`}>
                       <span className="text-sm opacity-90 hover:opacity-100">@{profile.username}</span>
@@ -145,6 +132,13 @@ export function RootLayout() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
+                      <DropdownMenuItem asChild>
+                        <Link to="/users">{t("nav.users")}</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/profile">{t("nav.settings")}</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => signOut()}>
                         {t("nav.signOut")}
                       </DropdownMenuItem>

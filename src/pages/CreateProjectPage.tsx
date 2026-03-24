@@ -9,7 +9,6 @@ import {
   Rocket,
   GraduationCap,
   User,
-  HelpCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,11 +25,9 @@ import { useAuth } from "@/contexts/AuthContext"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { createRepo } from "@/lib/repos"
 import type { RepoProjectType, RepoVisibility } from "@/types/schema"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 const PRIMARY = "#1173d4"
-const PRIMARY_DARK = "#0d5fb0"
-const BG_DARK = "#0f172a"
-const SURFACE_DARK = "#1e293b"
 
 const PROJECT_TYPES: { value: RepoProjectType; icon: React.ElementType; titleKey: string; descKey: string; recommended?: boolean }[] = [
   { value: "startup", icon: Rocket, titleKey: "createProject.startupProject", descKey: "createProject.startupProjectDesc", recommended: true },
@@ -44,7 +41,6 @@ export function CreateProjectPage() {
   const profile = useUserProfile()
   const navigate = useNavigate()
   const [step, setStep] = useState(1)
-  const [universityLinked, setUniversityLinked] = useState(false)
   const [projectType, setProjectType] = useState<RepoProjectType>("startup")
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -70,23 +66,24 @@ export function CreateProjectPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col font-sans text-slate-100 antialiased" style={{ backgroundColor: BG_DARK }}>
+    <div className="flex min-h-screen flex-col font-sans text-foreground antialiased bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-[#1e293b]/90 px-6 backdrop-blur-md lg:px-12">
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 px-6 backdrop-blur-md lg:px-12">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex size-8 items-center justify-center rounded bg-[#1173d4]/20 text-[#1173d4]">
               <Code2 className="h-5 w-5" />
             </div>
-            <h1 className="text-lg font-bold tracking-tight text-white">
-              ASCAP <span className="font-normal text-slate-400">Onboarding</span>
+            <h1 className="text-lg font-bold tracking-tight text-foreground">
+              ASCAP <span className="font-normal text-muted-foreground">Onboarding</span>
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/support" className="text-sm font-medium text-slate-500 transition-colors hover:text-white">
+            <Link to="/support" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
               {t("createProject.helpCenter")}
             </Link>
-            <div className="h-6 w-px bg-slate-700" />
+            <ThemeToggle className="rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" />
+            <div className="h-6 w-px bg-border" />
             <div className="flex items-center gap-3">
               <div className="hidden text-right sm:block">
                 <p className="text-sm font-semibold leading-none text-white">{profile?.displayName || profile?.username || "User"}</p>
@@ -154,7 +151,7 @@ export function CreateProjectPage() {
                   <p className="text-slate-400">{t("createProject.step1Subtitle")}</p>
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  <Button onClick={() => { setUniversityLinked(true); setStep(2) }} className="rounded-lg bg-[#1173d4] px-6 py-3 font-semibold text-white shadow-lg hover:bg-[#0d5fb0]" style={{ boxShadow: "0 10px 15px -3px rgba(17,115,212,0.25)" }}>
+                  <Button onClick={() => { setStep(2) }} className="rounded-lg bg-[#1173d4] px-6 py-3 font-semibold text-white shadow-lg hover:bg-[#0d5fb0]" style={{ boxShadow: "0 10px 15px -3px rgba(17,115,212,0.25)" }}>
                     {t("createProject.linkAccount")}
                   </Button>
                   <Button variant="outline" onClick={() => setStep(2)} className="rounded-lg border-slate-700 text-slate-300 hover:bg-slate-800">

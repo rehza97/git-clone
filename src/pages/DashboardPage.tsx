@@ -25,8 +25,6 @@ import { listReposByOwner, type RepoWithId } from "@/lib/repos"
 import type { Timestamp } from "firebase/firestore"
 
 const PRIMARY = "#1173d4"
-const CARD_BG = "#1a2634"
-const TABLE_HEADER_BG = "#151f2b"
 
 function formatDate(repo: RepoWithId): string {
   const ts = (repo as RepoWithId & { createdAt?: Timestamp }).createdAt
@@ -67,13 +65,13 @@ export function DashboardPage() {
   if (loading) {
     return (
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-12">
-        <p className="text-slate-400">{t("common.loading")}</p>
+        <p className="text-muted-foreground">{t("common.loading")}</p>
       </div>
     )
   }
 
   return (
-    <main className="min-h-full flex-1 antialiased" style={{ backgroundColor: "#101922" }}>
+    <main className="min-h-full flex-1 antialiased bg-background text-foreground">
       <div className="mx-auto w-full max-w-7xl px-6 py-8 lg:px-12">
       {/* Welcome Section */}
       <section className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

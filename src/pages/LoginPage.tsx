@@ -20,17 +20,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { persistLanguage } from "@/i18n"
 import { Checkbox } from "@/components/ui/checkbox"
 
 const LOGIN_PRIMARY = "#1173d4"
-const LOGIN_BG = "#101922"
-const LOGIN_CARD = "#151f2b"
+const LOGIN_BG = "var(--background)"
 const LOGIN_PATTERN = "radial-gradient(#1c2a38 1px, transparent 1px)"
 const LOGIN_PATTERN_SIZE = "30px 30px"
 
 export function LoginPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { signIn, signInWithGoogle } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -88,7 +88,7 @@ export function LoginPage() {
 
   return (
     <div
-      className="flex min-h-screen flex-col font-sans text-slate-100"
+      className="flex min-h-screen flex-col font-sans text-foreground bg-background"
       style={{
         backgroundColor: LOGIN_BG,
         backgroundImage: LOGIN_PATTERN,
@@ -96,21 +96,22 @@ export function LoginPage() {
       }}
     >
       {/* Header */}
-      <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 px-6 py-4 backdrop-blur-md lg:px-10" style={{ backgroundColor: `${LOGIN_BG}e6` }}>
-        <Link to="/" className="flex items-center gap-4 text-white">
+      <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-border px-6 py-4 backdrop-blur-md lg:px-10 bg-background/90">
+        <Link to="/" className="flex items-center gap-4 text-foreground">
           <div className="flex size-8 items-center justify-center" style={{ color: LOGIN_PRIMARY }}>
             <ShieldCheck className="h-7 w-7" />
           </div>
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-white">
+          <h2 className="text-xl font-bold leading-tight tracking-tight text-foreground">
             ASCAP
           </h2>
         </Link>
         <div className="flex gap-3">
+          <ThemeToggle className="min-w-[84px] rounded-lg border border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent" />
           <LanguageDropdown />
           <Link to="/support">
             <Button
               variant="outline"
-              className="min-w-[84px] rounded-lg border-slate-700 bg-transparent px-4 font-bold text-white hover:bg-slate-800"
+              className="min-w-[84px] rounded-lg border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent"
             >
               {t("login.help")}
             </Button>
@@ -124,13 +125,13 @@ export function LoginPage() {
         <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: `${LOGIN_PRIMARY}1A` }} />
         <div className="pointer-events-none absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full blur-3xl" style={{ backgroundColor: `${LOGIN_PRIMARY}0D` }} />
 
-        <div className="relative z-10 w-full max-w-md space-y-8 rounded-2xl border border-slate-800 bg-[#151f2b] p-8 shadow-xl">
+        <div className="relative z-10 w-full max-w-md space-y-8 rounded-2xl border border-border bg-card p-8 shadow-xl">
           {/* Welcome */}
           <div className="text-center">
-            <h1 className="text-3xl font-black tracking-tight text-white">
+            <h1 className="text-3xl font-black tracking-tight text-foreground">
               {t("login.welcomeBack")}
             </h1>
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 text-sm text-muted-foreground">
               {t("login.welcomeSubtitle")}
             </p>
           </div>
@@ -152,10 +153,10 @@ export function LoginPage() {
             {/* Divider */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-700" />
+                <div className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-[#151f2b] px-2 text-slate-400">
+                <span className="bg-card px-2 text-muted-foreground">
                   {t("login.orContinueWithCredentials")}
                 </span>
               </div>
@@ -169,12 +170,12 @@ export function LoginPage() {
                 </Alert>
               )}
               <div>
-                <Label htmlFor="email" className="block text-sm font-medium leading-6 text-slate-200">
+                <Label htmlFor="email" className="block text-sm font-medium leading-6 text-foreground">
                   {t("login.emailAddress")}
                 </Label>
                 <div className="relative mt-2 rounded-md shadow-sm">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Mail className="h-5 w-5 text-slate-400" />
+                    <Mail className="h-5 w-5 text-muted-foreground" />
                   </div>
                   <Input
                     id="email"
@@ -185,18 +186,17 @@ export function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="block w-full rounded-lg border-0 py-3 pl-10 text-white ring-1 ring-inset ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#1173d4] sm:text-sm sm:leading-6"
-                    style={{ backgroundColor: LOGIN_BG }}
+                    className="block w-full rounded-lg border border-input py-3 pl-10 text-foreground placeholder:text-muted-foreground focus-visible:ring-ring/50 sm:text-sm sm:leading-6 bg-background"
                   />
                 </div>
               </div>
               <div>
-                <Label htmlFor="password" className="block text-sm font-medium leading-6 text-slate-200">
+                <Label htmlFor="password" className="block text-sm font-medium leading-6 text-foreground">
                   {t("login.password")}
                 </Label>
                 <div className="relative mt-2 rounded-md shadow-sm">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Lock className="h-5 w-5 text-slate-400" />
+                    <Lock className="h-5 w-5 text-muted-foreground" />
                   </div>
                   <Input
                     id="password"
@@ -207,13 +207,12 @@ export function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="block w-full rounded-lg border-0 py-3 pl-10 pr-10 text-white ring-1 ring-inset ring-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#1173d4] sm:text-sm sm:leading-6"
-                    style={{ backgroundColor: LOGIN_BG }}
+                    className="block w-full rounded-lg border border-input py-3 pl-10 pr-10 text-foreground placeholder:text-muted-foreground focus-visible:ring-ring/50 sm:text-sm sm:leading-6 bg-background"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-slate-400 transition-colors hover:text-[#1173d4]"
+                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-muted-foreground transition-colors hover:text-primary"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? (
@@ -232,7 +231,7 @@ export function LoginPage() {
                     onCheckedChange={(v) => setRememberMe(v === true)}
                     className="h-4 w-4 rounded border-slate-600 bg-slate-900/80 text-[#1173d4] focus:ring-[#1173d4]"
                   />
-                  <Label htmlFor="remember-me" className="ml-2 block text-sm text-slate-300">
+                  <Label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                     {t("login.rememberMe")}
                   </Label>
                 </div>
@@ -260,7 +259,7 @@ export function LoginPage() {
             </form>
           </div>
 
-          <p className="mt-10 text-center text-sm text-slate-400">
+          <p className="mt-10 text-center text-sm text-muted-foreground">
             {t("login.noAccount")}{" "}
             <Link
               to="/register"
@@ -274,7 +273,7 @@ export function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-slate-800 py-6 text-center text-xs text-slate-500 backdrop-blur-sm" style={{ backgroundColor: `${LOGIN_BG}80` }}>
+      <footer className="w-full border-t border-border py-6 text-center text-xs text-muted-foreground backdrop-blur-sm bg-background/70">
         <p>{t("login.footerCopyright")}</p>
       </footer>
     </div>
@@ -294,7 +293,7 @@ function LanguageDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="min-w-[84px] rounded-lg border-slate-700 bg-transparent px-4 font-bold text-white hover:bg-slate-800"
+          className="min-w-[84px] rounded-lg border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent"
         >
           {label}
         </Button>

@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { persistLanguage } from "@/i18n"
 
 const LANDING_BG = "#0f172a"
@@ -91,6 +92,7 @@ export function LandingPage() {
             >
               {t("landing.register")}
             </Link>
+            <ThemeToggle className="text-slate-300 hover:bg-[#1e293b] hover:text-white" />
             <LanguageSwitcher />
           </div>
         </div>

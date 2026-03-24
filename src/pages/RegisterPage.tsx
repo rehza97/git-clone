@@ -19,10 +19,9 @@ import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/AuthContext"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 const REGISTER_PRIMARY = "#1173d4"
-const REGISTER_BG = "#101922"
-const REGISTER_HEADER_BG = "#111a22"
 const REGISTER_CARD = "#192633"
 
 const STEPS = [
@@ -110,29 +109,30 @@ export function RegisterPage() {
     (step === 4 && acceptTerms)
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden font-sans text-slate-100 antialiased" style={{ backgroundColor: REGISTER_BG }}>
+    <div className="flex min-h-screen flex-col overflow-x-hidden font-sans text-foreground antialiased bg-background">
       {/* Header - matches stitch */}
-      <header className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 px-6 py-4 lg:px-10" style={{ backgroundColor: REGISTER_HEADER_BG }}>
+      <header className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-border px-6 py-4 lg:px-10 bg-background/90 backdrop-blur-md">
         <Link to="/" className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center" style={{ color: REGISTER_PRIMARY }}>
             <Code2 className="h-7 w-7" />
           </div>
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-white">ASCAP</h2>
+          <h2 className="text-xl font-bold leading-tight tracking-tight text-foreground">ASCAP</h2>
         </Link>
         <div className="hidden flex-1 items-center justify-end gap-8 md:flex">
           <nav className="flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium text-slate-300 transition-colors hover:text-[#1173d4]">Home</Link>
-            <Link to="/about" className="text-sm font-medium text-slate-300 transition-colors hover:text-[#1173d4]">About</Link>
-            <Link to="/explore" className="text-sm font-medium text-slate-300 transition-colors hover:text-[#1173d4]">Projects</Link>
-            <Link to="/support" className="text-sm font-medium text-slate-300 transition-colors hover:text-[#1173d4]">Contact</Link>
+            <Link to="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Home</Link>
+            <Link to="/about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">About</Link>
+            <Link to="/explore" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Projects</Link>
+            <Link to="/support" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
           </nav>
+          <ThemeToggle className="rounded-lg px-3 text-muted-foreground hover:bg-accent hover:text-accent-foreground" />
           <Link to="/login">
             <Button className="min-w-[84px] rounded-lg px-6 font-bold shadow-md transition-colors hover:opacity-90" style={{ backgroundColor: REGISTER_PRIMARY, boxShadow: "0 0 15px rgba(17,115,212,0.2)" }}>
               Login
             </Button>
           </Link>
         </div>
-        <Link to="/login" className="rounded-lg px-4 py-2 text-slate-300 md:hidden">Login</Link>
+        <Link to="/login" className="rounded-lg px-4 py-2 text-muted-foreground md:hidden">Login</Link>
       </header>
 
       <main className="flex flex-1 justify-center px-4 py-8 md:px-6 lg:px-8">

@@ -19,7 +19,6 @@ import {
   Download,
   Star,
   ChevronDown,
-  FolderOpen,
   Search,
   Folder,
   Link2,
