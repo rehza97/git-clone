@@ -95,7 +95,7 @@
     "footerBlog": "المدونة",
     "footerPartners": "الشركاء",
     "footerContact": "التواصل",
-    "footerCopyright": "© 2023 ASCAP. جميع الحقوق محفوظة. وزارة التعليم العالي والبحث العلمي.",
+    "footerCopyright": "© 2026 ASCAP. جميع الحقوق محفوظة. وزارة التعليم العالي والبحث العلمي.",
     "footerPrivacy": "سياسة الخصوصية",
     "footerTerms": "شروط الخدمة",
     "navAboutUs": "من نحن",
@@ -155,7 +155,7 @@
     "errorGoogle": "حدث خطأ عند تسجيل الدخول عبر Google.",
     "language": "اللغة",
     "help": "المساعدة",
-    "footerCopyright": "© 2024 ASCAP. جميع الحقوق محفوظة. المنصة الجزائرية لأرشفة الشفرات المصدرية."
+    "footerCopyright": "© 2026 ASCAP. جميع الحقوق محفوظة. المنصة الجزائرية لأرشفة الشفرات المصدرية."
   },
   "register": {
     "title": "إنشاء حساب ASCAP",
@@ -272,7 +272,7 @@
     "needHelp": "تحتاج مساعدة؟",
     "readGuidelines": "اقرأ إرشادات القرار 1275",
     "orContactSupport": "أو تواصل مع الدعم.",
-    "footerCopyright": "© 2024 ASCAP. مبادرة السيادة الرقمية الجزائرية.",
+    "footerCopyright": "© 2026 ASCAP. مبادرة السيادة الرقمية الجزائرية.",
     "universityLinked": "تم ربط الحساب الجامعي"
   },
   "explore": {
@@ -613,7 +613,7 @@
     "certificateIdPlaceholder": "ASCAP-CERT-XXXX",
     "verifyNow": "تحقق الآن",
     "verificationNote": "يتم تسجيل طلبات التحقق لأسباب أمنية. استخدم السجل العام للتحقق الجماعي.",
-    "footerCopyright": "© 2024 ASCAP - مبادرة السيادة الرقمية الوطنية.",
+    "footerCopyright": "© 2026 ASCAP - مبادرة السيادة الرقمية الوطنية.",
     "searchPlaceholder": "البحث في الأرشيف..."
   },
   "repo": {

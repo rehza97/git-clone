@@ -82,7 +82,7 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     timeLabel: "Oct 23, 10:30 AM",
     titleKey: "notificationsPage.certificateGeneratedTitle",
     bodyKey: "notificationsPage.certificateGeneratedBody",
-    bodyParams: { name: "Smart Home IoT", ref: "ASCAP-2023-892" },
+    bodyParams: { name: "Smart Home IoT", ref: "ASCAP-2026-892" },
     actionLabelKey: "notificationsPage.downloadPdf",
     leftBorder: "none",
     icon: "purple",

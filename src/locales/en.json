@@ -95,7 +95,7 @@
     "footerBlog": "Blog",
     "footerPartners": "Partners",
     "footerContact": "Contact",
-    "footerCopyright": "© 2023 ASCAP. All rights reserved. Ministry of Higher Education and Scientific Research.",
+    "footerCopyright": "© 2026 ASCAP. All rights reserved. Ministry of Higher Education and Scientific Research.",
     "footerPrivacy": "Privacy Policy",
     "footerTerms": "Terms of Service",
     "navResearch": "Research",
@@ -156,7 +156,7 @@
     "errorGoogle": "An error occurred signing in with Google.",
     "language": "Language",
     "help": "Help",
-    "footerCopyright": "© 2024 ASCAP. All rights reserved. Algerian Source Code Archive Platform."
+    "footerCopyright": "© 2026 ASCAP. All rights reserved. Algerian Source Code Archive Platform."
   },
   "register": {
     "title": "Create your ASCAP Account",
@@ -273,7 +273,7 @@
     "needHelp": "Need help deciding?",
     "readGuidelines": "Read the Decision 1275 Guidelines",
     "orContactSupport": "or contact support.",
-    "footerCopyright": "© 2024 ASCAP. Algerian Digital Sovereignty Initiative.",
+    "footerCopyright": "© 2026 ASCAP. Algerian Digital Sovereignty Initiative.",
     "universityLinked": "University Account Linked"
   },
   "explore": {
@@ -614,7 +614,7 @@
     "certificateIdPlaceholder": "ASCAP-CERT-XXXX",
     "verifyNow": "Verify Now",
     "verificationNote": "Verification requests are logged for security purposes. Access public ledger for bulk verification.",
-    "footerCopyright": "© 2024 ASCAP - National Digital Sovereignty Initiative.",
+    "footerCopyright": "© 2026 ASCAP - National Digital Sovereignty Initiative.",
     "searchPlaceholder": "Search archives..."
   },
   "repo": {

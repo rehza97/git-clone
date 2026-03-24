@@ -54,9 +54,9 @@ type TabId = "overview" | "repositories" | "decision1275" | "activity"
 
 /** Mock preserved project for Decision 1275 */
 const MOCK_PRESERVED = [
-  { id: "1", title: "Start-up: Smart Irrigation DZ", desc: "IoT system for arid regions agriculture optimization.", date: "Oct 24, 2023", status: "patented" as const },
-  { id: "2", title: "EdTech: School Management V2", desc: "Comprehensive ERP for secondary schools.", date: "Sep 15, 2023", status: "label" as const },
-  { id: "3", title: "AI: Traffic Control Algiers", desc: "Computer vision for traffic light optimization.", date: "Jun 02, 2023", status: "pending" as const },
+  { id: "1", title: "Start-up: Smart Irrigation DZ", desc: "IoT system for arid regions agriculture optimization.", date: "Oct 24, 2026", status: "patented" as const },
+  { id: "2", title: "EdTech: School Management V2", desc: "Comprehensive ERP for secondary schools.", date: "Sep 15, 2026", status: "label" as const },
+  { id: "3", title: "AI: Traffic Control Algiers", desc: "Computer vision for traffic light optimization.", date: "Jun 02, 2026", status: "pending" as const },
 ]
 
 /** Mock activity items */

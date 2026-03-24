@@ -95,7 +95,7 @@
     "footerBlog": "Blog",
     "footerPartners": "Partenaires",
     "footerContact": "Contact",
-    "footerCopyright": "© 2023 ASCAP. Tous droits réservés. Ministère de l'Enseignement supérieur et de la Recherche scientifique.",
+    "footerCopyright": "© 2026 ASCAP. Tous droits réservés. Ministère de l'Enseignement supérieur et de la Recherche scientifique.",
     "footerPrivacy": "Politique de confidentialité",
     "footerTerms": "Conditions d'utilisation",
     "navAboutUs": "À propos",
@@ -155,7 +155,7 @@
     "errorGoogle": "Une erreur s'est produite avec Google.",
     "language": "Langue",
     "help": "Aide",
-    "footerCopyright": "© 2024 ASCAP. Tous droits réservés. Plateforme algérienne d'archivage du code source."
+    "footerCopyright": "© 2026 ASCAP. Tous droits réservés. Plateforme algérienne d'archivage du code source."
   },
   "register": {
     "title": "Créez votre compte ASCAP",
@@ -272,7 +272,7 @@
     "needHelp": "Besoin d'aide ?",
     "readGuidelines": "Lire le guide Décision 1275",
     "orContactSupport": "ou contacter le support.",
-    "footerCopyright": "© 2024 ASCAP. Initiative algérienne pour la souveraineté numérique.",
+    "footerCopyright": "© 2026 ASCAP. Initiative algérienne pour la souveraineté numérique.",
     "universityLinked": "Compte universitaire lié"
   },
   "explore": {
@@ -613,7 +613,7 @@
     "certificateIdPlaceholder": "ASCAP-CERT-XXXX",
     "verifyNow": "Vérifier",
     "verificationNote": "Les demandes de vérification sont enregistrées à des fins de sécurité. Accédez au registre public pour une vérification en masse.",
-    "footerCopyright": "© 2024 ASCAP - Initiative nationale pour la souveraineté numérique.",
+    "footerCopyright": "© 2026 ASCAP - Initiative nationale pour la souveraineté numérique.",
     "searchPlaceholder": "Rechercher dans les archives..."
   },
   "repo": {
