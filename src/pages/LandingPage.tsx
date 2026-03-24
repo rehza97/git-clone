@@ -22,9 +22,9 @@ import {
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { persistLanguage } from "@/i18n"
 
-const LANDING_BG = "#0f172a"
-const LANDING_SURFACE = "#1e293b"
-const LANDING_SURFACE_HL = "#334155"
+const LANDING_BG = "var(--background)"
+const LANDING_SURFACE = "var(--card)"
+const LANDING_SURFACE_HL = "var(--border)"
 const LANDING_PRIMARY = "#10b981"
 
 const AVATARS = [
@@ -38,11 +38,10 @@ export function LandingPage() {
 
   return (
     <div
-      className="relative flex min-h-screen w-full flex-col overflow-x-hidden text-slate-100 antialiased selection:bg-[#10b981] selection:text-white"
-      style={{ backgroundColor: LANDING_BG }}
+      className="relative flex min-h-screen w-full flex-col overflow-x-hidden text-foreground bg-background antialiased selection:bg-[#10b981] selection:text-white"
     >
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0f172a]/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2">
             <div
@@ -51,26 +50,26 @@ export function LandingPage() {
             >
               <Code2 className="h-5 w-5" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold tracking-tight text-foreground">
               ASCAP
             </span>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link
               to="/explore"
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-[#10b981]"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-[#10b981]"
             >
               {t("landing.explore")}
             </Link>
             <Link
               to="/docs"
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-[#10b981]"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-[#10b981]"
             >
               {t("nav.docs")}
             </Link>
             <Link
               to="/about"
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-[#10b981]"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-[#10b981]"
             >
               {t("landing.navAboutUs")}
             </Link>
@@ -78,7 +77,7 @@ export function LandingPage() {
           <div className="flex items-center gap-3">
             <Link
               to="/login"
-              className="hidden sm:flex h-9 items-center justify-center rounded-lg px-4 text-sm font-medium text-slate-300 transition-colors hover:bg-[#1e293b]"
+              className="hidden sm:flex h-9 items-center justify-center rounded-lg px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent"
             >
               {t("landing.login")}
             </Link>
@@ -92,7 +91,7 @@ export function LandingPage() {
             >
               {t("landing.register")}
             </Link>
-            <ThemeToggle className="text-slate-300 hover:bg-[#1e293b] hover:text-white" />
+            <ThemeToggle className="text-muted-foreground hover:bg-accent hover:text-accent-foreground" />
             <LanguageSwitcher />
           </div>
         </div>
@@ -128,7 +127,7 @@ export function LandingPage() {
                   </span>
                   {t("landing.badge1275")}
                 </div>
-                <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+                <h1 className="text-4xl font-black tracking-tight text-foreground sm:text-5xl lg:text-6xl">
                   {t("landing.heroTitle")} <br />
                   <span
                     className="bg-gradient-to-r from-[#10b981] to-blue-500 bg-clip-text text-transparent"
@@ -136,7 +135,7 @@ export function LandingPage() {
                     {t("landing.heroTitleHighlight")}
                   </span>
                 </h1>
-                <p className="mx-auto max-w-2xl text-lg text-slate-400 lg:mx-0">
+                <p className="mx-auto max-w-2xl text-lg text-muted-foreground lg:mx-0">
                   {t("landing.heroSubtitle")}
                 </p>
                 <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-start">
@@ -155,19 +154,19 @@ export function LandingPage() {
                   <Link to="/explore">
                     <Button
                       variant="outline"
-                      className="h-12 gap-2 rounded-lg border-[#334155] bg-[#1e293b]/50 px-8 font-bold text-white backdrop-blur-sm transition-all hover:bg-[#1e293b]"
+                      className="h-12 gap-2 rounded-lg border-border bg-card/60 px-8 font-bold text-foreground backdrop-blur-sm transition-all hover:bg-accent"
                     >
                       <Search className="h-5 w-5" />
                       {t("landing.exploreRepos")}
                     </Button>
                   </Link>
                 </div>
-                <div className="flex items-center justify-center gap-4 pt-8 text-sm text-slate-500 lg:justify-start">
+                <div className="flex items-center justify-center gap-4 pt-8 text-sm text-muted-foreground lg:justify-start">
                   <div className="flex -space-x-2">
                     {AVATARS.map((src, i) => (
                       <div
                         key={i}
-                        className="h-8 w-8 overflow-hidden rounded-full border-2 border-[#0f172a] bg-slate-700"
+                        className="h-8 w-8 overflow-hidden rounded-full border-2 border-background bg-muted"
                       >
                         <img src={src} alt="" className="h-full w-full object-cover" />
                       </div>
@@ -175,7 +174,7 @@ export function LandingPage() {
                   </div>
                   <p>
                     {t("landing.trustedBy")}{" "}
-                    <span className="font-semibold text-white">
+                    <span className="font-semibold text-foreground">
                       {t("landing.trustedByCount")}
                     </span>{" "}
                     {t("landing.trustedBySuffix")}
@@ -193,32 +192,32 @@ export function LandingPage() {
                 <div
                   className="relative overflow-hidden rounded-2xl border shadow-2xl"
                   style={{
-                    backgroundColor: LANDING_SURFACE,
-                    borderColor: LANDING_SURFACE_HL,
+                    backgroundColor: "var(--card)",
+                    borderColor: "var(--border)",
                   }}
                 >
                   <div
                     className="flex items-center gap-2 border-b px-4 py-3"
-                    style={{ borderColor: LANDING_SURFACE_HL, backgroundColor: LANDING_BG }}
+                    style={{ borderColor: "var(--border)", backgroundColor: "var(--background)" }}
                   >
                     <div className="flex gap-1.5">
                       <div className="h-3 w-3 rounded-full bg-red-500" />
                       <div className="h-3 w-3 rounded-full bg-yellow-500" />
                       <div className="h-3 w-3 rounded-full bg-green-500" />
                     </div>
-                    <div className="mx-auto font-mono text-xs text-slate-500">
+                    <div className="mx-auto font-mono text-xs text-muted-foreground">
                       main.py — ASCAP
                     </div>
                   </div>
-                  <div className="relative overflow-hidden p-6 font-mono text-sm" style={{ backgroundColor: LANDING_BG }}>
+                  <div className="relative overflow-hidden p-6 font-mono text-sm bg-background">
                     <div className="absolute right-0 top-0 p-6 opacity-20">
                       <Code2 className="h-24 w-24 text-[#10b981]" />
                     </div>
-                    <div className="relative space-y-2 text-slate-300">
+                    <div className="relative space-y-2 text-muted-foreground">
                       <p><span className="text-purple-400">import</span> ascap_core</p>
                       <p><span className="text-purple-400">from</span> sovereignty <span className="text-purple-400">import</span> LocalStorage</p>
                       <br />
-                      <p><span className="text-slate-500"># Initialize National Archive Node</span></p>
+                      <p><span className="text-muted-foreground"># Initialize National Archive Node</span></p>
                       <p><span className="text-blue-400">class</span> <span className="text-yellow-300">AlgerianRepository</span>:</p>
                       <p className="pl-4">def <span className="text-blue-400">__init__</span>(self):</p>
                       <p className="pl-8">self.location = <span className="text-green-400">&quot;Algiers/DataCenter_01&quot;</span></p>
@@ -244,19 +243,19 @@ export function LandingPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <dl className="grid grid-cols-2 gap-8 md:grid-cols-4">
               <div className="flex flex-col gap-1">
-                <dt className="text-sm font-medium text-slate-400">{t("landing.statRepos")}</dt>
+                <dt className="text-sm font-medium text-muted-foreground">{t("landing.statRepos")}</dt>
                 <dd className="text-3xl font-bold tracking-tight text-white">{t("landing.statReposCount")}</dd>
               </div>
               <div className="flex flex-col gap-1">
-                <dt className="text-sm font-medium text-slate-400">{t("landing.statPartners")}</dt>
+                <dt className="text-sm font-medium text-muted-foreground">{t("landing.statPartners")}</dt>
                 <dd className="text-3xl font-bold tracking-tight text-white">{t("landing.statPartnersCount")}</dd>
               </div>
               <div className="flex flex-col gap-1">
-                <dt className="text-sm font-medium text-slate-400">{t("landing.statDevelopers")}</dt>
+                <dt className="text-sm font-medium text-muted-foreground">{t("landing.statDevelopers")}</dt>
                 <dd className="text-3xl font-bold tracking-tight text-white">{t("landing.statDevelopersCount")}</dd>
               </div>
               <div className="flex flex-col gap-1">
-                <dt className="text-sm font-medium text-slate-400">{t("landing.statLoc")}</dt>
+                <dt className="text-sm font-medium text-muted-foreground">{t("landing.statLoc")}</dt>
                 <dd className="text-3xl font-bold tracking-tight text-white">{t("landing.statLocCount")}</dd>
               </div>
             </dl>
@@ -275,7 +274,7 @@ export function LandingPage() {
                   {t("landing.whyAscapTitle")}
                 </h3>
               </div>
-              <p className="max-w-md text-lg text-slate-400">
+              <p className="max-w-md text-lg text-muted-foreground">
                 {t("landing.whyAscapSubtitle")}
               </p>
             </div>
@@ -314,7 +313,7 @@ export function LandingPage() {
                   <h4 className="mb-3 text-xl font-bold text-white">
                     {t(titleKey)}
                   </h4>
-                  <p className="leading-relaxed text-slate-400">
+                  <p className="leading-relaxed text-muted-foreground">
                     {t(descKey)}
                   </p>
                 </div>
@@ -341,7 +340,7 @@ export function LandingPage() {
                 <h3 className="mb-2 text-2xl font-bold text-white md:text-3xl">
                   {t("landing.networkTitle")}
                 </h3>
-                <p className="max-w-lg text-slate-300">
+                <p className="max-w-lg text-muted-foreground">
                   {t("landing.networkSubtitle")}
                 </p>
               </div>
@@ -368,7 +367,7 @@ export function LandingPage() {
               {t("landing.ctaTitle")} <br />
               {t("landing.ctaTitleLine2")}
             </h2>
-            <p className="mb-10 text-lg text-slate-400">
+            <p className="mb-10 text-lg text-muted-foreground">
               {t("landing.ctaSubtitle")}
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
@@ -417,24 +416,24 @@ export function LandingPage() {
                 </div>
                 <span className="text-lg font-bold text-white">ASCAP</span>
               </div>
-              <p className="mb-6 max-w-xs text-sm text-slate-400">
+              <p className="mb-6 max-w-xs text-sm text-muted-foreground">
                 {t("landing.footerTagline")}
               </p>
               <div className="flex gap-4">
-                <a href="#" className="text-slate-400 transition-colors hover:text-white" aria-label="Like">
+                <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Like">
                   <ThumbsUp className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-slate-400 transition-colors hover:text-white" aria-label="Share">
+                <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Share">
                   <Share2 className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-slate-400 transition-colors hover:text-white" aria-label="Contact">
+                <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Contact">
                   <Mail className="h-5 w-5" />
                 </a>
               </div>
             </div>
             <div>
               <h4 className="mb-4 font-semibold text-white">{t("landing.footerPlatform")}</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/explore" className="transition-colors hover:text-[#10b981]">{t("landing.footerExplore")}</Link></li>
                 <li><Link to="/docs" className="transition-colors hover:text-[#10b981]">{t("landing.footerHowItWorks")}</Link></li>
                 <li><Link to="/pricing" className="transition-colors hover:text-[#10b981]">{t("landing.footerPricing")}</Link></li>
@@ -443,7 +442,7 @@ export function LandingPage() {
             </div>
             <div>
               <h4 className="mb-4 font-semibold text-white">{t("landing.footerResources")}</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/docs" className="transition-colors hover:text-[#10b981]">{t("landing.footerDocs")}</Link></li>
                 <li><Link to="/api" className="transition-colors hover:text-[#10b981]">{t("landing.footerApi")}</Link></li>
                 <li><Link to="/about" className="transition-colors hover:text-[#10b981]">{t("landing.footer1275")}</Link></li>
@@ -452,7 +451,7 @@ export function LandingPage() {
             </div>
             <div>
               <h4 className="mb-4 font-semibold text-white">{t("landing.footerCompany")}</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/about" className="transition-colors hover:text-[#10b981]">{t("landing.footerAbout")}</Link></li>
                 <li><a href="#" className="transition-colors hover:text-[#10b981]">{t("landing.footerBlog")}</a></li>
                 <li><Link to="/institutions" className="transition-colors hover:text-[#10b981]">{t("landing.footerPartners")}</Link></li>
@@ -464,12 +463,23 @@ export function LandingPage() {
             className="flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
             style={{ borderColor: LANDING_SURFACE_HL }}
           >
-            <p className="text-xs text-slate-500">
-              {t("landing.footerCopyright")}
-            </p>
-            <div className="flex gap-6 text-xs text-slate-500">
-              <a href="#" className="transition-colors hover:text-slate-300">{t("landing.footerPrivacy")}</a>
-              <a href="#" className="transition-colors hover:text-slate-300">{t("landing.footerTerms")}</a>
+            <div className="text-xs text-muted-foreground">
+              <p>{t("landing.footerCopyright")}</p>
+              <p className="mt-1">
+                Developed by{" "}
+                <a
+                  href="http://dataforgestack.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  dataforgestack.com
+                </a>
+              </p>
+            </div>
+            <div className="flex gap-6 text-xs text-muted-foreground">
+              <a href="#" className="transition-colors hover:text-foreground">{t("landing.footerPrivacy")}</a>
+              <a href="#" className="transition-colors hover:text-foreground">{t("landing.footerTerms")}</a>
             </div>
           </div>
         </div>
@@ -489,7 +499,7 @@ function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
           {label}
         </Button>
       </DropdownMenuTrigger>

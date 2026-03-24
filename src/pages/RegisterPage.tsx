@@ -22,8 +22,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 const REGISTER_PRIMARY = "#1173d4"
-const REGISTER_CARD = "#192633"
-
 const STEPS = [
   { key: "step1Name", id: "identity" },
   { key: "step2Name", id: "contact" },
@@ -143,25 +141,25 @@ export function RegisterPage() {
               <Lock className="h-4 w-4" />
               <span className="text-xs font-bold uppercase tracking-wider">{t("register.secureRegistration")}</span>
             </div>
-            <h1 className="text-3xl font-black leading-tight tracking-tight text-white md:text-4xl" style={{ letterSpacing: "-0.033em" }}>
+            <h1 className="text-3xl font-black leading-tight tracking-tight text-foreground md:text-4xl" style={{ letterSpacing: "-0.033em" }}>
               {t("register.title")}
             </h1>
-            <p className="text-base font-normal leading-relaxed text-slate-400 md:text-lg">
+            <p className="text-base font-normal leading-relaxed text-muted-foreground md:text-lg">
               {t("register.subtitle")}
             </p>
           </div>
 
           {/* Progress */}
-          <div className="rounded-xl border border-slate-800 p-6 shadow-sm" style={{ backgroundColor: REGISTER_CARD }}>
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
             <div className="flex items-center justify-between gap-6">
-              <p className="text-base font-bold leading-normal text-white">
+              <p className="text-base font-bold leading-normal text-foreground">
                 {t("register.stepOf", { current: step, stepName: t(stepNameKey) })}
               </p>
-              <span className="text-sm font-medium text-slate-400">
+              <span className="text-sm font-medium text-muted-foreground">
                 {t("register.percentCompleted", { percent })}
               </span>
             </div>
-            <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-slate-700">
+            <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
               <div
                 className="h-full rounded-full transition-all duration-500 ease-in-out"
                 style={{ width: `${percent}%`, backgroundColor: REGISTER_PRIMARY, boxShadow: "0 0 10px rgba(17,115,212,0.5)" }}
@@ -184,13 +182,12 @@ export function RegisterPage() {
             {step === 1 && (
               <>
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-lg font-bold text-white">{t("register.selectRole")}</h3>
+                  <h3 className="text-lg font-bold text-foreground">{t("register.selectRole")}</h3>
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     {ROLES.map(({ value, icon: Icon, titleKey, descKey }) => (
                       <label
                         key={value}
-                        className="group relative flex cursor-pointer items-start gap-4 rounded-xl border border-slate-700 p-5 transition-all hover:border-[#1173d4] hover:shadow-md"
-                        style={{ backgroundColor: REGISTER_CARD }}
+                        className="group relative flex cursor-pointer items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:border-[#1173d4] hover:shadow-md"
                       >
                         <input
                           type="radio"
@@ -198,22 +195,22 @@ export function RegisterPage() {
                           value={value}
                           checked={role === value}
                           onChange={() => setRole(value)}
-                          className="mt-1 h-5 w-5 shrink-0 border-2 border-slate-500 bg-transparent text-[#1173d4] focus:ring-[#1173d4] focus:ring-offset-0"
+                          className="mt-1 h-5 w-5 shrink-0 border-2 border-input bg-transparent text-[#1173d4] focus:ring-[#1173d4] focus:ring-offset-0"
                           style={{ accentColor: REGISTER_PRIMARY }}
                         />
                         <div className="flex min-w-0 flex-1 flex-col gap-1">
                           <div className="flex items-center gap-2">
                             <Icon className="h-5 w-5 shrink-0" style={{ color: REGISTER_PRIMARY }} />
-                            <p className="text-base font-bold leading-normal text-white">{t(titleKey)}</p>
+                            <p className="text-base font-bold leading-normal text-foreground">{t(titleKey)}</p>
                           </div>
-                          <p className="text-sm font-normal leading-normal text-slate-400">{t(descKey)}</p>
+                          <p className="text-sm font-normal leading-normal text-muted-foreground">{t(descKey)}</p>
                         </div>
                       </label>
                     ))}
                   </div>
                 </div>
                 <div className="flex flex-col gap-4 pt-2">
-                  <Label className="text-sm font-semibold leading-normal text-white">
+                  <Label className="text-sm font-semibold leading-normal text-foreground">
                     {t("register.affiliationLabel")}
                   </Label>
                   <div className="relative">
@@ -221,13 +218,13 @@ export function RegisterPage() {
                       value={affiliation}
                       onChange={(e) => setAffiliation(e.target.value)}
                       placeholder={t("register.affiliationPlaceholder")}
-                      className="h-14 resize-none overflow-hidden rounded-lg border-slate-700 bg-[#192633] p-4 pr-12 text-base font-normal text-white shadow-sm transition-shadow placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 resize-none overflow-hidden rounded-lg border-input bg-background p-4 pr-12 text-base font-normal text-foreground shadow-sm transition-shadow placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
                     />
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
                       <Search className="h-5 w-5" />
                     </div>
                   </div>
-                  <p className="text-xs text-slate-400">{t("register.affiliationHint")}</p>
+                  <p className="text-xs text-muted-foreground">{t("register.affiliationHint")}</p>
                 </div>
               </>
             )}
@@ -236,22 +233,22 @@ export function RegisterPage() {
             {step === 2 && (
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="fullName" className="text-sm font-semibold text-white">{t("register.fullName")}</Label>
+                  <Label htmlFor="fullName" className="text-sm font-semibold text-foreground">{t("register.fullName")}</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                    <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="fullName"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder={t("register.fullNamePlaceholder")}
-                      className="h-14 rounded-lg border-slate-700 bg-[#192633] pl-10 text-white placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
                     />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="email" className="text-sm font-semibold text-white">{t("register.email")}</Label>
+                  <Label htmlFor="email" className="text-sm font-semibold text-foreground">{t("register.email")}</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                    <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
@@ -260,7 +257,7 @@ export function RegisterPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={t("register.emailPlaceholder")}
-                      className="h-14 rounded-lg border-slate-700 bg-[#192633] pl-10 text-white placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
                     />
                   </div>
                 </div>
@@ -271,7 +268,7 @@ export function RegisterPage() {
             {step === 3 && (
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="password" className="text-sm font-semibold text-white">{t("register.password")}</Label>
+                  <Label htmlFor="password" className="text-sm font-semibold text-foreground">{t("register.password")}</Label>
                   <Input
                     id="password"
                     type="password"
@@ -281,11 +278,11 @@ export function RegisterPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t("register.passwordPlaceholder")}
-                    className="h-14 rounded-lg border-slate-700 bg-[#192633] text-white placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="confirmPassword" className="text-sm font-semibold text-white">{t("register.confirmPassword")}</Label>
+                  <Label htmlFor="confirmPassword" className="text-sm font-semibold text-foreground">{t("register.confirmPassword")}</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -295,7 +292,7 @@ export function RegisterPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder={t("register.confirmPasswordPlaceholder")}
-                    className="h-14 rounded-lg border-slate-700 bg-[#192633] text-white placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
                   />
                   {confirmPassword && password !== confirmPassword && (
                     <p className="text-xs text-amber-400">{t("register.passwordsMismatch")}</p>
@@ -306,21 +303,21 @@ export function RegisterPage() {
 
             {/* Step 4: Review & Terms */}
             {step === 4 && (
-              <div className="flex flex-col gap-4 rounded-xl border border-slate-700 p-6" style={{ backgroundColor: REGISTER_CARD }}>
-                <p className="text-sm text-slate-300">
-                  <span className="font-semibold text-white">{t("register.email")}:</span> {email}
+              <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6">
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">{t("register.email")}:</span> {email}
                 </p>
                 {fullName && (
-                  <p className="text-sm text-slate-300">
-                    <span className="font-semibold text-white">{t("register.fullName")}:</span> {fullName}
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground">{t("register.fullName")}:</span> {fullName}
                   </p>
                 )}
-                <p className="text-sm text-slate-300">
-                  <span className="font-semibold text-white">{t("register.selectRole")}:</span> {t(ROLES.find((r) => r.value === role)?.titleKey ?? "")}
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">{t("register.selectRole")}:</span> {t(ROLES.find((r) => r.value === role)?.titleKey ?? "")}
                 </p>
                 {affiliation && (
-                  <p className="text-sm text-slate-300">
-                    <span className="font-semibold text-white">{t("register.affiliationLabel")}:</span> {affiliation}
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground">{t("register.affiliationLabel")}:</span> {affiliation}
                   </p>
                 )}
                 <div className="flex items-center gap-3 pt-2">
@@ -328,9 +325,9 @@ export function RegisterPage() {
                     id="accept-terms"
                     checked={acceptTerms}
                     onCheckedChange={(v) => setAcceptTerms(v === true)}
-                    className="h-4 w-4 rounded border-slate-600 bg-slate-900/80 text-[#1173d4] focus:ring-[#1173d4]"
+                    className="h-4 w-4 rounded border-input bg-background text-[#1173d4] focus:ring-[#1173d4]"
                   />
-                  <Label htmlFor="accept-terms" className="text-sm text-slate-300">
+                  <Label htmlFor="accept-terms" className="text-sm text-muted-foreground">
                     {t("register.acceptTerms")}
                   </Label>
                 </div>
@@ -338,12 +335,12 @@ export function RegisterPage() {
             )}
 
             {/* Actions */}
-            <div className="mt-2 flex items-center justify-end gap-4 border-t border-slate-800 pt-6">
+            <div className="mt-2 flex items-center justify-end gap-4 border-t border-border pt-6">
               <Button
                 type="button"
                 variant="ghost"
                 onClick={handleCancel}
-                className="h-12 rounded-lg px-6 font-medium text-slate-300 hover:bg-slate-800 hover:text-white"
+                className="h-12 rounded-lg px-6 font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               >
                 {step === 1 ? t("register.cancel") : t("register.back")}
               </Button>
@@ -369,22 +366,33 @@ export function RegisterPage() {
 
           {/* Footer links */}
           <div className="mt-4 flex justify-center gap-6">
-            <a href="#" className="text-xs text-slate-400 transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
+            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
               {t("register.privacyPolicy")}
             </a>
-            <a href="#" className="text-xs text-slate-400 transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
+            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
               {t("register.termsOfService")}
             </a>
-            <Link to="/support" className="text-xs text-slate-400 transition-colors hover:text-[#1173d4]">
+            <Link to="/support" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]">
               {t("register.helpCenter")}
             </Link>
           </div>
 
-          <p className="text-center text-sm text-slate-400">
+          <p className="text-center text-sm text-muted-foreground">
             {t("register.hasAccount")}{" "}
             <Link to="/login" className="font-semibold transition-colors hover:opacity-80" style={{ color: REGISTER_PRIMARY }}>
               {t("nav.login")}
             </Link>
+          </p>
+          <p className="text-center text-xs text-muted-foreground">
+            Developed by{" "}
+            <a
+              href="http://dataforgestack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground"
+            >
+              dataforgestack.com
+            </a>
           </p>
         </div>
       </main>

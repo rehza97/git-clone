@@ -229,7 +229,7 @@ export function LoginPage() {
                     id="remember-me"
                     checked={rememberMe}
                     onCheckedChange={(v) => setRememberMe(v === true)}
-                    className="h-4 w-4 rounded border-slate-600 bg-slate-900/80 text-[#1173d4] focus:ring-[#1173d4]"
+                    className="h-4 w-4 rounded border-input bg-background text-[#1173d4] focus:ring-[#1173d4]"
                   />
                   <Label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                     {t("login.rememberMe")}
@@ -275,6 +275,17 @@ export function LoginPage() {
       {/* Footer */}
       <footer className="w-full border-t border-border py-6 text-center text-xs text-muted-foreground backdrop-blur-sm bg-background/70">
         <p>{t("login.footerCopyright")}</p>
+        <p className="mt-1">
+          Developed by{" "}
+          <a
+            href="http://dataforgestack.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-foreground"
+          >
+            dataforgestack.com
+          </a>
+        </p>
       </footer>
     </div>
   )
