@@ -88,7 +88,7 @@ const PAGE_SIZE = 12
 
 function RepoCardSkeleton() {
   return (
-    <div className="flex flex-col rounded-xl border border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] overflow-hidden">
+    <div className="flex flex-col rounded-xl border border-slate-200 dark:border-border-strong bg-white dark:bg-surface overflow-hidden">
       <div className="p-5 flex flex-col gap-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
@@ -102,7 +102,7 @@ function RepoCardSkeleton() {
         </div>
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-4/5" />
-        <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+        <div className="pt-4 flex items-center justify-between border-t border-slate-100 dark:border-border-strong/80">
           <div className="flex items-center gap-2">
             <Skeleton className="w-3 h-3 rounded-full" />
             <Skeleton className="h-3 w-12" />
@@ -132,7 +132,7 @@ function RepoCard({
   return (
     <Link
       to={`/repo/${repo.id}`}
-      className="group flex flex-col bg-white dark:bg-[#1a2632] rounded-xl border border-slate-200 dark:border-[#233648] overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
+      className="group flex flex-col bg-white dark:bg-surface rounded-xl border border-slate-200 dark:border-border-strong overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg dark:hover:shadow-primary/5"
     >
       <div className="p-5 flex flex-col gap-4 h-full">
         <div className="flex items-start justify-between">
@@ -158,7 +158,7 @@ function RepoCard({
         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed line-clamp-2 flex-1">
           {repo.description || "—"}
         </p>
-        <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-[#2d445b]">
+        <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-border-strong/80">
           <div className="flex items-center gap-2">
             {primaryLang && (
               <>
@@ -316,17 +316,17 @@ export function ExplorePage() {
                 className="flex flex-col sm:flex-row gap-3 mt-4"
               >
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-3 size-5 text-slate-500 dark:text-[#92adc9]" />
+                  <Search className="absolute left-3 top-3 size-5 text-slate-500 dark:text-subtle-fg" />
                   <Input
                     type="text"
                     placeholder={t("explore.searchPlaceholder")}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full h-12 rounded-lg bg-slate-100 dark:bg-[#233648] border-none text-slate-900 dark:text-white pl-10 pr-4 focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500 dark:placeholder:text-[#92adc9]"
+                    className="w-full h-12 rounded-lg bg-slate-100 dark:bg-border-strong/40 border-none text-slate-900 dark:text-white pl-10 pr-4 focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500 dark:placeholder:text-subtle-fg"
                   />
                 </div>
                 <select
-                  className="h-12 rounded-lg bg-slate-100 dark:bg-[#233648] border-none text-slate-900 dark:text-white px-4 pr-10 focus:ring-2 focus:ring-primary/50 cursor-pointer"
+                  className="h-12 rounded-lg bg-slate-100 dark:bg-border-strong/40 border-none text-slate-900 dark:text-white px-4 pr-10 focus:ring-2 focus:ring-primary/50 cursor-pointer"
                   aria-label={t("explore.universityFilter")}
                 >
                   <option>{t("explore.allUniversities")}</option>
@@ -377,8 +377,8 @@ export function ExplorePage() {
                   onClick={() => handleCategoryClick(cat.id)}
                   className={`flex h-10 items-center justify-center gap-x-2 rounded-full border px-5 transition-all group ${
                     isActive
-                      ? "border-primary/50 bg-slate-50 dark:bg-[#233648]"
-                      : "border-slate-200 dark:border-[#233648] bg-white dark:bg-[#1a2632] hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-[#233648]"
+                      ? "border-primary/50 bg-slate-50 dark:bg-border-strong/40"
+                      : "border-slate-200 dark:border-border-strong bg-white dark:bg-surface hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-surface-muted"
                   }`}
                 >
                   <Icon className="size-5 text-primary" />
@@ -441,7 +441,7 @@ export function ExplorePage() {
 
         {/* CTA Banner */}
         <section className="my-10 w-full rounded-2xl bg-cover bg-center overflow-hidden relative bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/10">
-          <div className="absolute inset-0 bg-slate-900/80 dark:bg-[#101922]/80 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-slate-900/80 dark:bg-surface-page/80 backdrop-blur-[2px]" />
           <div className="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="max-w-xl">
               <h2 className="text-white text-3xl font-bold mb-3">

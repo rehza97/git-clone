@@ -123,7 +123,7 @@ export function NotificationsPage() {
 
   const borderClass = (leftBorder: NotificationItem["leftBorder"]) =>
     leftBorder === "primary"
-      ? "border-l-[#1173d4]"
+      ? "border-l-primary"
       : leftBorder === "amber"
         ? "border-l-amber-500"
         : leftBorder === "blue"
@@ -151,13 +151,13 @@ export function NotificationsPage() {
       <section className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
           <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
-            <Link to="/dashboard" className="hover:text-[#1173d4]">
+            <Link to="/dashboard" className="hover:text-primary">
               {t("nav.dashboard")}
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="font-medium text-white">{t("notificationsPage.title")}</span>
+            <span className="font-medium text-foreground">{t("notificationsPage.title")}</span>
           </div>
-          <h2 className="mb-2 text-3xl font-black tracking-tight text-white">
+          <h2 className="mb-2 text-3xl font-black tracking-tight text-foreground">
             {t("notificationsPage.title")}
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -167,7 +167,7 @@ export function NotificationsPage() {
         <div className="flex gap-3">
           <Button
             variant="outline"
-            className="flex items-center gap-2 rounded-lg border-slate-700 bg-[#1a2634] px-4 py-2.5 text-sm font-medium text-slate-200 shadow-sm hover:bg-slate-800"
+            className="flex items-center gap-2 rounded-lg border-border-strong bg-surface px-4 py-2.5 text-sm font-medium text-foreground shadow-sm hover:bg-muted"
             onClick={markAllAsRead}
           >
             <CheckCheck className="h-[18px] w-[18px]" />
@@ -176,7 +176,7 @@ export function NotificationsPage() {
           <Link to="/profile">
             <Button
               variant="outline"
-              className="flex items-center gap-2 rounded-lg border-slate-700 bg-[#1a2634] px-4 py-2.5 text-sm font-medium text-slate-200 shadow-sm hover:bg-slate-800"
+              className="flex items-center gap-2 rounded-lg border-border-strong bg-surface px-4 py-2.5 text-sm font-medium text-foreground shadow-sm hover:bg-muted"
             >
               <Settings className="h-[18px] w-[18px]" />
               {t("notificationsPage.settings")}
@@ -195,15 +195,15 @@ export function NotificationsPage() {
               onClick={() => setFilter(id)}
               className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 filter === id
-                  ? "bg-[#1173d4] text-white shadow-sm"
-                  : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
               {id === "all" && t("notificationsPage.allActivity")}
               {id === "unread" && (
                 <>
                   {t("notificationsPage.unread")}
-                  <span className="ml-1 rounded-md bg-slate-700 px-1.5 py-0.5 text-xs">{unreadCount}</span>
+                  <span className="ml-1 rounded-md bg-background/80 px-1.5 py-0.5 text-xs">{unreadCount}</span>
                 </>
               )}
               {id === "archives" && t("notificationsPage.archives")}
@@ -213,12 +213,12 @@ export function NotificationsPage() {
           ))}
         </div>
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("notificationsPage.searchPlaceholder")}
-            className="w-full rounded-lg border-slate-700 bg-[#1a2634] pl-10 pr-4 py-2 text-sm text-white placeholder:text-slate-500 focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+            className="w-full rounded-lg border-border-strong bg-surface pl-10 pr-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
           />
         </div>
       </div>
@@ -226,9 +226,9 @@ export function NotificationsPage() {
       {/* Today */}
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-slate-800" />
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t("notificationsPage.today")}</span>
-          <div className="h-px flex-1 bg-slate-800" />
+          <div className="h-px flex-1 bg-border-strong" />
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("notificationsPage.today")}</span>
+          <div className="h-px flex-1 bg-border-strong" />
         </div>
 
         {items.filter((n) => n.section === "today").map((n) => {
@@ -236,19 +236,19 @@ export function NotificationsPage() {
           return (
             <div
               key={n.id}
-              className={`group relative flex gap-4 rounded-xl border border-slate-800 border-l-4 p-5 shadow-sm transition-all hover:shadow-md ${borderClass(n.leftBorder)} bg-[#1a2634]`}
+              className={`group relative flex gap-4 rounded-xl border border-border-strong border-l-4 p-5 shadow-sm transition-all hover:shadow-md ${borderClass(n.leftBorder)} bg-surface`}
             >
               <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
                 {n.read ? (
-                  <button type="button" onClick={() => markAsUnread(n.id)} className="p-1 text-slate-400 hover:text-[#1173d4]" title={t("notificationsPage.markAsUnread")}>
+                  <button type="button" onClick={() => markAsUnread(n.id)} className="p-1 text-muted-foreground hover:text-primary" title={t("notificationsPage.markAsUnread")}>
                     <MessageCircle className="h-[18px] w-[18px]" />
                   </button>
                 ) : (
-                  <button type="button" onClick={() => markAsRead(n.id)} className="p-1 text-slate-400 hover:text-[#1173d4]" title={t("notificationsPage.markAsRead")}>
+                  <button type="button" onClick={() => markAsRead(n.id)} className="p-1 text-muted-foreground hover:text-primary" title={t("notificationsPage.markAsRead")}>
                     <CheckCircle className="h-[18px] w-[18px]" />
                   </button>
                 )}
-                <button type="button" onClick={() => remove(n.id)} className="p-1 text-slate-400 hover:text-red-500" title={t("notificationsPage.delete")}>
+                <button type="button" onClick={() => remove(n.id)} className="p-1 text-muted-foreground hover:text-red-500" title={t("notificationsPage.delete")}>
                   <Trash2 className="h-[18px] w-[18px]" />
                 </button>
               </div>
@@ -257,28 +257,28 @@ export function NotificationsPage() {
                   <Icon className="h-5 w-5" />
                 </div>
                 {dot && !n.read && (
-                  <span className="absolute -bottom-1 -right-1 flex size-4 items-center justify-center rounded-full bg-[#1a2634]">
-                    <span className={`size-2.5 rounded-full border border-[#1a2634] ${dot}`} />
+                  <span className="absolute -bottom-1 -right-1 flex size-4 items-center justify-center rounded-full bg-surface">
+                    <span className={`size-2.5 rounded-full border border-border ${dot}`} />
                   </span>
                 )}
               </div>
               <div className="flex-1 pr-12">
                 <div className="mb-1 flex items-baseline justify-between">
-                  <h4 className="text-sm font-bold text-white">{t(n.titleKey)}</h4>
-                  <span className="text-xs font-medium text-slate-500">{n.timeLabel}</span>
+                  <h4 className="text-sm font-bold text-foreground">{t(n.titleKey)}</h4>
+                  <span className="text-xs font-medium text-muted-foreground">{n.timeLabel}</span>
                 </div>
-                <p className="mb-2 text-sm text-slate-400">
+                <p className="mb-2 text-sm text-muted-foreground">
                   {t(n.bodyKey, n.bodyParams ?? {})}
                 </p>
                 {n.actionLabelKey && (
                   <div className="flex gap-2">
                     {n.actionHref ? (
-                      <Link to={n.actionHref} className="flex items-center gap-1 text-xs font-semibold text-[#1173d4] hover:opacity-80">
+                      <Link to={n.actionHref} className="flex items-center gap-1 text-xs font-semibold text-primary hover:opacity-80">
                         {t(n.actionLabelKey)}
                         <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     ) : (
-                      <button type="button" className="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-white">
+                      <button type="button" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground">
                         {t(n.actionLabelKey)}
                       </button>
                     )}
@@ -291,9 +291,9 @@ export function NotificationsPage() {
 
         {/* Yesterday */}
         <div className="flex items-center gap-4 pt-4">
-          <div className="h-px flex-1 bg-slate-800" />
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{t("notificationsPage.yesterday")}</span>
-          <div className="h-px flex-1 bg-slate-800" />
+          <div className="h-px flex-1 bg-border-strong" />
+          <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("notificationsPage.yesterday")}</span>
+          <div className="h-px flex-1 bg-border-strong" />
         </div>
 
         {items.filter((n) => n.section === "yesterday").map((n) => {
@@ -301,13 +301,13 @@ export function NotificationsPage() {
           return (
             <div
               key={n.id}
-              className="group relative flex gap-4 rounded-xl border border-slate-800 bg-[#151f2b] p-5 opacity-75 transition-all hover:opacity-100"
+              className="group relative flex gap-4 rounded-xl border border-border-strong bg-surface-muted p-5 opacity-75 transition-all hover:opacity-100"
             >
               <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-                <button type="button" onClick={() => markAsUnread(n.id)} className="p-1 text-slate-400 hover:text-[#1173d4]" title={t("notificationsPage.markAsUnread")}>
+                <button type="button" onClick={() => markAsUnread(n.id)} className="p-1 text-muted-foreground hover:text-primary" title={t("notificationsPage.markAsUnread")}>
                   <MessageCircle className="h-[18px] w-[18px]" />
                 </button>
-                <button type="button" onClick={() => remove(n.id)} className="p-1 text-slate-400 hover:text-red-500" title={t("notificationsPage.delete")}>
+                <button type="button" onClick={() => remove(n.id)} className="p-1 text-muted-foreground hover:text-red-500" title={t("notificationsPage.delete")}>
                   <Trash2 className="h-[18px] w-[18px]" />
                 </button>
               </div>
@@ -316,13 +316,13 @@ export function NotificationsPage() {
               </div>
               <div className="flex-1 pr-12">
                 <div className="mb-1 flex items-baseline justify-between">
-                  <h4 className="text-sm font-medium text-white">{t(n.titleKey)}</h4>
-                  <span className="text-xs text-slate-500">{n.timeLabel}</span>
+                  <h4 className="text-sm font-medium text-foreground">{t(n.titleKey)}</h4>
+                  <span className="text-xs text-muted-foreground">{n.timeLabel}</span>
                 </div>
-                <p className="mb-2 text-sm text-slate-500">{t(n.bodyKey, n.bodyParams ?? {})}</p>
+                <p className="mb-2 text-sm text-muted-foreground">{t(n.bodyKey, n.bodyParams ?? {})}</p>
                 {n.actionLabelKey && (
                   <div className="flex gap-2">
-                    <button type="button" className="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-white">
+                    <button type="button" className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground">
                       <Download className="h-3.5 w-3.5" />
                       {t(n.actionLabelKey)}
                     </button>
@@ -336,20 +336,20 @@ export function NotificationsPage() {
 
       {/* Pagination */}
       <div className="mt-8 flex items-center justify-center gap-2">
-        <Button variant="outline" size="icon" className="rounded-lg border-slate-800 text-slate-500 hover:bg-slate-800" onClick={() => setPage((p) => Math.max(1, p - 1))}>
+        <Button variant="outline" size="icon" className="rounded-lg border-border-strong text-muted-foreground hover:bg-muted" onClick={() => setPage((p) => Math.max(1, p - 1))}>
           <ChevronLeft className="h-5 w-5" />
         </Button>
-        <button type="button" className="flex size-9 items-center justify-center rounded-lg bg-[#1173d4] text-sm font-medium text-white">
+        <button type="button" className="flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground">
           1
         </button>
-        <button type="button" className="flex size-9 items-center justify-center rounded-lg border border-slate-800 text-sm font-medium text-slate-400 hover:bg-slate-800" onClick={() => setPage(2)}>
+        <button type="button" className="flex size-9 items-center justify-center rounded-lg border border-border-strong text-sm font-medium text-muted-foreground hover:bg-muted" onClick={() => setPage(2)}>
           2
         </button>
-        <button type="button" className="flex size-9 items-center justify-center rounded-lg border border-slate-800 text-sm font-medium text-slate-400 hover:bg-slate-800" onClick={() => setPage(3)}>
+        <button type="button" className="flex size-9 items-center justify-center rounded-lg border border-border-strong text-sm font-medium text-muted-foreground hover:bg-muted" onClick={() => setPage(3)}>
           3
         </button>
-        <span className="px-1 text-slate-400">...</span>
-        <Button variant="outline" size="icon" className="rounded-lg border-slate-800 text-slate-500 hover:bg-slate-800" onClick={() => setPage((p) => p + 1)}>
+        <span className="px-1 text-muted-foreground">...</span>
+        <Button variant="outline" size="icon" className="rounded-lg border-border-strong text-muted-foreground hover:bg-muted" onClick={() => setPage((p) => p + 1)}>
           <ChevronRight className="h-5 w-5" />
         </Button>
       </div>

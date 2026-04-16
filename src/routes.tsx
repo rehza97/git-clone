@@ -21,7 +21,7 @@ import { CertificateCenterPage } from "@/pages/CertificateCenterPage"
 import { PricingPage } from "@/pages/PricingPage"
 import { ApiReferencePage } from "@/pages/ApiReferencePage"
 import { DocsPage } from "@/pages/DocsPage"
-import { LandingOrRedirect } from "@/components/LandingOrRedirect"
+import { LandingPage } from "@/pages/LandingPage"
 import { UploadLandingPage } from "@/pages/UploadLandingPage"
 import { NotificationsPage } from "@/pages/NotificationsPage"
 import { CreateProjectPage } from "@/pages/CreateProjectPage"
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <LandingOrRedirect /> },
+      { index: true, element: <LandingPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
       {

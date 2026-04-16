@@ -42,6 +42,13 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* Semantic surfaces & accents (see :root / .dark) */
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-page: var(--surface-page);
+  --color-border-strong: var(--border-strong);
+  --color-subtle-fg: var(--subtle-fg);
+  --color-code-bg: var(--code-bg);
 }
 
 :root {
@@ -84,6 +91,13 @@
   --sidebar-ring: oklch(0.52 0.18 252);
   --header-bg: oklch(1 0 0);
   --header-fg: oklch(0.2 0.02 260);
+  /* Unified UI layers (light): align with card / border / muted text */
+  --surface: var(--card);
+  --surface-muted: oklch(0.97 0.008 250);
+  --surface-page: var(--background);
+  --border-strong: oklch(0.82 0.014 250);
+  --subtle-fg: var(--muted-foreground);
+  --code-bg: oklch(0.96 0.01 250);
 }
 
 .dark {
@@ -121,6 +135,13 @@
   --sidebar-ring: oklch(0.55 0.18 252);
   --header-bg: oklch(0.22 0.02 260);
   --header-fg: oklch(0.95 0.01 250);
+  /* Unified UI layers (dark): replaces scattered #1a2634 / #233648 / #92adc9 / #0d1117 */
+  --surface: oklch(0.28 0.03 260);
+  --surface-muted: oklch(0.24 0.028 260);
+  --surface-page: oklch(0.19 0.022 260);
+  --border-strong: oklch(0.42 0.04 252);
+  --subtle-fg: oklch(0.72 0.04 250);
+  --code-bg: oklch(0.16 0.02 260);
 }
 
 @layer base {
@@ -138,8 +159,8 @@
 
 /* Source code viewer: line numbers in dark theme */
 .line-numbers .line-numbers-rows {
-  border-right-color: #233648;
+  border-right-color: var(--border-strong);
 }
 .line-numbers .line-numbers-rows > span:before {
-  color: #8b949e;
+  color: var(--subtle-fg);
 }

@@ -9,7 +9,7 @@ export function UploadLandingPage() {
   const { user } = useAuth()
 
   return (
-    <div className="min-h-[60vh] bg-background dark:bg-[#101922] flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-[60vh] bg-background dark:bg-surface-page flex flex-col items-center justify-center px-4 py-12">
       <div className="mx-auto flex max-w-lg flex-col items-center gap-6 text-center">
         <div className="flex size-20 items-center justify-center rounded-2xl bg-primary/10 text-primary">
           <Upload className="h-10 w-10" />
@@ -18,7 +18,7 @@ export function UploadLandingPage() {
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:text-3xl">
             {t("upload.archiveAndUpload")}
           </h1>
-          <p className="text-slate-600 dark:text-[#92adc9]">
+          <p className="text-slate-600 dark:text-subtle-fg">
             {t("upload.uploadLandingDesc")}
           </p>
         </div>
@@ -50,7 +50,7 @@ export function UploadLandingPage() {
           )}
         </div>
         {user && (
-          <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+          <p className="text-sm text-slate-500 dark:text-subtle-fg">
             {t("upload.uploadLandingSteps")}
           </p>
         )}

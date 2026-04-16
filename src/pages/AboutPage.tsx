@@ -152,7 +152,7 @@ export function AboutPage() {
               <p className="text-muted-foreground">{t("about.roadmapSubtitle")}</p>
             </div>
             <div className="relative">
-              <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-[#233648] md:left-1/2 md:-ml-px" />
+              <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-border-strong md:left-1/2 md:-ml-px" />
               <div className="space-y-8">
                 {/* Phase 1 */}
                 <div className="relative flex flex-col items-center gap-8 md:flex-row">
@@ -161,11 +161,11 @@ export function AboutPage() {
                       {t("about.phase1Title")}
                     </h3>
                     <p className="font-medium text-white">{t("about.phase1Sub")}</p>
-                    <p className="mt-1 text-sm text-[#92adc9]">
+                    <p className="mt-1 text-sm text-subtle-fg">
                       {t("about.phase1Desc")}
                     </p>
                   </div>
-                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-4 border-[#101922] bg-primary md:order-2">
+                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-4 border-surface-page bg-primary md:order-2">
                     <span className="text-xs font-bold text-white">1</span>
                   </div>
                   <div className="order-3 flex-1 md:visible md:order-3 invisible" />
@@ -173,7 +173,7 @@ export function AboutPage() {
                 {/* Phase 2 */}
                 <div className="relative flex flex-col items-center gap-8 md:flex-row">
                   <div className="order-3 flex-1 md:order-1 md:visible invisible" />
-                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-[#192633] text-primary md:order-2">
+                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-surface-muted text-primary md:order-2">
                     <span className="text-sm font-bold">2</span>
                   </div>
                   <div className="order-2 flex-1 md:order-3">
@@ -181,7 +181,7 @@ export function AboutPage() {
                       {t("about.phase2Title")}
                     </h3>
                     <p className="font-medium text-white">{t("about.phase2Sub")}</p>
-                    <p className="mt-1 text-sm text-[#92adc9]">
+                    <p className="mt-1 text-sm text-subtle-fg">
                       {t("about.phase2Desc")}
                     </p>
                   </div>
@@ -193,11 +193,11 @@ export function AboutPage() {
                       {t("about.phase3Title")}
                     </h3>
                     <p className="font-medium text-white">{t("about.phase3Sub")}</p>
-                    <p className="mt-1 text-sm text-[#92adc9]">
+                    <p className="mt-1 text-sm text-subtle-fg">
                       {t("about.phase3Desc")}
                     </p>
                   </div>
-                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border border-[#233648] bg-[#192633] text-[#92adc9] md:order-2">
+                  <div className="order-1 z-10 flex size-8 shrink-0 items-center justify-center rounded-full border border-border-strong bg-surface-muted text-subtle-fg md:order-2">
                     <span className="text-sm font-bold">3</span>
                   </div>
                   <div className="order-3 flex-1 md:visible md:order-3 invisible" />
@@ -212,7 +212,7 @@ export function AboutPage() {
               <h2 className="text-2xl font-bold text-white">
                 {t("about.leadershipTitle")}
               </h2>
-              <p className="text-[#92adc9]">{t("about.leadershipSubtitle")}</p>
+              <p className="text-subtle-fg">{t("about.leadershipSubtitle")}</p>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               {[
@@ -222,19 +222,19 @@ export function AboutPage() {
                 { nameKey: "about.teamMember4Name", roleKey: "about.teamMember4Role", img: TEAM_IMAGES[3], primaryIcon: false },
               ].map((member) => (
                 <div key={member.nameKey} className="group flex flex-col gap-3">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#192633]">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-muted">
                     <img
                       src={member.img}
                       alt=""
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 opacity-60 bg-gradient-to-t from-[#101922]/90 to-transparent" />
+                    <div className="absolute inset-0 opacity-60 bg-gradient-to-t from-surface-page/90 to-transparent" />
                     <div className="absolute bottom-4 left-4">
                       <div
                         className={`flex size-8 items-center justify-center rounded-lg text-white ${
                           member.primaryIcon
                             ? "bg-primary"
-                            : "border border-[#233648] bg-[#192633] transition-colors hover:border-primary"
+                            : "border border-border-strong bg-surface-muted transition-colors hover:border-primary"
                         }`}
                       >
                         <Link2 className="h-4 w-4" />
@@ -255,19 +255,19 @@ export function AboutPage() {
           </section>
 
           {/* CTA */}
-          <div className="flex w-full flex-col items-center justify-between gap-8 rounded-2xl border border-[#233648] bg-gradient-to-r from-primary/20 to-[#192633] p-8 md:flex-row md:p-12">
+          <div className="flex w-full flex-col items-center justify-between gap-8 rounded-2xl border border-border-strong bg-gradient-to-r from-primary/20 to-surface-muted p-8 md:flex-row md:p-12">
             <div className="flex max-w-lg flex-col gap-3">
               <h2 className="text-2xl font-bold text-white">
                 {t("about.ctaTitle")}
               </h2>
-              <p className="text-[#92adc9]">
+              <p className="text-subtle-fg">
                 {t("about.ctaDescStats")}
               </p>
             </div>
             <div className="flex gap-4">
               <Button
                 variant="outline"
-                className="h-12 rounded-lg border-[#233648] bg-[#192633] px-6 text-sm font-bold text-white hover:bg-[#233648]"
+                className="h-12 rounded-lg border-border-strong bg-surface-muted px-6 text-sm font-bold text-white hover:bg-border-strong"
                 asChild
               >
                 <Link to="/docs">{t("about.documentation")}</Link>
@@ -284,7 +284,7 @@ export function AboutPage() {
       </div>
 
       {/* Footer */}
-      <footer className="w-full border-t border-[#233648] bg-[#101922] py-12">
+      <footer className="w-full border-t border-border-strong bg-surface-page py-12">
         <div className="flex flex-col justify-center px-4 md:flex-row md:px-10 lg:px-16">
           <div className="flex w-full max-w-[960px] flex-col justify-between gap-8 md:flex-row">
             <div className="flex flex-col gap-4">
@@ -292,7 +292,7 @@ export function AboutPage() {
                 <Database className="h-6 w-6 text-primary" />
                 <span className="text-lg font-bold">ASCAP</span>
               </div>
-              <p className="max-w-xs text-sm text-[#92adc9]">
+              <p className="max-w-xs text-sm text-subtle-fg">
                 {t("about.footerOrg")}
               </p>
             </div>
@@ -301,13 +301,13 @@ export function AboutPage() {
                 <h4 className="text-sm font-bold text-white">
                   {t("about.footerPlatform")}
                 </h4>
-                <Link to="/explore" className="text-sm text-[#92adc9] hover:text-white">
+                <Link to="/explore" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerSearch")}
                 </Link>
-                <a href="#" className="text-sm text-[#92adc9] hover:text-white">
+                <a href="#" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerStatistics")}
                 </a>
-                <Link to="/api" className="text-sm text-[#92adc9] hover:text-white">
+                <Link to="/api" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerApi")}
                 </Link>
               </div>
@@ -315,13 +315,13 @@ export function AboutPage() {
                 <h4 className="text-sm font-bold text-white">
                   {t("about.footerLegal")}
                 </h4>
-                <a href="#" className="text-sm text-[#92adc9] hover:text-white">
+                <a href="#" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerTerms")}
                 </a>
-                <a href="#" className="text-sm text-[#92adc9] hover:text-white">
+                <a href="#" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerPrivacy")}
                 </a>
-                <a href="#" className="text-sm text-[#92adc9] hover:text-white">
+                <a href="#" className="text-sm text-subtle-fg hover:text-white">
                   {t("about.footerDecree1275")}
                 </a>
               </div>

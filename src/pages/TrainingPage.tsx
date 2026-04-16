@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { Code2, BookOpen, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { MobileDocSidebarSheet } from "@/components/layout/MobileDocSidebarSheet"
 
 const docNavSections = [
   { titleKey: "nav.docs", href: "/docs" },
@@ -18,27 +19,57 @@ const topicKeys = [
   "training.topic4",
 ] as const
 
+function TrainingSidebarNav() {
+  const { t } = useTranslation()
+  return (
+    <nav className="space-y-1">
+      <h5 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        Resources
+      </h5>
+      <Link
+        to="/docs"
+        className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        {t("nav.docs")}
+      </Link>
+      <Link
+        to="/api"
+        className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        {t("nav.api")}
+      </Link>
+      <Link
+        to="/support"
+        className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        {t("nav.support")}
+      </Link>
+    </nav>
+  )
+}
+
 export function TrainingPage() {
   const { t } = useTranslation()
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)] w-full flex-1 flex-col">
-      <div className="sticky top-0 z-10 border-b border-border bg-background/95 px-4 py-4 backdrop-blur supports-backdrop-filter:bg-background/60 lg:px-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-8 items-center justify-center rounded bg-primary/20 text-primary">
+    <div className="flex min-h-[calc(100vh-3.5rem)] w-full min-w-0 flex-1 flex-col">
+      <div className="sticky top-0 z-10 border-b border-border bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/60 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex size-8 shrink-0 items-center justify-center rounded bg-primary/20 text-primary">
               <Code2 className="h-5 w-5" />
             </div>
-            <h1 className="text-lg font-bold tracking-tight">
+            <h1 className="truncate text-lg font-bold tracking-tight">
               ASCAP <span className="font-normal text-muted-foreground">Training</span>
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             {docNavSections.map((item) => (
               <Link key={item.href} to={item.href}>
                 <Button
                   variant={item.active ? "secondary" : "ghost"}
                   size="sm"
+                  className="touch-manipulation"
                 >
                   {t(item.titleKey)}
                 </Button>
@@ -48,34 +79,15 @@ export function TrainingPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 items-start">
+      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-1 items-start">
         <aside className="hidden w-64 shrink-0 overflow-y-auto border-r border-border py-8 pr-6 lg:block">
-          <nav className="space-y-1">
-            <h5 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Resources
-            </h5>
-            <Link
-              to="/docs"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              {t("nav.docs")}
-            </Link>
-            <Link
-              to="/api"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              {t("nav.api")}
-            </Link>
-            <Link
-              to="/support"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              {t("nav.support")}
-            </Link>
-          </nav>
+          <TrainingSidebarNav />
         </aside>
 
-        <main className="min-w-0 flex-1 py-8 px-4 lg:px-12">
+        <main className="min-w-0 flex-1 px-4 py-8 lg:px-12">
+          <MobileDocSidebarSheet title={t("docs.sidebarSheet")}>
+            <TrainingSidebarNav />
+          </MobileDocSidebarSheet>
           <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <Link to="/docs" className="hover:text-foreground transition-colors">
               Docs

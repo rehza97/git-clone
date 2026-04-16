@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/AuthContext"
 import { useRepo } from "@/hooks/useRepo"
 import { listRepoFiles, getFileDownloadUrl, type RepoFileWithId } from "@/lib/files"
+import { downloadRepoAsZip } from "@/lib/downloadRepoZip"
 import { buildFileTree, type TreeNode } from "@/lib/fileTree"
 import { getProfilesByIds } from "@/lib/users"
 import { CodeBlock } from "@/components/CodeBlock"
@@ -28,11 +29,9 @@ import {
   Tag,
   BookOpen,
   GitBranch,
+  Loader2,
 } from "lucide-react"
 import { getFileIcon } from "@/lib/fileIcons"
-
-const BORDER_DARK = "#233648"
-const TEXT_SECONDARY = "#92adc9"
 
 const IMAGE_EXT = new Set(["jpg", "jpeg", "png", "gif", "webp", "svg", "ico", "bmp", "avif"])
 const VIDEO_EXT = new Set(["mp4", "webm", "ogg", "mov", "avi", "mkv", "m4v"])
@@ -109,6 +108,8 @@ export function RepoDetailPage() {
   const [ownerName, setOwnerName] = useState<string>("—")
   const [ownerUsername, setOwnerUsername] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<TabId>("code")
+  const [zipDownloading, setZipDownloading] = useState(false)
+  const [zipError, setZipError] = useState<string | null>(null)
 
   const selectedPath = searchParams.get("file")
 
@@ -205,14 +206,14 @@ export function RepoDetailPage() {
 
   if (loading || !repoId) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-background dark:bg-[#101922]">
-        <p className="text-[#92adc9]">{t("repo.loading")}</p>
+      <div className="min-h-screen flex items-center justify-center px-4 bg-background dark:bg-surface-page">
+        <p className="text-subtle-fg">{t("repo.loading")}</p>
       </div>
     )
   }
   if (error || !repo) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-background dark:bg-[#101922]">
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-background dark:bg-surface-page">
         <p className="text-destructive">{t("repo.notFound")}</p>
         <Button variant="link" asChild>
           <Link to="/">{t("common.backToHome")}</Link>
@@ -222,6 +223,19 @@ export function RepoDetailPage() {
   }
 
   const isOwner = user?.uid === repo.ownerId
+
+  async function handleDownloadCodebase() {
+    if (!repo || files.length === 0) return
+    setZipError(null)
+    setZipDownloading(true)
+    try {
+      await downloadRepoAsZip(repo.name, repo.id, files)
+    } catch {
+      setZipError(t("repoDetail.downloadZipFailed"))
+    } finally {
+      setZipDownloading(false)
+    }
+  }
 
   const currentDirChildren = tree ? getChildrenAtPath(tree, currentPath) : []
   const breadcrumbSegments = currentPath ? [repo.name, ...currentPath.split("/")] : [repo.name]
@@ -235,19 +249,19 @@ export function RepoDetailPage() {
   const langPercent = languages.length > 0 ? 100 / languages.length : 0
 
   return (
-    <div className="min-h-screen flex flex-col bg-background dark:bg-[#101922] text-slate-900 dark:text-white">
+    <div className="min-h-screen flex flex-col bg-background dark:bg-surface-page text-slate-900 dark:text-white">
       <main className="flex-1 flex justify-center py-6 px-4 md:px-10 lg:px-40">
         <div className="flex flex-col max-w-[1200px] w-full gap-6">
           {/* Breadcrumbs */}
           <nav className="flex flex-wrap gap-2 text-sm">
-            <Link to="/" className="hover:text-primary transition-colors" style={{ color: TEXT_SECONDARY }}>
+            <Link to="/" className="hover:text-primary transition-colors" style={{ color: "var(--subtle-fg)" }}>
               {t("repoDetail.home")}
             </Link>
-            <span style={{ color: TEXT_SECONDARY }}>/</span>
-            <Link to="/explore" className="hover:text-primary transition-colors" style={{ color: TEXT_SECONDARY }}>
+            <span style={{ color: "var(--subtle-fg)" }}>/</span>
+            <Link to="/explore" className="hover:text-primary transition-colors" style={{ color: "var(--subtle-fg)" }}>
               {t("repoDetail.repositories")}
             </Link>
-            <span style={{ color: TEXT_SECONDARY }}>/</span>
+            <span style={{ color: "var(--subtle-fg)" }}>/</span>
             <span className="font-medium text-slate-900 dark:text-white">{repo.name}</span>
           </nav>
 
@@ -255,7 +269,7 @@ export function RepoDetailPage() {
           <div className="@container">
             <div className="flex w-full flex-col gap-6 lg:flex-row lg:justify-between lg:items-start">
               <div className="flex gap-5">
-                <div className="h-24 w-24 shrink-0 rounded-xl bg-gradient-to-br from-blue-900 to-slate-900 border flex items-center justify-center shadow-lg" style={{ borderColor: BORDER_DARK }}>
+                <div className="h-24 w-24 shrink-0 rounded-xl bg-gradient-to-br from-blue-900 to-slate-900 border flex items-center justify-center shadow-lg" style={{ borderColor: "var(--border-strong)" }}>
                   <Code2 className="size-10 text-blue-400" />
                 </div>
                 <div className="flex flex-col gap-1 min-w-0">
@@ -268,11 +282,11 @@ export function RepoDetailPage() {
                     </span>
                   </div>
                   {repo.description && (
-                    <p className="text-base max-w-2xl leading-relaxed mt-1" style={{ color: TEXT_SECONDARY }}>
+                    <p className="text-base max-w-2xl leading-relaxed mt-1" style={{ color: "var(--subtle-fg)" }}>
                       {repo.description}
                     </p>
                   )}
-                  <div className="flex items-center gap-4 mt-2 text-sm flex-wrap" style={{ color: TEXT_SECONDARY }}>
+                  <div className="flex items-center gap-4 mt-2 text-sm flex-wrap" style={{ color: "var(--subtle-fg)" }}>
                     <span className="flex items-center gap-1">
                       <Clock className="size-[18px]" />
                       {t("repoDetail.updatedAgo")}
@@ -297,13 +311,13 @@ export function RepoDetailPage() {
                     </Link>
                   </Button>
                 )}
-                <Button variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-[#192633] dark:border-[#233648] dark:hover:bg-[#233648]">
+                <Button variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-surface-muted dark:border-border-strong dark:hover:bg-border-strong/30">
                   <Star className="size-5 mr-2" />
                   {t("repoDetail.star")}
                   <span className="ml-1 px-1.5 py-0.5 rounded bg-slate-300 dark:bg-black/30 text-xs">0</span>
                 </Button>
                 {isOwner && (
-                  <Button asChild variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-[#192633] dark:border-[#233648]">
+                  <Button asChild variant="outline" className="flex-1 h-10 px-5 rounded-lg border dark:bg-surface-muted dark:border-border-strong">
                     <Link to={`/repo/${repoId}/upload`}>{t("repo.uploadFiles")}</Link>
                   </Button>
                 )}
@@ -312,13 +326,13 @@ export function RepoDetailPage() {
           </div>
 
           {/* Tabs */}
-          <div className="border-b mt-2" style={{ borderColor: BORDER_DARK }}>
+          <div className="mt-2 border-b border-border-strong">
             <div className="flex gap-8 overflow-x-auto">
               <button
                 type="button"
                 onClick={() => setActiveTab("code")}
                 className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "code" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
-                style={activeTab !== "code" ? { color: TEXT_SECONDARY } : undefined}
+                style={activeTab !== "code" ? { color: "var(--subtle-fg)" } : undefined}
               >
                 <Code2 className="size-5" style={activeTab === "code" ? { color: "var(--primary)" } : undefined} />
                 {t("repoDetail.tabCode")}
@@ -327,17 +341,17 @@ export function RepoDetailPage() {
                 type="button"
                 onClick={() => setActiveTab("issues")}
                 className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "issues" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
-                style={activeTab !== "issues" ? { color: TEXT_SECONDARY } : undefined}
+                style={activeTab !== "issues" ? { color: "var(--subtle-fg)" } : undefined}
               >
                 <Bug className="size-5" />
                 {t("repoDetail.tabIssues")}
-                <span className="ml-1 px-2 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-[#192633]" style={{ color: TEXT_SECONDARY }}>0</span>
+                <span className="ml-1 px-2 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-surface-muted" style={{ color: "var(--subtle-fg)" }}>0</span>
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("archives")}
                 className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "archives" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
-                style={activeTab !== "archives" ? { color: TEXT_SECONDARY } : undefined}
+                style={activeTab !== "archives" ? { color: "var(--subtle-fg)" } : undefined}
               >
                 <Archive className="size-5" />
                 {t("repoDetail.tabArchives")}
@@ -346,7 +360,7 @@ export function RepoDetailPage() {
                 type="button"
                 onClick={() => setActiveTab("contributors")}
                 className={`group flex items-center gap-2 border-b-[3px] pb-3 px-1 shrink-0 font-bold text-sm transition-colors ${activeTab === "contributors" ? "border-primary text-slate-900 dark:text-white" : "border-transparent hover:border-slate-300 dark:hover:border-slate-600"}`}
-                style={activeTab !== "contributors" ? { color: TEXT_SECONDARY } : undefined}
+                style={activeTab !== "contributors" ? { color: "var(--subtle-fg)" } : undefined}
               >
                 <Users className="size-5" />
                 {t("repoDetail.tabContributors")}
@@ -361,13 +375,13 @@ export function RepoDetailPage() {
                 {/* Actions Bar */}
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <button type="button" className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium bg-slate-200 dark:bg-[#192633] border-slate-300 dark:border-[#233648] text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-[#233648] transition-colors">
+                    <button type="button" className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-medium bg-slate-200 dark:bg-surface-muted border-slate-300 dark:border-border-strong text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-border-strong/30 transition-colors">
                       <GitBranch className="size-[18px]" aria-hidden />
                       master
                       <ChevronDown className="size-4" />
                     </button>
-                    <div className="h-4 w-px bg-slate-300 dark:bg-[#233648] mx-1" />
-                    <nav className="text-sm truncate flex items-center gap-1 min-w-0 flex-wrap" style={{ color: TEXT_SECONDARY }} aria-label="Breadcrumb">
+                    <div className="mx-1 h-4 w-px bg-slate-300 dark:bg-border-strong" />
+                    <nav className="text-sm truncate flex items-center gap-1 min-w-0 flex-wrap" style={{ color: "var(--subtle-fg)" }} aria-label="Breadcrumb">
                       {breadcrumbSegments.map((segment, i) => {
                         const pathUpToHere = i === 0 ? "" : breadcrumbSegments.slice(1, i + 1).join("/")
                         const isLast = i === breadcrumbSegments.length - 1
@@ -390,11 +404,26 @@ export function RepoDetailPage() {
                       })}
                     </nav>
                   </div>
-                  <div className="hidden sm:flex items-center gap-2">
-                    <button type="button" className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-[#192633] transition-colors" style={{ color: TEXT_SECONDARY }} title={t("repoDetail.search")} aria-label={t("repoDetail.search")}>
+                  <div className="flex flex-wrap items-center justify-end gap-2">
+                    <button type="button" className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-surface-muted/80 transition-colors" style={{ color: "var(--subtle-fg)" }} title={t("repoDetail.search")} aria-label={t("repoDetail.search")}>
                       <Search className="size-5" />
                     </button>
-                    <Button size="sm" variant="outline" className="rounded-md border-slate-300 dark:border-[#233648] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#192633] text-sm font-medium" asChild>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="rounded-md border-slate-300 dark:border-border-strong text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-muted/80 text-sm font-medium"
+                      disabled={zipDownloading || files.length === 0}
+                      onClick={() => void handleDownloadCodebase()}
+                    >
+                      {zipDownloading ? (
+                        <Loader2 className="mr-1.5 size-4 shrink-0 animate-spin" aria-hidden />
+                      ) : (
+                        <Download className="mr-1.5 size-4 shrink-0" aria-hidden />
+                      )}
+                      {zipDownloading ? t("repoDetail.downloadZipWorking") : t("repoDetail.downloadCodebase")}
+                    </Button>
+                    <Button size="sm" variant="outline" className="rounded-md border-slate-300 dark:border-border-strong text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-muted/80 text-sm font-medium" asChild>
                       <Link to={selectedPath ? `/repo/${repoId}/code/${encodeURIComponent(selectedPath)}` : `/repo/${repoId}/code`}>
                         {t("repoDetail.openInCodeEditor")}
                       </Link>
@@ -404,10 +433,15 @@ export function RepoDetailPage() {
                     </Button>
                   </div>
                 </div>
+                {zipError && (
+                  <p className="text-sm text-destructive" role="alert">
+                    {zipError}
+                  </p>
+                )}
 
                 {/* File Explorer */}
-                <div className="rounded-lg overflow-hidden border bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
-                  <div className="flex items-center justify-between px-4 py-3 border-b bg-slate-50 dark:bg-[#192633]" style={{ borderColor: BORDER_DARK }}>
+                <div className="rounded-lg overflow-hidden border bg-white dark:bg-surface" style={{ borderColor: "var(--border-strong)" }}>
+                  <div className="flex items-center justify-between px-4 py-3 border-b bg-slate-50 dark:bg-surface-muted" style={{ borderColor: "var(--border-strong)" }}>
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="h-6 w-6 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
                         {(ownerName || "?")[0].toUpperCase()}
@@ -419,15 +453,15 @@ export function RepoDetailPage() {
                       ) : (
                         <span className="text-sm font-medium text-slate-900 dark:text-white truncate">{ownerName}</span>
                       )}
-                      <span className="text-sm truncate max-w-[200px] sm:max-w-none" style={{ color: TEXT_SECONDARY }}>
+                      <span className="text-sm truncate max-w-[200px] sm:max-w-none" style={{ color: "var(--subtle-fg)" }}>
                         {t("repoDetail.latestCommit")}
                       </span>
                     </div>
-                    <span className="text-xs whitespace-nowrap shrink-0" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.updatedAgo")}</span>
+                    <span className="text-xs whitespace-nowrap shrink-0" style={{ color: "var(--subtle-fg)" }}>{t("repoDetail.updatedAgo")}</span>
                   </div>
-                  <div className="divide-y divide-slate-100 dark:divide-[#233648]/50">
+                  <div className="divide-y divide-slate-100 dark:divide-border-strong/50">
                     {currentDirChildren.length === 0 ? (
-                      <div className="px-4 py-6 text-center text-sm" style={{ color: TEXT_SECONDARY }}>
+                      <div className="px-4 py-6 text-center text-sm" style={{ color: "var(--subtle-fg)" }}>
                         {currentPath ? t("repoDetail.folderEmpty") : t("repo.noFiles")}
                       </div>
                     ) : (
@@ -445,14 +479,14 @@ export function RepoDetailPage() {
                                 setCurrentPath(node.path)
                               }
                             }}
-                            className={`group flex items-center justify-between px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${isSelected ? "bg-primary/10" : "hover:bg-slate-50 dark:hover:bg-[#192633]/50"}`}
+                            className={`group flex items-center justify-between px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${isSelected ? "bg-primary/10" : "hover:bg-slate-50 dark:hover:bg-surface-muted/80/50"}`}
                           >
                             <div className="flex items-center gap-3 min-w-0">
                               <Icon className={`size-5 shrink-0 ${node.isFile ? "text-slate-400" : "text-blue-400"}`} />
                               <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{node.name}</span>
                             </div>
-                            <span className="text-xs hidden sm:block truncate max-w-[120px]" style={{ color: TEXT_SECONDARY }}>—</span>
-                            <span className="text-xs w-24 text-right shrink-0" style={{ color: TEXT_SECONDARY }}>{node.isFile ? getFileTime(node.path) : "—"}</span>
+                            <span className="text-xs hidden sm:block truncate max-w-[120px]" style={{ color: "var(--subtle-fg)" }}>—</span>
+                            <span className="text-xs w-24 text-right shrink-0" style={{ color: "var(--subtle-fg)" }}>{node.isFile ? getFileTime(node.path) : "—"}</span>
                           </button>
                         )
                       })
@@ -461,8 +495,8 @@ export function RepoDetailPage() {
                 </div>
 
                 {/* README or File Content */}
-                <div className="rounded-lg border overflow-hidden bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
-                  <div className="px-4 py-3 border-b bg-slate-50 dark:bg-[#192633] flex items-center gap-2 sticky top-0" style={{ borderColor: BORDER_DARK }}>
+                <div className="rounded-lg border overflow-hidden bg-white dark:bg-surface" style={{ borderColor: "var(--border-strong)" }}>
+                  <div className="px-4 py-3 border-b bg-slate-50 dark:bg-surface-muted flex items-center gap-2 sticky top-0" style={{ borderColor: "var(--border-strong)" }}>
                     <BookOpen className="size-5 text-slate-500" />
                     <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                       {selectedPath ?? "README.md"}
@@ -479,11 +513,11 @@ export function RepoDetailPage() {
                         {fileContentError && <p className="mb-3 text-sm text-destructive">{fileContentError}</p>}
                         {fileContentLoading && (
                           <div className="flex items-center justify-center py-12">
-                            <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("common.loading")}</p>
+                            <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("common.loading")}</p>
                           </div>
                         )}
                         {!fileContentLoading && filePreviewUrl && filePreviewKind && (
-                          <div className="rounded-lg border p-4 overflow-auto" style={{ borderColor: BORDER_DARK }}>
+                          <div className="rounded-lg border p-4 overflow-auto" style={{ borderColor: "var(--border-strong)" }}>
                             {filePreviewKind === "image" && <img src={filePreviewUrl} alt={selectedPath} className="max-w-full rounded object-contain max-h-[70vh]" />}
                             {filePreviewKind === "video" && <video src={filePreviewUrl} controls className="max-w-full rounded max-h-[70vh]" preload="metadata" />}
                             {filePreviewKind === "audio" && <audio src={filePreviewUrl} controls className="w-full max-w-md" preload="metadata" />}
@@ -492,26 +526,26 @@ export function RepoDetailPage() {
                         )}
                         {!fileContentLoading && fileContent != null && !filePreviewUrl && (
                           isMarkdownPath(selectedPath) ? (
-                            <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-[#233648] prose-pre:text-green-400 prose-a:text-primary prose-img:rounded-lg prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
+                            <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-border-strong prose-pre:text-green-400 prose-a:text-primary prose-img:rounded-lg prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
                               <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{fileContent}</ReactMarkdown>
                             </div>
                           ) : (
-                            <div className="rounded-md overflow-hidden border border-slate-800 dark:border-[#233648]">
+                            <div className="rounded-md overflow-hidden border border-slate-800 dark:border-border-strong">
                               <CodeBlock code={fileContent} filePath={selectedPath} />
                             </div>
                           )
                         )}
                         {!fileContentLoading && fileContent == null && !filePreviewUrl && !fileContentError && (
-                          <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repo.selectFile")}</p>
+                          <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("repo.selectFile")}</p>
                         )}
                       </>
                     ) : (
                       repo.readme ? (
-                        <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-[#233648] prose-pre:text-green-400 prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
+                        <div className="prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-border-strong prose-pre:text-green-400 prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
                           <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{repo.readme}</ReactMarkdown>
                         </div>
                       ) : (
-                        <p className="text-sm" style={{ color: TEXT_SECONDARY }}>
+                        <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>
                           {files.length === 0 && isOwner ? t("repo.emptyHint") : t("repo.selectFile")}
                         </p>
                       )
@@ -544,12 +578,12 @@ export function RepoDetailPage() {
                     </div>
                   </div>
                 </div>
-                <div className="h-px w-full bg-slate-200 dark:bg-[#233648]" />
+                <div className="h-px w-full bg-slate-200 dark:bg-border-strong" />
                 <div className="flex flex-col gap-3">
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white">{t("repoDetail.languages")}</h3>
                   {languages.length > 0 ? (
                     <>
-                      <div className="w-full h-2.5 rounded-full flex overflow-hidden bg-slate-200 dark:bg-[#192633]">
+                      <div className="w-full h-2.5 rounded-full flex overflow-hidden bg-slate-200 dark:bg-surface-muted">
                         {languages.slice(0, 5).map((_, i) => (
                           <div
                             key={i}
@@ -576,13 +610,13 @@ export function RepoDetailPage() {
                       </div>
                     </>
                   ) : (
-                    <p className="text-xs" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.noLanguages")}</p>
+                    <p className="text-xs" style={{ color: "var(--subtle-fg)" }}>{t("repoDetail.noLanguages")}</p>
                   )}
                 </div>
-                <div className="h-px w-full bg-slate-200 dark:bg-[#233648]" />
+                <div className="h-px w-full bg-slate-200 dark:bg-border-strong" />
                 <div className="flex flex-col gap-3">
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                    {t("repoDetail.contributors")} <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-[#192633]" style={{ color: TEXT_SECONDARY }}>1</span>
+                    {t("repoDetail.contributors")} <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-normal bg-slate-200 dark:bg-surface-muted" style={{ color: "var(--subtle-fg)" }}>1</span>
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {ownerUsername ? (
@@ -590,7 +624,7 @@ export function RepoDetailPage() {
                   ) : (
                     <span className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-transparent bg-gradient-to-tr from-blue-400 to-cyan-300 block" title={ownerName} />
                   )}
-                    <span className="flex items-center justify-center h-9 w-9 rounded-full bg-slate-100 dark:bg-[#192633] border border-dashed border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors cursor-pointer">
+                    <span className="flex items-center justify-center h-9 w-9 rounded-full bg-slate-100 dark:bg-surface-muted border border-dashed border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary hover:border-primary transition-colors cursor-pointer">
                       +0
                     </span>
                   </div>
@@ -600,23 +634,23 @@ export function RepoDetailPage() {
           )}
 
           {activeTab === "issues" && (
-            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
-              <Bug className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
-              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.issuesPlaceholder")}</p>
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-surface" style={{ borderColor: "var(--border-strong)" }}>
+              <Bug className="size-12 mx-auto mb-3 opacity-50" style={{ color: "var(--subtle-fg)" }} />
+              <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("repoDetail.issuesPlaceholder")}</p>
             </div>
           )}
 
           {activeTab === "archives" && (
-            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
-              <Archive className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
-              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.archivesPlaceholder")}</p>
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-surface" style={{ borderColor: "var(--border-strong)" }}>
+              <Archive className="size-12 mx-auto mb-3 opacity-50" style={{ color: "var(--subtle-fg)" }} />
+              <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("repoDetail.archivesPlaceholder")}</p>
             </div>
           )}
 
           {activeTab === "contributors" && (
-            <div className="rounded-lg border p-8 text-center bg-white dark:bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
-              <Users className="size-12 mx-auto mb-3 opacity-50" style={{ color: TEXT_SECONDARY }} />
-              <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("repoDetail.contributorsPlaceholder")}</p>
+            <div className="rounded-lg border p-8 text-center bg-white dark:bg-surface" style={{ borderColor: "var(--border-strong)" }}>
+              <Users className="size-12 mx-auto mb-3 opacity-50" style={{ color: "var(--subtle-fg)" }} />
+              <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("repoDetail.contributorsPlaceholder")}</p>
             </div>
           )}
         </div>

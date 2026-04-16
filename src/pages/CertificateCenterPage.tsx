@@ -20,13 +20,6 @@ import { useAuth } from "@/contexts/AuthContext"
 import { listReposByOwner, type RepoWithId } from "@/lib/repos"
 import type { Timestamp } from "firebase/firestore"
 
-const PRIMARY = "#1173d4"
-const BG_DARK = "#101922"
-const CARD_BG = "#182635"
-const BORDER = "#324d67"
-const HEADER_ROW_BG = "#233648"
-const MUTED = "#92adc9"
-
 function toCertId(repoId: string): string {
   const clean = repoId.replace(/-/g, "").slice(0, 5)
   const a = clean.toUpperCase()
@@ -104,21 +97,21 @@ export function CertificateCenterPage() {
   const externalVerifications = "0"
 
   return (
-    <div className="min-h-screen overflow-x-hidden font-sans text-slate-100 antialiased" style={{ backgroundColor: BG_DARK }}>
+    <div className="min-h-screen overflow-x-hidden bg-surface-page font-sans text-foreground antialiased">
       <main className="mx-auto flex flex-1 justify-center px-4 py-8 sm:px-8">
         <div className="flex w-full max-w-[1200px] flex-col gap-8">
           {/* Page Title */}
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl font-black leading-tight tracking-tight text-white md:text-4xl">
+              <h1 className="text-3xl font-black leading-tight tracking-tight text-foreground md:text-4xl">
                 {t("certificateCenter.title")}
               </h1>
-              <p className="max-w-2xl text-base font-normal" style={{ color: MUTED }}>
+              <p className="max-w-2xl text-base font-normal text-subtle-fg">
                 {t("certificateCenter.subtitle")}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider" style={{ color: MUTED }}>
+              <span className="text-xs font-bold uppercase tracking-wider text-subtle-fg">
                 {t("certificateCenter.lastUpdated", { date: lastUpdated })}
               </span>
             </div>
@@ -126,32 +119,32 @@ export function CertificateCenterPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="flex flex-col gap-1 rounded-xl border p-6 shadow-sm" style={{ backgroundColor: CARD_BG, borderColor: BORDER }}>
+            <div className="flex flex-col gap-1 rounded-xl border border-border-strong bg-surface p-6 shadow-sm">
               <div className="mb-2 flex items-center gap-2">
-                <BadgeCheck className="h-7 w-7" style={{ color: PRIMARY }} />
-                <p className="text-sm font-medium uppercase tracking-wide" style={{ color: MUTED }}>
+                <BadgeCheck className="h-7 w-7 text-primary" />
+                <p className="text-sm font-medium uppercase tracking-wide text-subtle-fg">
                   {t("certificateCenter.totalCertificates")}
                 </p>
               </div>
-              <p className="text-3xl font-bold leading-tight text-white">{totalCerts}</p>
+              <p className="text-3xl font-bold leading-tight text-foreground">{totalCerts}</p>
             </div>
-            <div className="flex flex-col gap-1 rounded-xl border p-6 shadow-sm" style={{ backgroundColor: CARD_BG, borderColor: BORDER }}>
+            <div className="flex flex-col gap-1 rounded-xl border border-border-strong bg-surface p-6 shadow-sm">
               <div className="mb-2 flex items-center gap-2">
-                <Database className="h-7 w-7" style={{ color: PRIMARY }} />
-                <p className="text-sm font-medium uppercase tracking-wide" style={{ color: MUTED }}>
+                <Database className="h-7 w-7 text-primary" />
+                <p className="text-sm font-medium uppercase tracking-wide text-subtle-fg">
                   {t("certificateCenter.digitalAssetsSecured")}
                 </p>
               </div>
-              <p className="text-3xl font-bold leading-tight text-white">{digitalAssets}</p>
+              <p className="text-3xl font-bold leading-tight text-foreground">{digitalAssets}</p>
             </div>
-            <div className="flex flex-col gap-1 rounded-xl border p-6 shadow-sm" style={{ backgroundColor: CARD_BG, borderColor: BORDER }}>
+            <div className="flex flex-col gap-1 rounded-xl border border-border-strong bg-surface p-6 shadow-sm">
               <div className="mb-2 flex items-center gap-2">
-                <ClipboardCheck className="h-7 w-7" style={{ color: PRIMARY }} />
-                <p className="text-sm font-medium uppercase tracking-wide" style={{ color: MUTED }}>
+                <ClipboardCheck className="h-7 w-7 text-primary" />
+                <p className="text-sm font-medium uppercase tracking-wide text-subtle-fg">
                   {t("certificateCenter.externalVerifications")}
                 </p>
               </div>
-              <p className="text-3xl font-bold leading-tight text-white">{externalVerifications}</p>
+              <p className="text-3xl font-bold leading-tight text-foreground">{externalVerifications}</p>
             </div>
           </div>
 
@@ -160,21 +153,19 @@ export function CertificateCenterPage() {
             {/* Left: Certificate List */}
             <div className="flex flex-col gap-6 lg:col-span-2">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-white">{t("certificateCenter.recentCertificates")}</h2>
+                <h2 className="text-xl font-bold text-foreground">{t("certificateCenter.recentCertificates")}</h2>
                 <button
                   type="button"
-                  className="text-sm font-bold hover:underline"
-                  style={{ color: PRIMARY }}
+                  className="text-sm font-bold text-primary hover:underline"
                   onClick={() => {}}
                 >
                   {t("certificateCenter.viewAllHistory")}
                 </button>
               </div>
-              <div className="flex flex-col overflow-hidden rounded-xl border" style={{ borderColor: BORDER, backgroundColor: CARD_BG }}>
+              <div className="flex flex-col overflow-hidden rounded-xl border border-border-strong bg-surface">
                 {/* Table header */}
                 <div
-                  className="grid grid-cols-12 gap-4 border-b px-6 py-3 text-xs font-semibold uppercase tracking-wider"
-                  style={{ borderColor: BORDER, backgroundColor: `${HEADER_ROW_BG}80`, color: MUTED }}
+                  className="grid grid-cols-12 gap-4 border-b border-border-strong bg-surface-muted/80 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-subtle-fg"
                 >
                   <div className="col-span-6 sm:col-span-5">{t("certificateCenter.repositoryName")}</div>
                   <div className="col-span-3 sm:col-span-3">{t("certificateCenter.archivalDate")}</div>
@@ -182,11 +173,11 @@ export function CertificateCenterPage() {
                   <div className="hidden text-right sm:col-span-2 sm:block">{t("certificateCenter.action")}</div>
                 </div>
                 {loading ? (
-                  <div className="px-6 py-8 text-center text-sm" style={{ color: MUTED }}>
+                  <div className="px-6 py-8 text-center text-sm text-subtle-fg">
                     {t("certificate.loading")}
                   </div>
                 ) : repos.length === 0 ? (
-                  <div className="px-6 py-8 text-center text-sm" style={{ color: MUTED }}>
+                  <div className="px-6 py-8 text-center text-sm text-subtle-fg">
                     No certificates yet. Upload code to a repository to generate one.
                   </div>
                 ) : (
@@ -197,30 +188,27 @@ export function CertificateCenterPage() {
                     return (
                       <div
                         key={repo.id}
-                        className={`group grid grid-cols-12 gap-4 items-center border-b px-6 py-4 transition-colors hover:bg-[#233648]/30 ${isLast ? "border-b-0" : ""}`}
-                        style={{ borderColor: BORDER }}
+                        className={`group grid grid-cols-12 gap-4 items-center border-b border-border-strong px-6 py-4 transition-colors hover:bg-border-strong/30 ${isLast ? "border-b-0" : ""}`}
                       >
                         <div className="col-span-6 flex min-w-0 items-center gap-3 sm:col-span-5">
                           <div
-                            className="flex size-10 shrink-0 items-center justify-center rounded"
-                            style={{ backgroundColor: `${PRIMARY}33`, color: PRIMARY }}
+                            className="flex size-10 shrink-0 items-center justify-center rounded bg-primary/20 text-primary"
                           >
                             <Icon className="h-5 w-5" />
                           </div>
                           <div className="flex min-w-0 flex-col">
-                            <p className="truncate font-medium text-white">{repo.name}</p>
-                            <p className="text-xs" style={{ color: MUTED }}>
+                            <p className="truncate font-medium text-foreground">{repo.name}</p>
+                            <p className="text-xs text-subtle-fg">
                               archived
                             </p>
                           </div>
                         </div>
-                        <div className="col-span-3 text-sm sm:col-span-3" style={{ color: MUTED }}>
+                        <div className="col-span-3 text-sm text-subtle-fg sm:col-span-3">
                           {formatArchivalDate(repo)}
                         </div>
                         <div className="col-span-3 sm:col-span-2">
                           <span
-                            className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-slate-500/10"
-                            style={{ backgroundColor: HEADER_ROW_BG, color: MUTED }}
+                            className="inline-flex items-center rounded-md bg-surface-muted px-2 py-1 text-xs font-medium text-subtle-fg ring-1 ring-inset ring-border-strong/20"
                           >
                             {certId}
                           </span>
@@ -228,8 +216,7 @@ export function CertificateCenterPage() {
                         <div className="col-span-12 flex justify-end sm:col-span-2">
                           <Link
                             to={`/repo/${repo.id}/certificate`}
-                            className="flex items-center gap-2 text-sm font-bold transition-colors hover:opacity-80"
-                            style={{ color: PRIMARY }}
+                            className="flex items-center gap-2 text-sm font-bold text-primary transition-colors hover:opacity-80"
                           >
                             <Download className="h-5 w-5" />
                             <span className="hidden sm:inline">{t("certificateCenter.downloadPdf")}</span>
@@ -244,10 +231,9 @@ export function CertificateCenterPage() {
 
             {/* Right: Verification Tool */}
             <div className="flex flex-col gap-6">
-              <h2 className="text-xl font-bold text-white">{t("certificateCenter.publicVerification")}</h2>
+              <h2 className="text-xl font-bold text-foreground">{t("certificateCenter.publicVerification")}</h2>
               <div
-                className="relative flex min-h-[400px] flex-col justify-between overflow-hidden rounded-xl p-8 text-white shadow-lg"
-                style={{ background: `linear-gradient(to bottom right, ${PRIMARY}, #0c5aa8)` }}
+                className="relative flex min-h-[400px] flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary/80 p-8 text-primary-foreground shadow-lg"
               >
                 <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
                 <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-black/20 blur-3xl" />
@@ -277,8 +263,7 @@ export function CertificateCenterPage() {
                   </label>
                   <Button
                     onClick={handleVerify}
-                    className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-white font-bold shadow-md transition-all hover:bg-slate-100"
-                    style={{ color: PRIMARY }}
+                    className="mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-white font-bold text-primary shadow-md transition-all hover:bg-slate-100"
                   >
                     {t("certificateCenter.verifyNow")}
                     <ArrowRight className="h-4 w-4" />
@@ -297,18 +282,18 @@ export function CertificateCenterPage() {
           </div>
 
           {/* Footer */}
-          <div className="mt-4 flex flex-col items-center justify-between gap-4 border-t pt-8 pb-8 md:flex-row" style={{ borderColor: BORDER }}>
-            <p className="text-sm" style={{ color: MUTED }}>
+          <div className="mt-4 flex flex-col items-center justify-between gap-4 border-t border-border-strong pt-8 pb-8 md:flex-row">
+            <p className="text-sm text-subtle-fg">
               {t("certificateCenter.footerCopyright")}
             </p>
             <div className="flex gap-6">
-              <a href="#" className="transition-colors hover:opacity-80" style={{ color: MUTED }} onClick={(e) => e.preventDefault()}>
+              <a href="#" className="text-subtle-fg transition-colors hover:opacity-80" onClick={(e) => e.preventDefault()}>
                 Privacy Policy
               </a>
-              <a href="#" className="transition-colors hover:opacity-80" style={{ color: MUTED }} onClick={(e) => e.preventDefault()}>
+              <a href="#" className="text-subtle-fg transition-colors hover:opacity-80" onClick={(e) => e.preventDefault()}>
                 Terms of Service
               </a>
-              <Link to="/support" className="transition-colors hover:opacity-80" style={{ color: MUTED }}>
+              <Link to="/support" className="text-subtle-fg transition-colors hover:opacity-80">
                 Support
               </Link>
             </div>

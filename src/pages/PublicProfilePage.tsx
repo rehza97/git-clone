@@ -30,11 +30,6 @@ import type { UserProfile } from "@/types/schema"
 import type { RepoWithId } from "@/lib/repos"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-const CARD_DARK = "#16202a"
-const CARD_BORDER = "#233648"
-const TEXT_SECONDARY = "#92adc9"
-const BG_DARK = "#101922"
-
 const LANG_COLORS: Record<string, string> = {
   Python: "bg-blue-500",
   JavaScript: "bg-yellow-400",
@@ -105,8 +100,8 @@ export function PublicProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center px-4" style={{ backgroundColor: BG_DARK }}>
-        <p className="text-[#92adc9]">{t("common.loading")}</p>
+      <div className="flex min-h-[60vh] items-center justify-center bg-surface-page px-4">
+        <p className="text-subtle-fg">{t("common.loading")}</p>
       </div>
     )
   }
@@ -114,14 +109,14 @@ export function PublicProfilePage() {
   if (notFound || !profile) {
     const isUploadPath = username?.toLowerCase() === "upload"
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-12" style={{ backgroundColor: BG_DARK }}>
-        <Card className="w-full max-w-md border-[#233648] shadow-lg" style={{ backgroundColor: CARD_DARK }}>
+      <div className="flex min-h-[60vh] flex-col items-center justify-center bg-surface-page px-4 py-12">
+        <Card className="w-full max-w-md border-border-strong bg-surface shadow-lg">
           <CardHeader className="text-center pb-2">
-            <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-[#233648] text-[#92adc9]">
+            <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-surface-muted text-subtle-fg">
               <UserX className="h-8 w-8" />
             </div>
             <CardTitle className="mt-4 text-xl text-white">{t("users.userNotFound")}</CardTitle>
-            <CardDescription className="text-[#92adc9]">
+            <CardDescription className="text-subtle-fg">
               {t("users.userNotFoundHint")}
               {username && <span className="mt-1 block font-mono text-sm">@{username}</span>}
             </CardDescription>
@@ -142,16 +137,16 @@ export function PublicProfilePage() {
               </div>
             )}
             <div className="flex flex-wrap justify-center gap-2 pt-2">
-              <Button variant="outline" size="sm" asChild className="gap-1.5 border-[#233648] text-[#92adc9] hover:bg-[#233648] hover:text-white">
+              <Button variant="outline" size="sm" asChild className="gap-1.5 border-border-strong text-subtle-fg hover:bg-border-strong hover:text-foreground">
                 <Link to="/explore">
                   <Search className="h-4 w-4" />
                   {t("nav.explore")}
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" asChild className="gap-1.5 border-[#233648] text-[#92adc9] hover:bg-[#233648] hover:text-white">
+              <Button variant="outline" size="sm" asChild className="gap-1.5 border-border-strong text-subtle-fg hover:bg-border-strong hover:text-foreground">
                 <Link to="/users">{t("users.searchTitle")}</Link>
               </Button>
-              <Button variant="ghost" size="sm" asChild className="gap-1.5 text-[#92adc9] hover:text-white">
+              <Button variant="ghost" size="sm" asChild className="gap-1.5 text-subtle-fg hover:text-white">
                 <Link to="/">
                   <Home className="h-4 w-4" />
                   {t("common.backToHome")}
@@ -168,7 +163,7 @@ export function PublicProfilePage() {
   const pinnedRepos = repos.slice(0, 4)
 
   return (
-    <div className="flex flex-col min-h-screen text-slate-100" style={{ backgroundColor: BG_DARK }}>
+    <div className="flex min-h-screen flex-col bg-surface-page text-slate-100">
       <main className="flex-1 flex justify-center py-8 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col max-w-[1200px] w-full gap-8">
           {/* Profile Header */}
@@ -176,10 +171,10 @@ export function PublicProfilePage() {
             {/* Left: Avatar & meta */}
             <div className="flex-shrink-0 md:sticky md:top-8 w-full md:w-[280px]">
               <div className="relative group">
-                <div className="w-full aspect-square max-w-[280px] mx-auto md:mx-0 rounded-full overflow-hidden border-4 shadow-xl relative z-10 mb-4" style={{ borderColor: CARD_DARK, backgroundColor: CARD_DARK }}>
+                <div className="relative z-10 mx-auto mb-4 aspect-square w-full max-w-[280px] overflow-hidden rounded-full border-4 border-border-strong bg-surface shadow-xl md:mx-0">
                   <Avatar className="w-full h-full rounded-full">
                     <AvatarImage src={profile.photoURL} alt="" className="object-cover" />
-                    <AvatarFallback className="text-2xl bg-[#233648] text-[#92adc9]">
+                    <AvatarFallback className="bg-surface-muted text-2xl text-subtle-fg">
                       {(displayName || "?")[0].toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
@@ -187,38 +182,38 @@ export function PublicProfilePage() {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent -m-1 -z-0 blur-md max-w-[280px] mx-auto md:mx-0 left-0 right-0 md:left-0 md:right-auto" />
               </div>
               <h1 className="text-2xl font-bold text-white mb-1">{displayName}</h1>
-              <p className="text-lg mb-4" style={{ color: TEXT_SECONDARY }}>@{profile.username}</p>
+              <p className="mb-4 text-lg text-subtle-fg">@{profile.username}</p>
               {profile.bio && (
                 <p className="text-slate-300 text-sm leading-relaxed mb-6">{profile.bio}</p>
               )}
               <div className="flex flex-col gap-3 mb-6">
-                <div className="flex items-center gap-2 text-sm" style={{ color: TEXT_SECONDARY }}>
+                <div className="flex items-center gap-2 text-sm text-subtle-fg">
                   <Building2 className="size-[18px] shrink-0" />
                   <span>{t("publicProfile.organization")}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm" style={{ color: TEXT_SECONDARY }}>
+                <div className="flex items-center gap-2 text-sm text-subtle-fg">
                   <MapPin className="size-[18px] shrink-0" />
                   <span>{t("publicProfile.location")}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm" style={{ color: TEXT_SECONDARY }}>
+                <div className="flex items-center gap-2 text-sm text-subtle-fg">
                   <Users className="size-[18px] shrink-0" />
                   <span><span className="text-white font-bold">—</span> {t("publicProfile.followers")} · <span className="text-white font-bold">—</span> {t("publicProfile.following")}</span>
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                <Button className="w-full h-9 rounded-lg text-sm font-medium border transition-colors" style={{ backgroundColor: CARD_DARK, borderColor: CARD_BORDER }}>
+                <Button className="h-9 w-full rounded-lg border border-border-strong bg-surface text-sm font-medium transition-colors">
                   {t("publicProfile.follow")}
                 </Button>
-                <button type="button" className="w-full h-9 flex items-center justify-center gap-2 text-sm font-medium transition-colors hover:text-primary" style={{ color: TEXT_SECONDARY }}>
+                <button type="button" className="w-full h-9 flex items-center justify-center gap-2 text-sm font-medium transition-colors hover:text-primary text-subtle-fg">
                   <Info className="size-4" />
                   {t("publicProfile.moreInfo")}
                 </button>
               </div>
-              <div className="mt-8 border-t pt-6" style={{ borderColor: CARD_BORDER }}>
+              <div className="mt-8 border-t border-border-strong pt-6">
                 <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t("publicProfile.organizations")}</h3>
                 <div className="flex gap-2 flex-wrap">
-                  <div className="w-9 h-9 rounded-md flex items-center justify-center overflow-hidden bg-white/10 border border-[#233648]">
-                    <GraduationCap className="size-5 text-[#92adc9]" />
+                  <div className="w-9 h-9 rounded-md flex items-center justify-center overflow-hidden bg-white/10 border border-border-strong">
+                    <GraduationCap className="size-5 text-subtle-fg" />
                   </div>
                   <div className="w-9 h-9 rounded-md flex items-center justify-center overflow-hidden bg-primary/20 border border-primary/30">
                     <Sparkles className="size-5 text-primary" />
@@ -230,7 +225,7 @@ export function PublicProfilePage() {
             {/* Right: Stats + Tabs + Content */}
             <div className="flex-1 min-w-0">
               {/* Stats */}
-              <div className="bg-gradient-to-br rounded-xl p-6 mb-8 relative overflow-hidden border border-[#233648]" style={{ background: `linear-gradient(to bottom right, ${CARD_DARK}, #0f151b)` }}>
+              <div className="relative mb-8 overflow-hidden rounded-xl border border-border-strong bg-gradient-to-br from-surface to-surface-page p-6">
                 <div className="absolute top-0 right-0 p-4 opacity-5">
                   <GraduationCap className="size-36" />
                 </div>
@@ -240,12 +235,12 @@ export function PublicProfilePage() {
                       {t("publicProfile.statsTitle")}
                       <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full border border-primary/20">{t("publicProfile.verified")}</span>
                     </h2>
-                    <p className="text-sm max-w-2xl" style={{ color: TEXT_SECONDARY }}>
+                    <p className="text-sm max-w-2xl text-subtle-fg">
                       {t("publicProfile.statsDesc")}
                     </p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="rounded-lg p-4 backdrop-blur-sm border border-[#233648] bg-[#101922]/50">
+                    <div className="rounded-lg p-4 backdrop-blur-sm border border-border-strong bg-surface-page/50">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-green-500/10 rounded-lg text-green-500">
                           <Archive className="size-5" />
@@ -253,9 +248,9 @@ export function PublicProfilePage() {
                         <span className="text-2xl font-bold text-white">{repos.length}</span>
                       </div>
                       <p className="text-sm font-medium text-white">{t("publicProfile.statPreserved")}</p>
-                      <p className="text-xs mt-1" style={{ color: TEXT_SECONDARY }}>{t("publicProfile.statPreservedHint")}</p>
+                      <p className="text-xs mt-1 text-subtle-fg">{t("publicProfile.statPreservedHint")}</p>
                     </div>
-                    <div className="rounded-lg p-4 backdrop-blur-sm border border-[#233648] bg-[#101922]/50">
+                    <div className="rounded-lg p-4 backdrop-blur-sm border border-border-strong bg-surface-page/50">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-blue-500/10 rounded-lg text-blue-500">
                           <FileText className="size-5" />
@@ -263,9 +258,9 @@ export function PublicProfilePage() {
                         <span className="text-2xl font-bold text-white">—</span>
                       </div>
                       <p className="text-sm font-medium text-white">{t("publicProfile.statPapers")}</p>
-                      <p className="text-xs mt-1" style={{ color: TEXT_SECONDARY }}>{t("publicProfile.statPapersHint")}</p>
+                      <p className="text-xs mt-1 text-subtle-fg">{t("publicProfile.statPapersHint")}</p>
                     </div>
-                    <div className="rounded-lg p-4 backdrop-blur-sm border border-[#233648] bg-[#101922]/50">
+                    <div className="rounded-lg p-4 backdrop-blur-sm border border-border-strong bg-surface-page/50">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-purple-500/10 rounded-lg text-purple-500">
                           <GitCommit className="size-5" />
@@ -273,20 +268,19 @@ export function PublicProfilePage() {
                         <span className="text-2xl font-bold text-white">—</span>
                       </div>
                       <p className="text-sm font-medium text-white">{t("publicProfile.statCommits")}</p>
-                      <p className="text-xs mt-1" style={{ color: TEXT_SECONDARY }}>{t("publicProfile.statCommitsHint")}</p>
+                      <p className="text-xs mt-1 text-subtle-fg">{t("publicProfile.statCommitsHint")}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Tabs */}
-              <div className="border-b mb-6" style={{ borderColor: CARD_BORDER }}>
+              <div className="mb-6 border-b border-border-strong">
                 <nav aria-label="Tabs" className="-mb-px flex flex-wrap gap-4 sm:space-x-8">
                   <button
                     type="button"
                     onClick={() => setActiveTab("overview")}
-                    className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${activeTab === "overview" ? "border-primary text-white" : "border-transparent hover:text-white hover:border-gray-300"}`}
-                    style={activeTab !== "overview" ? { color: TEXT_SECONDARY } : undefined}
+                    className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors ${activeTab === "overview" ? "border-primary text-white" : "border-transparent text-subtle-fg hover:border-gray-300 hover:text-white"}`}
                   >
                     <LayoutGrid className="size-5" />
                     {t("publicProfile.tabOverview")}
@@ -294,18 +288,16 @@ export function PublicProfilePage() {
                   <button
                     type="button"
                     onClick={() => setActiveTab("repositories")}
-                    className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${activeTab === "repositories" ? "border-primary text-white" : "border-transparent hover:text-white hover:border-gray-300"}`}
-                    style={activeTab !== "repositories" ? { color: TEXT_SECONDARY } : undefined}
+                    className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors ${activeTab === "repositories" ? "border-primary text-white" : "border-transparent text-subtle-fg hover:border-gray-300 hover:text-white"}`}
                   >
                     <FolderOpen className="size-5" />
                     {t("publicProfile.tabRepositories")}
-                    <span className="ml-1 rounded-full px-2 py-0.5 text-xs" style={{ backgroundColor: CARD_BORDER }}>{repos.length}</span>
+                    <span className="ml-1 rounded-full bg-surface-muted px-2 py-0.5 text-xs">{repos.length}</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab("decision1275")}
-                    className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${activeTab === "decision1275" ? "border-primary text-white" : "border-transparent hover:text-white hover:border-gray-300"}`}
-                    style={activeTab !== "decision1275" ? { color: TEXT_SECONDARY } : undefined}
+                    className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors ${activeTab === "decision1275" ? "border-primary text-white" : "border-transparent text-subtle-fg hover:border-gray-300 hover:text-white"}`}
                   >
                     <Star className="size-5" />
                     {t("publicProfile.tabDecision1275")}
@@ -313,8 +305,7 @@ export function PublicProfilePage() {
                   <button
                     type="button"
                     onClick={() => setActiveTab("activity")}
-                    className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${activeTab === "activity" ? "border-primary text-white" : "border-transparent hover:text-white hover:border-gray-300"}`}
-                    style={activeTab !== "activity" ? { color: TEXT_SECONDARY } : undefined}
+                    className={`flex items-center gap-2 whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium transition-colors ${activeTab === "activity" ? "border-primary text-white" : "border-transparent text-subtle-fg hover:border-gray-300 hover:text-white"}`}
                   >
                     <GitBranch className="size-5" />
                     {t("publicProfile.tabActivity")}
@@ -333,24 +324,23 @@ export function PublicProfilePage() {
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       {pinnedRepos.length === 0 ? (
-                        <p className="text-sm col-span-2" style={{ color: TEXT_SECONDARY }}>{t("publicProfile.noPinnedRepos")}</p>
+                        <p className="text-sm col-span-2 text-subtle-fg">{t("publicProfile.noPinnedRepos")}</p>
                       ) : (
                         pinnedRepos.map((repo) => (
                           <Link
                             key={repo.id}
                             to={`/repo/${repo.id}`}
-                            className="rounded-lg p-4 border border-[#233648] hover:border-[#92adc9]/50 transition-colors cursor-pointer group block"
-                            style={{ backgroundColor: CARD_DARK }}
+                            className="group block cursor-pointer rounded-lg border border-border-strong bg-surface p-4 transition-colors hover:border-subtle-fg/50"
                           >
                             <div className="flex items-center gap-2 mb-2">
-                              <BookOpen className="size-5 shrink-0 group-hover:text-primary transition-colors" style={{ color: TEXT_SECONDARY }} />
+                              <BookOpen className="size-5 shrink-0 group-hover:text-primary transition-colors text-subtle-fg" />
                               <span className="text-primary font-bold hover:underline truncate">{repo.name}</span>
-                              <span className="border rounded-full px-2 py-0.5 text-xs flex-shrink-0" style={{ borderColor: CARD_BORDER, color: TEXT_SECONDARY }}>
+                              <span className="flex-shrink-0 rounded-full border border-border-strong px-2 py-0.5 text-xs text-subtle-fg">
                                 {repo.visibility === "public" ? t("common.public") : t("common.private")}
                               </span>
                             </div>
-                            <p className="text-sm mb-4 line-clamp-2" style={{ color: TEXT_SECONDARY }}>{repo.description || "—"}</p>
-                            <div className="flex items-center gap-4 text-xs" style={{ color: TEXT_SECONDARY }}>
+                            <p className="text-sm mb-4 line-clamp-2 text-subtle-fg">{repo.description || "—"}</p>
+                            <div className="flex items-center gap-4 text-xs text-subtle-fg">
                               {repo.languages?.[0] && (
                                 <div className="flex items-center gap-1">
                                   <span className={`w-3 h-3 rounded-full ${langColor(repo.languages[0])}`} />
@@ -370,28 +360,28 @@ export function PublicProfilePage() {
                       <h3 className="text-lg font-semibold text-white">{t("publicProfile.preservedProjects")}</h3>
                       <span className="text-xs text-primary hover:underline cursor-pointer">{t("publicProfile.viewAll")}</span>
                     </div>
-                    <div className="rounded-lg overflow-hidden border border-[#233648]" style={{ backgroundColor: CARD_DARK }}>
-                      <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_auto] gap-4 p-4 border-b border-[#233648] text-xs font-semibold uppercase tracking-wider" style={{ color: TEXT_SECONDARY }}>
+                    <div className="overflow-hidden rounded-lg border border-border-strong bg-surface">
+                      <div className="grid grid-cols-[1fr_auto] gap-4 border-b border-border-strong p-4 text-xs font-semibold uppercase tracking-wider text-subtle-fg sm:grid-cols-[1fr_auto_auto]">
                         <div>{t("publicProfile.project")}</div>
                         <div className="text-right hidden sm:block">{t("publicProfile.dateArchived")}</div>
                         <div className="text-right">{t("publicProfile.status")}</div>
                       </div>
                       {MOCK_PRESERVED.map((row) => (
-                        <div key={row.id} className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_auto] gap-4 p-4 border-b border-[#233648] hover:bg-[#101922]/50 transition-colors items-center last:border-b-0">
+                        <div key={row.id} className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_auto] gap-4 p-4 border-b border-border-strong hover:bg-surface-page/50 transition-colors items-center last:border-b-0">
                           <div className="flex gap-3">
                             <div className="mt-1">
                               {row.status === "patented" ? (
                                 <CheckCircle2 className="size-5 text-green-500" />
                               ) : (
-                                <Archive className="size-5" style={{ color: TEXT_SECONDARY }} />
+                                <Archive className="size-5 text-subtle-fg" />
                               )}
                             </div>
                             <div>
                               <h4 className="text-sm font-bold text-white hover:text-primary cursor-pointer">{row.title}</h4>
-                              <p className="text-xs mt-0.5" style={{ color: TEXT_SECONDARY }}>{row.desc}</p>
+                              <p className="text-xs mt-0.5 text-subtle-fg">{row.desc}</p>
                             </div>
                           </div>
-                          <div className="text-sm text-right hidden sm:block" style={{ color: TEXT_SECONDARY }}>{row.date}</div>
+                          <div className="text-sm text-right hidden sm:block text-subtle-fg">{row.date}</div>
                           <div className="text-right flex justify-end">
                             <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
                               row.status === "patented" ? "bg-green-400/10 text-green-400 ring-green-400/20" :
@@ -410,25 +400,25 @@ export function PublicProfilePage() {
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-semibold text-white">{t("publicProfile.contributionsTitle")}</h3>
-                      <div className="text-xs" style={{ color: TEXT_SECONDARY }}>{t("publicProfile.lastUpdated")}</div>
+                      <div className="text-xs text-subtle-fg">{t("publicProfile.lastUpdated")}</div>
                     </div>
-                    <div className="rounded-lg p-4 overflow-x-auto border border-[#233648]" style={{ backgroundColor: CARD_DARK }}>
+                    <div className="overflow-x-auto rounded-lg border border-border-strong bg-surface p-4">
                       <div className="min-w-[600px] flex flex-col gap-1">
-                        <div className="flex gap-1 justify-between text-xs mb-2" style={{ color: TEXT_SECONDARY }}>
+                        <div className="flex gap-1 justify-between text-xs mb-2 text-subtle-fg">
                           {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => <span key={m}>{m}</span>)}
                         </div>
                         <div className="flex gap-0.5 h-[100px] w-full items-end justify-between">
                           {Array.from({ length: 52 }).map((_, i) => (
                             <div key={i} className="flex flex-col gap-0.5 justify-end flex-1 min-w-[8px]">
                               {[0,1,2,3,4,5,6].map((_, j) => (
-                                <div key={j} className="w-full h-2 rounded-sm bg-[#233648]" style={{ opacity: 0.3 + Math.random() * 0.7 }} />
+                                <div key={j} className="h-2 w-full rounded-sm bg-border-strong" style={{ opacity: 0.3 + Math.random() * 0.7 }} />
                               ))}
                             </div>
                           ))}
                         </div>
-                        <div className="flex gap-2 text-xs mt-3 justify-end" style={{ color: TEXT_SECONDARY }}>
+                        <div className="flex gap-2 text-xs mt-3 justify-end text-subtle-fg">
                           <span>{t("publicProfile.less")}</span>
-                          <div className="w-2.5 h-2.5 rounded-[2px] bg-[#233648]" />
+                          <div className="size-2.5 rounded-[2px] bg-border-strong" />
                           <div className="w-2.5 h-2.5 rounded-[2px] bg-[#0e4429]" />
                           <div className="w-2.5 h-2.5 rounded-[2px] bg-[#006d32]" />
                           <div className="w-2.5 h-2.5 rounded-[2px] bg-[#26a641]" />
@@ -442,16 +432,18 @@ export function PublicProfilePage() {
                   {/* Latest Activity */}
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-4">{t("publicProfile.latestActivity")}</h3>
-                    <div className="flex flex-col gap-4 relative pl-4 border-l border-[#233648] ml-2">
+                    <div className="flex flex-col gap-4 relative pl-4 border-l border-border-strong ml-2">
                       {MOCK_ACTIVITY.map((item) => (
                         <div key={item.id} className="relative pl-6">
-                          <div className="absolute -left-[21px] top-1 p-1 rounded-full border border-[#233648] bg-[#101922]" style={{ color: item.type === "verified" ? "rgb(34 197 94)" : TEXT_SECONDARY }}>
-                            {item.type === "commit" && <GitCommit className="size-4 block" />}
-                            {item.type === "verified" && <CheckCircle2 className="size-4 block text-green-500" />}
-                            {item.type === "star" && <Star className="size-4 block" />}
+                          <div
+                            className={`absolute -left-[21px] top-1 rounded-full border border-border-strong bg-surface-page p-1 ${item.type === "verified" ? "text-green-500" : "text-subtle-fg"}`}
+                          >
+                            {item.type === "commit" && <GitCommit className="block size-4" />}
+                            {item.type === "verified" && <CheckCircle2 className="block size-4 text-green-500" />}
+                            {item.type === "star" && <Star className="block size-4" />}
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-xs" style={{ color: TEXT_SECONDARY }}>{item.time}</span>
+                            <span className="text-xs text-subtle-fg">{item.time}</span>
                             <p className="text-sm text-white">
                               {item.type === "commit" && (
                                 <> {t("publicProfile.activityPushed")} <Link to="/explore" className="text-primary hover:underline font-medium">{item.linkText}</Link></>
@@ -464,13 +456,13 @@ export function PublicProfilePage() {
                               )}
                             </p>
                             {item.detail && (
-                              <div className="mt-1 text-xs font-mono p-1 rounded border border-[#233648] inline-block w-fit bg-[#16202a]" style={{ color: TEXT_SECONDARY }}>{item.detail}</div>
+                              <div className="mt-1 text-xs font-mono p-1 rounded border border-border-strong inline-block w-fit bg-surface-muted text-subtle-fg">{item.detail}</div>
                             )}
                           </div>
                         </div>
                       ))}
                     </div>
-                    <button type="button" className="w-full py-2 mt-6 text-sm border border-[#233648] rounded-lg hover:bg-[#16202a] hover:text-white transition-colors" style={{ color: TEXT_SECONDARY }}>
+                    <button type="button" className="mt-6 w-full rounded-lg border border-border-strong py-2 text-sm text-subtle-fg transition-colors hover:bg-surface-muted hover:text-foreground">
                       {t("publicProfile.showMoreActivity")}
                     </button>
                   </div>
@@ -480,20 +472,20 @@ export function PublicProfilePage() {
               {activeTab === "repositories" && (
                 <div className="space-y-4">
                   {repos.length === 0 ? (
-                    <p className="text-sm" style={{ color: TEXT_SECONDARY }}>{t("users.noRepos")}</p>
+                    <p className="text-sm text-subtle-fg">{t("users.noRepos")}</p>
                   ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       {repos.map((repo) => (
-                        <Link key={repo.id} to={`/repo/${repo.id}`} className="rounded-lg p-4 border border-[#233648] hover:border-[#92adc9]/50 transition-colors block" style={{ backgroundColor: CARD_DARK }}>
-                          <div className="flex items-center gap-2 mb-2">
-                            <BookOpen className="size-5 shrink-0 text-[#92adc9]" />
-                            <span className="text-primary font-bold hover:underline truncate">{repo.name}</span>
-                            <span className="border rounded-full px-2 py-0.5 text-xs" style={{ borderColor: CARD_BORDER, color: TEXT_SECONDARY }}>
+                        <Link key={repo.id} to={`/repo/${repo.id}`} className="block rounded-lg border border-border-strong bg-surface p-4 transition-colors hover:border-subtle-fg/50">
+                          <div className="mb-2 flex items-center gap-2">
+                            <BookOpen className="size-5 shrink-0 text-subtle-fg" />
+                            <span className="truncate font-bold text-primary hover:underline">{repo.name}</span>
+                            <span className="rounded-full border border-border-strong px-2 py-0.5 text-xs text-subtle-fg">
                               {repo.visibility === "public" ? t("common.public") : t("common.private")}
                             </span>
                           </div>
-                          <p className="text-sm line-clamp-2" style={{ color: TEXT_SECONDARY }}>{repo.description || "—"}</p>
-                          <div className="flex items-center gap-4 text-xs mt-2" style={{ color: TEXT_SECONDARY }}>
+                          <p className="text-sm line-clamp-2 text-subtle-fg">{repo.description || "—"}</p>
+                          <div className="flex items-center gap-4 text-xs mt-2 text-subtle-fg">
                             {repo.languages?.[0] && (
                               <div className="flex items-center gap-1">
                                 <span className={`w-3 h-3 rounded-full ${langColor(repo.languages[0])}`} />
@@ -509,22 +501,22 @@ export function PublicProfilePage() {
               )}
 
               {activeTab === "decision1275" && (
-                <div className="rounded-lg overflow-hidden border border-[#233648]" style={{ backgroundColor: CARD_DARK }}>
-                  <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_auto] gap-4 p-4 border-b border-[#233648] text-xs font-semibold uppercase tracking-wider" style={{ color: TEXT_SECONDARY }}>
+                <div className="overflow-hidden rounded-lg border border-border-strong bg-surface">
+                  <div className="grid grid-cols-[1fr_auto] gap-4 border-b border-border-strong p-4 text-xs font-semibold uppercase tracking-wider text-subtle-fg sm:grid-cols-[1fr_auto_auto]">
                     <div>{t("publicProfile.project")}</div>
-                    <div className="text-right hidden sm:block">{t("publicProfile.dateArchived")}</div>
+                    <div className="hidden text-right sm:block">{t("publicProfile.dateArchived")}</div>
                     <div className="text-right">{t("publicProfile.status")}</div>
                   </div>
                   {MOCK_PRESERVED.map((row) => (
-                    <div key={row.id} className="grid grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_auto] gap-4 p-4 border-b border-[#233648] hover:bg-[#101922]/50 items-center last:border-b-0">
+                    <div key={row.id} className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-border-strong p-4 last:border-b-0 hover:bg-surface-page/50 sm:grid-cols-[1fr_auto_auto]">
                       <div className="flex gap-3">
-                        <div className="mt-1">{row.status === "patented" ? <CheckCircle2 className="size-5 text-green-500" /> : <Archive className="size-5" style={{ color: TEXT_SECONDARY }} />}</div>
+                        <div className="mt-1">{row.status === "patented" ? <CheckCircle2 className="size-5 text-green-500" /> : <Archive className="size-5 text-subtle-fg" />}</div>
                         <div>
                           <h4 className="text-sm font-bold text-white hover:text-primary cursor-pointer">{row.title}</h4>
-                          <p className="text-xs mt-0.5" style={{ color: TEXT_SECONDARY }}>{row.desc}</p>
+                          <p className="text-xs mt-0.5 text-subtle-fg">{row.desc}</p>
                         </div>
                       </div>
-                      <div className="text-sm text-right hidden sm:block" style={{ color: TEXT_SECONDARY }}>{row.date}</div>
+                      <div className="text-sm text-right hidden sm:block text-subtle-fg">{row.date}</div>
                       <div className="text-right flex justify-end">
                         <span className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
                           row.status === "patented" ? "bg-green-400/10 text-green-400 ring-green-400/20" :
@@ -540,26 +532,28 @@ export function PublicProfilePage() {
               )}
 
               {activeTab === "activity" && (
-                <div className="flex flex-col gap-4 relative pl-4 border-l border-[#233648] ml-2">
+                <div className="flex flex-col gap-4 relative pl-4 border-l border-border-strong ml-2">
                   {MOCK_ACTIVITY.map((item) => (
                     <div key={item.id} className="relative pl-6">
-                      <div className="absolute -left-[21px] top-1 p-1 rounded-full border border-[#233648] bg-[#101922]" style={{ color: item.type === "verified" ? "rgb(34 197 94)" : TEXT_SECONDARY }}>
-                        {item.type === "commit" && <GitCommit className="size-4 block" />}
-                        {item.type === "verified" && <CheckCircle2 className="size-4 block text-green-500" />}
-                        {item.type === "star" && <Star className="size-4 block" />}
+                      <div
+                        className={`absolute -left-[21px] top-1 rounded-full border border-border-strong bg-surface-page p-1 ${item.type === "verified" ? "text-green-500" : "text-subtle-fg"}`}
+                      >
+                        {item.type === "commit" && <GitCommit className="block size-4" />}
+                        {item.type === "verified" && <CheckCircle2 className="block size-4 text-green-500" />}
+                        {item.type === "star" && <Star className="block size-4" />}
                       </div>
                       <div>
-                        <span className="text-xs" style={{ color: TEXT_SECONDARY }}>{item.time}</span>
+                        <span className="text-xs text-subtle-fg">{item.time}</span>
                         <p className="text-sm text-white">
                           {item.type === "commit" && <> {t("publicProfile.activityPushed")} <Link to="/explore" className="text-primary hover:underline font-medium">{item.linkText}</Link></>}
                           {item.type === "verified" && <> {t("publicProfile.activityLabel")} <span className="font-bold">{item.linkText}</span> {t("publicProfile.activityLabelSuffix")}</>}
                           {item.type === "star" && <> {t("publicProfile.activityStarred")} <Link to="/explore" className="text-primary hover:underline font-medium">{item.linkText}</Link></>}
                         </p>
-                        {item.detail && <div className="mt-1 text-xs font-mono p-1 rounded border border-[#233648] inline-block bg-[#16202a]" style={{ color: TEXT_SECONDARY }}>{item.detail}</div>}
+                        {item.detail && <div className="mt-1 text-xs font-mono p-1 rounded border border-border-strong inline-block bg-surface-muted text-subtle-fg">{item.detail}</div>}
                       </div>
                     </div>
                   ))}
-                  <button type="button" className="w-full py-2 mt-4 text-sm border border-[#233648] rounded-lg hover:bg-[#16202a] hover:text-white transition-colors self-start" style={{ color: TEXT_SECONDARY }}>
+                  <button type="button" className="mt-4 w-full self-start rounded-lg border border-border-strong py-2 text-sm transition-colors hover:bg-surface-muted hover:text-foreground">
                     {t("publicProfile.showMoreActivity")}
                   </button>
                 </div>

@@ -26,11 +26,6 @@ import {
   ShieldCheck,
 } from "lucide-react"
 
-const BORDER_DARK = "#233648"
-const SURFACE_DARK = "#16202a"
-const BG_DARK = "#101922"
-const TEXT_MUTED = "#92adc9"
-
 const MD_EXT = new Set(["md", "markdown"])
 const IMAGE_EXT = new Set(["jpg", "jpeg", "png", "gif", "webp", "svg", "ico", "bmp", "avif"])
 const VIDEO_EXT = new Set(["mp4", "webm", "ogg", "mov", "avi", "mkv"])
@@ -171,15 +166,15 @@ export function CodeEditorPage() {
 
   if (repoLoading || !repoId) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#101922]">
-        <p className="text-[#92adc9]">{t("common.loading")}</p>
+      <div className="min-h-screen flex items-center justify-center bg-surface-page">
+        <p className="text-subtle-fg">{t("common.loading")}</p>
       </div>
     )
   }
 
   if (!repo) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#101922]">
+      <div className="min-h-screen flex items-center justify-center bg-surface-page">
         <p className="text-destructive">{t("fileViewer.fileNotFound")}</p>
         <Link to={`/repo/${repoId}`} className="text-primary mt-2">
           {t("fileViewer.backToRepo")}
@@ -220,7 +215,7 @@ export function CodeEditorPage() {
               className={`flex items-center gap-2 w-full px-3 py-1.5 text-left text-sm transition-colors cursor-pointer border-r-2 ${
                 isSelected
                   ? "bg-primary/10 text-white font-medium border-primary"
-                  : "border-transparent text-[#92adc9] hover:bg-white/5 hover:text-white"
+                  : "border-transparent text-subtle-fg hover:bg-white/5 hover:text-white"
               }`}
               style={{ paddingLeft: `${12 + depth * 16}px` }}
             >
@@ -234,18 +229,18 @@ export function CodeEditorPage() {
             <button
               type="button"
               onClick={() => toggleFolder(node.path)}
-              className="flex items-center gap-2 w-full px-3 py-1.5 text-left text-sm text-[#92adc9] hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-2 w-full px-3 py-1.5 text-left text-sm text-subtle-fg hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
               style={{ paddingLeft: `${12 + depth * 16}px` }}
             >
               {isExpanded ? (
-                <FolderOpen className="size-[18px] shrink-0 text-[#92adc9]" />
+                <FolderOpen className="size-[18px] shrink-0 text-subtle-fg" />
               ) : (
                 <Folder className="size-[18px] shrink-0 text-yellow-500/80" />
               )}
               <span className="truncate">{node.name}</span>
             </button>
             {isExpanded && (
-              <div className="border-l border-[#233648] ml-6 my-1">
+              <div className="border-l border-border-strong ml-6 my-1">
                 {renderTreeNodes(node.children, node.path, depth + 1)}
               </div>
             )}
@@ -255,11 +250,11 @@ export function CodeEditorPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#101922] text-slate-100 overflow-hidden">
+    <div className="h-screen flex flex-col bg-surface-page text-slate-100 overflow-hidden">
       {/* Header - match reference */}
       <header
         className="flex items-center justify-between border-b px-6 py-3 h-16 shrink-0 z-20"
-        style={{ borderColor: BORDER_DARK, backgroundColor: BG_DARK }}
+        style={{ borderColor: "var(--border-strong)", backgroundColor: "var(--surface-page)" }}
       >
         <div className="flex items-center gap-8 min-w-0">
           <Link to={`/repo/${repoId}`} className="flex items-center gap-3 text-white shrink-0">
@@ -274,10 +269,10 @@ export function CodeEditorPage() {
             </Link>
             {selectedPath && (
               <>
-                <span style={{ color: TEXT_MUTED }}>/</span>
+                <span style={{ color: "var(--subtle-fg)" }}>/</span>
                 <span
-                  className="font-medium text-white truncate max-w-[240px] flex items-center gap-2 px-2 py-1 rounded border bg-[#16202a]"
-                  style={{ borderColor: BORDER_DARK }}
+                  className="font-medium text-white truncate max-w-[240px] flex items-center gap-2 px-2 py-1 rounded border bg-surface-muted"
+                  style={{ borderColor: "var(--border-strong)" }}
                 >
                   <Lock className="size-4 text-primary shrink-0" />
                   {selectedPath.split("/").pop()}
@@ -287,22 +282,22 @@ export function CodeEditorPage() {
           </nav>
         </div>
         <div className="flex items-center gap-4 shrink-0">
-          <ThemeToggle className="text-[#92adc9] hover:bg-white/5 hover:text-white" />
+          <ThemeToggle className="text-subtle-fg hover:bg-white/5 hover:text-white" />
           <div className="relative hidden sm:block">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5" style={{ color: TEXT_MUTED }} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5" style={{ color: "var(--subtle-fg)" }} />
             <input
               type="text"
               placeholder={t("codeEditor.searchFiles")}
               value={treeSearch}
               onChange={(e) => setTreeSearch(e.target.value)}
-              className="bg-[#16202a] border rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-primary w-64 placeholder:opacity-50"
-              style={{ borderColor: BORDER_DARK }}
+              className="bg-surface-muted border rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-primary w-64 placeholder:opacity-50"
+              style={{ borderColor: "var(--border-strong)" }}
             />
           </div>
-          <div className="h-8 w-px bg-[#233648]" />
+          <div className="h-8 w-px bg-border-strong" />
           <Link
             to={`/repo/${repoId}`}
-            className="flex items-center gap-2 text-sm text-[#92adc9] hover:text-white transition-colors"
+            className="flex items-center gap-2 text-sm text-subtle-fg hover:text-white transition-colors"
           >
             <ArrowLeft className="size-5" />
             {t("fileViewer.repository")}
@@ -315,20 +310,20 @@ export function CodeEditorPage() {
         {/* Left: Explorer */}
         <aside
           className="w-64 flex flex-col shrink-0 border-r overflow-hidden"
-          style={{ backgroundColor: SURFACE_DARK, borderColor: BORDER_DARK }}
+          style={{ backgroundColor: "var(--surface-muted)", borderColor: "var(--border-strong)" }}
         >
-          <div className="p-4 border-b flex justify-between items-center" style={{ borderColor: BORDER_DARK }}>
-            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: TEXT_MUTED }}>
+          <div className="p-4 border-b flex justify-between items-center" style={{ borderColor: "var(--border-strong)" }}>
+            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--subtle-fg)" }}>
               {t("codeEditor.explorer")}
             </span>
-            <button type="button" className="p-1 rounded hover:bg-white/5" style={{ color: TEXT_MUTED }} aria-label={t("codeEditor.moreOptions")}>
+            <button type="button" className="p-1 rounded hover:bg-white/5" style={{ color: "var(--subtle-fg)" }} aria-label={t("codeEditor.moreOptions")}>
               <MoreHorizontal className="size-4" />
             </button>
           </div>
           <div className="flex-1 overflow-y-auto py-2">
             <div className="flex flex-col text-sm">
               {rootChildren.length === 0 ? (
-                <p className="px-4 py-2 text-sm" style={{ color: TEXT_MUTED }}>
+                <p className="px-4 py-2 text-sm" style={{ color: "var(--subtle-fg)" }}>
                   {t("repo.noFiles")}
                 </p>
               ) : (
@@ -336,8 +331,8 @@ export function CodeEditorPage() {
               )}
             </div>
           </div>
-          <div className="p-4 border-t" style={{ borderColor: BORDER_DARK }}>
-            <div className="flex items-center gap-2 text-xs" style={{ color: TEXT_MUTED }}>
+          <div className="p-4 border-t" style={{ borderColor: "var(--border-strong)" }}>
+            <div className="flex items-center gap-2 text-xs" style={{ color: "var(--subtle-fg)" }}>
               <div className="size-2 rounded-full bg-green-500" />
               {t("codeEditor.verifiedRepo")}
             </div>
@@ -345,16 +340,16 @@ export function CodeEditorPage() {
         </aside>
 
         {/* Center: Code viewer */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#101922]">
+        <main className="flex-1 flex flex-col min-w-0 bg-surface-page">
           {selectedPath ? (
             <>
               {/* Toolbar */}
               <div
                 className="flex items-center justify-between px-6 py-3 border-b shrink-0 sticky top-0 z-10 backdrop-blur-sm"
-                style={{ borderColor: BORDER_DARK, backgroundColor: "rgba(22, 32, 42, 0.7)" }}
+                style={{ borderColor: "var(--border-strong)", backgroundColor: "rgba(22, 32, 42, 0.7)" }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center text-sm gap-2" style={{ color: TEXT_MUTED }}>
+                  <div className="flex items-center text-sm gap-2" style={{ color: "var(--subtle-fg)" }}>
                     <History className="size-5" />
                     <span>{fileContentLoading ? "—" : `${lineCount} lines`}</span>
                     <span className="opacity-70">•</span>
@@ -365,8 +360,8 @@ export function CodeEditorPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div
-                    className="flex rounded-lg border p-0.5 bg-[#16202a]"
-                    style={{ borderColor: BORDER_DARK }}
+                    className="flex rounded-lg border p-0.5 bg-surface-muted"
+                    style={{ borderColor: "var(--border-strong)" }}
                   >
                     <span className="px-3 py-1.5 text-xs font-medium rounded-md bg-primary/20 text-primary">
                       Code
@@ -377,7 +372,7 @@ export function CodeEditorPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-3 py-1.5 text-xs font-medium rounded-md transition-colors hover:text-white"
-                        style={{ color: TEXT_MUTED }}
+                        style={{ color: "var(--subtle-fg)" }}
                       >
                         Raw
                       </a>
@@ -403,7 +398,7 @@ export function CodeEditorPage() {
                 )}
                 {fileContentLoading && (
                   <div className="flex items-center justify-center py-12">
-                    <p className="text-sm" style={{ color: TEXT_MUTED }}>{t("common.loading")}</p>
+                    <p className="text-sm" style={{ color: "var(--subtle-fg)" }}>{t("common.loading")}</p>
                   </div>
                 )}
                 {!fileContentLoading && previewKind && fileDownloadUrl && (
@@ -424,7 +419,7 @@ export function CodeEditorPage() {
                 )}
                 {!fileContentLoading && fileContent != null && !previewKind && (
                   isMarkdownPath(selectedPath) ? (
-                    <div className="p-6 prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold prose-pre:bg-[#0d1117] prose-img:max-w-full [&_img]:max-w-full">
+                    <div className="p-6 prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold prose-pre:bg-code-bg prose-img:max-w-full [&_img]:max-w-full">
                       <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>
                         {fileContent}
                       </ReactMarkdown>
@@ -446,7 +441,7 @@ export function CodeEditorPage() {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center" style={{ color: TEXT_MUTED }}>
+            <div className="flex-1 flex items-center justify-center" style={{ color: "var(--subtle-fg)" }}>
               <p className="text-sm">{t("codeEditor.selectFile")}</p>
             </div>
           )}
@@ -455,23 +450,23 @@ export function CodeEditorPage() {
         {/* Right: File Details */}
         <aside
           className="w-72 flex flex-col shrink-0 overflow-y-auto border-l"
-          style={{ backgroundColor: SURFACE_DARK, borderColor: BORDER_DARK }}
+          style={{ backgroundColor: "var(--surface-muted)", borderColor: "var(--border-strong)" }}
         >
           <div className="p-5">
             <h3 className="text-sm font-semibold text-white mb-4">{t("codeEditor.fileDetails")}</h3>
             <div className="space-y-6">
               {/* Last commit placeholder */}
-              <div className="rounded-lg p-3 border bg-[#101922]" style={{ borderColor: BORDER_DARK }}>
+              <div className="rounded-lg p-3 border bg-surface-page" style={{ borderColor: "var(--border-strong)" }}>
                 <div className="flex items-start gap-3">
-                  <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border" style={{ borderColor: BORDER_DARK }}>
+                  <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border" style={{ borderColor: "var(--border-strong)" }}>
                     <History className="size-4 text-primary" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-white">{t("repoDetail.latestCommit")}</p>
-                    <p className="text-[10px] mt-0.5" style={{ color: TEXT_MUTED }}>—</p>
+                    <p className="text-[10px] mt-0.5" style={{ color: "var(--subtle-fg)" }}>—</p>
                   </div>
                 </div>
-                <div className="mt-3 flex items-center gap-2 text-[10px]" style={{ color: TEXT_MUTED }}>
+                <div className="mt-3 flex items-center gap-2 text-[10px]" style={{ color: "var(--subtle-fg)" }}>
                   <Calendar className="size-3.5" />
                   —
                   <span className="mx-1">•</span>
@@ -481,33 +476,33 @@ export function CodeEditorPage() {
 
               {/* Properties */}
               <div>
-                <h4 className="text-xs font-medium uppercase mb-3 tracking-wide" style={{ color: TEXT_MUTED }}>
+                <h4 className="text-xs font-medium uppercase mb-3 tracking-wide" style={{ color: "var(--subtle-fg)" }}>
                   {t("codeEditor.properties")}
                 </h4>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-sm">
-                    <span style={{ color: TEXT_MUTED }}>{t("codeEditor.size")}</span>
+                    <span style={{ color: "var(--subtle-fg)" }}>{t("codeEditor.size")}</span>
                     <span className="text-white font-mono">{selectedPath ? sizeStr : "—"}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span style={{ color: TEXT_MUTED }}>{t("codeEditor.lines")}</span>
+                    <span style={{ color: "var(--subtle-fg)" }}>{t("codeEditor.lines")}</span>
                     <span className="text-white font-mono">{selectedPath ? (fileContentLoading ? "—" : lineCount) : "—"}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span style={{ color: TEXT_MUTED }}>{t("codeEditor.language")}</span>
+                    <span style={{ color: "var(--subtle-fg)" }}>{t("codeEditor.language")}</span>
                     <div className="flex items-center gap-1.5 text-white">
                       <div className="size-2 rounded-full bg-blue-500" />
                       {langLabel}
                     </div>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span style={{ color: TEXT_MUTED }}>{t("codeEditor.encoding")}</span>
+                    <span style={{ color: "var(--subtle-fg)" }}>{t("codeEditor.encoding")}</span>
                     <span className="text-white">UTF-8</span>
                   </div>
                 </div>
               </div>
 
-              <div className="h-px w-full" style={{ backgroundColor: BORDER_DARK }} />
+              <div className="h-px w-full" style={{ backgroundColor: "var(--border-strong)" }} />
 
               {/* Security badge - match reference */}
               <div className="bg-blue-500/10 border rounded-lg p-3" style={{ borderColor: "rgba(59, 130, 246, 0.2)" }}>
@@ -515,17 +510,17 @@ export function CodeEditorPage() {
                   <ShieldCheck className="size-[18px] text-primary" />
                   <span className="text-xs font-bold text-primary">{t("codeEditor.securityPassed")}</span>
                 </div>
-                <p className="text-[10px] leading-snug" style={{ color: TEXT_MUTED }}>
+                <p className="text-[10px] leading-snug" style={{ color: "var(--subtle-fg)" }}>
                   {t("codeEditor.securityDescription")}
                 </p>
               </div>
             </div>
           </div>
-          <div className="mt-auto p-4 border-t" style={{ borderColor: BORDER_DARK }}>
+          <div className="mt-auto p-4 border-t" style={{ borderColor: "var(--border-strong)" }}>
             <button
               type="button"
               className="w-full py-2 px-4 rounded-lg text-sm border flex items-center justify-center gap-2 transition-colors hover:text-white"
-              style={{ backgroundColor: SURFACE_DARK, borderColor: BORDER_DARK, color: TEXT_MUTED }}
+              style={{ backgroundColor: "var(--surface-muted)", borderColor: "var(--border-strong)", color: "var(--subtle-fg)" }}
             >
               <Bug className="size-[18px]" />
               {t("codeEditor.reportIssue")}

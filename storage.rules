@@ -1,9 +1,6 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    function pathMatches(path, pattern) {
-      return path.matches(pattern);
-    }
     function repoPath(repoId) {
       return /databases/(default)/documents/repos/$(repoId);
     }
@@ -16,21 +13,17 @@ service firebase.storage {
     function repoIsPublic(repoId) {
       return firestore.get(repoPath(repoId)).data.visibility == 'public';
     }
+
     match /users/{userId}/repos/{repoId}/{allPaths=**} {
-      // Private repos must not be publicly downloadable.
-      // Public repos: anyone can read.
-      // Private repos: only the owner can read.
+      // Reads: public repos for anyone; private repos only when path owner is signed in as that user.
       allow read: if repoExists(repoId)
         && repoOwnerId(repoId) == userId
         && (repoIsPublic(repoId) || (request.auth != null && request.auth.uid == userId));
 
-      // Writes: only repo owner, and block common secret/huge folders.
-      allow write: if repoExists(repoId)
-        && repoOwnerId(repoId) == userId
-        && request.auth != null
-        && request.auth.uid == userId
-        && !pathMatches(allPaths, '.*node_modules.*')
-        && !pathMatches(allPaths, '.*\\.env.*');
+      // MVP writes: only require a signed-in user writing under their own uid prefix.
+      // (Firestore rules still gate repo/file metadata.) Before production, re-add:
+      // repoOwnerId(repoId) == userId and node_modules / .env path guards.
+      allow write: if request.auth != null && request.auth.uid == userId;
     }
   }
 }

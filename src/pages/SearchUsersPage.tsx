@@ -38,7 +38,7 @@ type LatestRepo = { name: string; repoId: string; updatedAt?: Timestamp; languag
 
 function ProfileCardSkeleton() {
   return (
-    <div className="flex flex-col bg-white dark:bg-[#1b2733] border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm">
+    <div className="flex flex-col bg-white dark:bg-surface border border-slate-200 dark:border-border-strong rounded-xl overflow-hidden shadow-sm">
       <div className="h-24 bg-slate-200 dark:bg-slate-800 rounded-t-xl" />
       <div className="pt-12 px-5 pb-5 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-2">
@@ -54,7 +54,7 @@ function ProfileCardSkeleton() {
           <Skeleton className="h-6 w-16 rounded-md" />
           <Skeleton className="h-6 w-20 rounded-md" />
         </div>
-        <div className="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+        <div className="mt-auto pt-4 border-t border-slate-200 dark:border-border-strong">
           <Skeleton className="h-3 w-24 mb-2" />
           <Skeleton className="h-4 w-32" />
         </div>
@@ -78,10 +78,10 @@ function ProfileCard({
   const tags = (latestRepo?.languages?.length ? latestRepo.languages.slice(0, 3) : null) ?? ["—"]
 
   return (
-    <div className="flex flex-col bg-white dark:bg-[#1b2733] border border-slate-200 dark:border-[#233648] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div className="flex flex-col bg-white dark:bg-surface border border-slate-200 dark:border-border-strong rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       <div className={`h-24 bg-gradient-to-r ${gradient} relative`}>
         <div className="absolute -bottom-10 left-4">
-          <div className="h-20 w-20 rounded-full border-4 border-white dark:border-[#1b2733] overflow-hidden bg-slate-800">
+          <div className="h-20 w-20 rounded-full border-4 border-white dark:border-surface overflow-hidden bg-slate-800">
             <Avatar className="h-full w-full rounded-full">
               <AvatarImage src={profile.photoURL} alt="" className="object-cover" />
               <AvatarFallback className="text-lg bg-slate-700 text-slate-200">
@@ -117,13 +117,13 @@ function ProfileCard({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 bg-slate-100 dark:bg-[#233648] text-slate-600 dark:text-slate-300 text-xs rounded-md"
+              className="px-2 py-1 bg-slate-100 dark:bg-surface-muted text-slate-600 dark:text-slate-300 text-xs rounded-md"
             >
               {tag}
             </span>
           ))}
         </div>
-        <div className="mt-auto pt-4 border-t border-slate-200 dark:border-[#233648]">
+        <div className="mt-auto pt-4 border-t border-slate-200 dark:border-border-strong">
           <p className="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">
             {t("usersSearch.latestArchive")}
           </p>
@@ -132,7 +132,7 @@ function ProfileCard({
               to={`/repo/${latestRepo.repoId}`}
               className="flex items-center gap-3 group cursor-pointer"
             >
-              <div className="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400 group-hover:text-primary transition-colors">
+              <div className="p-2 rounded bg-slate-100 dark:bg-surface-page text-slate-400 group-hover:text-primary transition-colors">
                 <FolderArchive className="size-5" />
               </div>
               <div className="overflow-hidden min-w-0">
@@ -146,7 +146,7 @@ function ProfileCard({
             </Link>
           ) : (
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded bg-slate-100 dark:bg-[#101922] text-slate-400">
+              <div className="p-2 rounded bg-slate-100 dark:bg-surface-page text-slate-400">
                 <FolderArchive className="size-5" />
               </div>
               <div className="overflow-hidden min-w-0">
@@ -237,7 +237,7 @@ export function SearchUsersPage() {
         </div>
         <form onSubmit={handleSearchSubmit} className="w-full mb-6">
           <label className="flex flex-col h-14 w-full shadow-lg rounded-xl overflow-hidden relative group">
-            <div className="flex w-full flex-1 items-stretch bg-white dark:bg-[#1b2733] border border-slate-200 dark:border-[#2f455a] focus-within:border-primary dark:focus-within:border-primary transition-colors rounded-xl">
+            <div className="flex w-full flex-1 items-stretch bg-white dark:bg-surface border border-slate-200 dark:border-border-strong focus-within:border-primary dark:focus-within:border-primary transition-colors rounded-xl">
               <div className="text-slate-400 flex items-center justify-center pl-4 pr-2">
                 <Search className="size-5" />
               </div>
@@ -261,7 +261,7 @@ export function SearchUsersPage() {
         <div className="flex gap-3 flex-wrap justify-center">
           <button
             type="button"
-            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
+            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-surface-muted hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
           >
             <span className="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">
               {t("usersSearch.filterUniversity")}
@@ -270,7 +270,7 @@ export function SearchUsersPage() {
           </button>
           <button
             type="button"
-            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
+            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-surface-muted hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
           >
             <span className="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">
               {t("usersSearch.filterSkills")}
@@ -279,7 +279,7 @@ export function SearchUsersPage() {
           </button>
           <button
             type="button"
-            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
+            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-surface-muted hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
           >
             <span className="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">
               {t("usersSearch.filterContribution")}
@@ -288,7 +288,7 @@ export function SearchUsersPage() {
           </button>
           <button
             type="button"
-            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#233648] hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
+            className="flex h-9 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-surface-muted hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors px-4 border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
           >
             <span className="text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal">
               {t("usersSearch.filterStatus")}
@@ -327,7 +327,7 @@ export function SearchUsersPage() {
             type="button"
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors disabled:opacity-50"
+            className="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-surface-muted text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors disabled:opacity-50"
             aria-label={t("usersSearch.previousPage")}
           >
             <ChevronLeft className="size-5" />
@@ -343,7 +343,7 @@ export function SearchUsersPage() {
                 className={`flex items-center justify-center h-10 w-10 rounded-lg font-medium transition-colors ${
                   isActive
                     ? "bg-primary text-white font-bold"
-                    : "bg-slate-200 dark:bg-[#233648] text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c]"
+                    : "bg-slate-200 dark:bg-surface-muted text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-surface-muted/90"
                 }`}
               >
                 {page}
@@ -355,7 +355,7 @@ export function SearchUsersPage() {
             type="button"
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            className="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-[#233648] text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-[#2f465c] transition-colors disabled:opacity-50"
+            className="flex items-center justify-center h-10 w-10 rounded-lg bg-slate-200 dark:bg-surface-muted text-slate-500 dark:text-white hover:bg-slate-300 dark:hover:bg-surface-muted/90 transition-colors disabled:opacity-50"
             aria-label={t("usersSearch.nextPage")}
           >
             <ChevronRight className="size-5" />

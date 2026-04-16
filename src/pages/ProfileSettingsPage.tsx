@@ -111,7 +111,7 @@ export function ProfileSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background dark:bg-[#101922] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-background dark:bg-surface-page text-slate-900 dark:text-slate-100">
       <div className="mx-auto flex max-w-[960px] flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
         {/* Page header */}
         <div className="mb-8 flex flex-wrap justify-between gap-3">
@@ -119,7 +119,7 @@ export function ProfileSettingsPage() {
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
               {t("profile.accountSettings")}
             </h1>
-            <p className="text-base font-normal text-slate-500 dark:text-[#92adc9]">
+            <p className="text-base font-normal text-slate-500 dark:text-subtle-fg">
               {t("profile.accountSettingsDesc")}
             </p>
           </div>
@@ -127,7 +127,7 @@ export function ProfileSettingsPage() {
 
         {/* Tabs */}
         <div className="mb-8 overflow-x-auto">
-          <div className="flex min-w-max border-b border-slate-200 dark:border-[#233648]">
+          <div className="flex min-w-max border-b border-slate-200 dark:border-border-strong">
             {TABS.map((tab) => {
               const Icon = tab.icon
               const isActive = activeTab === tab.id
@@ -140,7 +140,7 @@ export function ProfileSettingsPage() {
                     "flex items-center justify-center border-b-2 px-6 pb-3 pt-2 transition-colors",
                     isActive
                       ? "border-primary text-primary"
-                      : "border-transparent text-slate-500 dark:text-[#92adc9] hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-700 dark:hover:text-slate-300"
+                      : "border-transparent text-slate-500 dark:text-subtle-fg hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-700 dark:hover:text-slate-300"
                   )}
                 >
                   <Icon className="mr-2 h-5 w-5" />
@@ -163,10 +163,10 @@ export function ProfileSettingsPage() {
           {activeTab === "profile" && (
             <>
               {/* Profile header card */}
-              <div className="mb-8 flex flex-col gap-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635] md:flex-row md:items-center">
+              <div className="mb-8 flex flex-col gap-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted md:flex-row md:items-center">
                 <div className="group relative cursor-pointer">
                   <div
-                    className="h-24 w-24 rounded-full bg-cover bg-center ring-4 ring-slate-100 dark:ring-[#233648]/50"
+                    className="h-24 w-24 rounded-full bg-cover bg-center ring-4 ring-slate-100 dark:ring-border-strong/50"
                     style={{
                       backgroundImage: avatarUrl
                         ? `url("${avatarUrl}")`
@@ -182,14 +182,14 @@ export function ProfileSettingsPage() {
                   <h3 className="mb-1 text-xl font-bold text-slate-900 dark:text-white">
                     {displayName || user?.displayName || "—"}
                   </h3>
-                  <p className="mb-4 text-sm text-slate-500 dark:text-[#92adc9]">
+                  <p className="mb-4 text-sm text-slate-500 dark:text-subtle-fg">
                     {profile?.username ? `@${profile.username}` : ""} • {location || t("profile.locationPlaceholder")}
                   </p>
                   <div className="flex gap-3">
                     <Button
                       type="button"
                       variant="secondary"
-                      className="h-9 rounded-lg bg-slate-100 px-4 text-sm font-medium text-slate-700 dark:bg-[#233648] dark:text-white dark:hover:bg-[#233648]/80"
+                      className="h-9 rounded-lg bg-slate-100 px-4 text-sm font-medium text-slate-700 dark:bg-surface-muted dark:text-white dark:hover:bg-surface-muted/80"
                     >
                       {t("profile.changeAvatar")}
                     </Button>
@@ -210,7 +210,7 @@ export function ProfileSettingsPage() {
                 <div className="space-y-8 lg:col-span-2">
                   {/* Public Profile */}
                   <div className="space-y-6">
-                    <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                    <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                       <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                         {t("profile.publicProfile")}
                       </h3>
@@ -221,12 +221,12 @@ export function ProfileSettingsPage() {
                           {t("profile.displayName")}
                         </Label>
                         <Input
-                          className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                          className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                           value={displayName}
                           onChange={(e) => setDisplayName(e.target.value)}
                           placeholder={t("profile.displayNamePlaceholder")}
                         />
-                        <p className="text-xs text-slate-500 dark:text-[#92adc9]">
+                        <p className="text-xs text-slate-500 dark:text-subtle-fg">
                           {t("profile.displayNameHint")}
                         </p>
                       </div>
@@ -235,12 +235,12 @@ export function ProfileSettingsPage() {
                           {t("profile.bio")}
                         </Label>
                         <Textarea
-                          className="min-h-[120px] w-full resize-y rounded-lg border-slate-200 p-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                          className="min-h-[120px] w-full resize-y rounded-lg border-slate-200 p-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                           value={bio}
                           onChange={(e) => setBio(e.target.value)}
                           placeholder={t("profile.bioPlaceholder")}
                         />
-                        <p className="text-xs text-slate-500 dark:text-[#92adc9]">
+                        <p className="text-xs text-slate-500 dark:text-subtle-fg">
                           {t("profile.bioHint")}
                         </p>
                       </div>
@@ -252,7 +252,7 @@ export function ProfileSettingsPage() {
                           <div className="relative flex items-center">
                             <Link2 className="absolute left-4 h-5 w-5 text-slate-400 dark:text-slate-500" />
                             <Input
-                              className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                              className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                               type="url"
                               value={url}
                               onChange={(e) => setUrl(e.target.value)}
@@ -267,7 +267,7 @@ export function ProfileSettingsPage() {
                           <div className="relative flex items-center">
                             <Building2 className="absolute left-4 h-5 w-5 text-slate-400 dark:text-slate-500" />
                             <Input
-                              className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                              className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                               value={company}
                               onChange={(e) => setCompany(e.target.value)}
                               placeholder={t("profile.companyPlaceholder")}
@@ -282,7 +282,7 @@ export function ProfileSettingsPage() {
                         <div className="relative flex items-center">
                           <MapPin className="absolute left-4 h-5 w-5 text-slate-400 dark:text-slate-500" />
                           <Input
-                            className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                            className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder={t("profile.locationPlaceholder")}
@@ -308,11 +308,11 @@ export function ProfileSettingsPage() {
 
                   {/* Private Information */}
                   <div className="space-y-6 pt-4">
-                    <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                    <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                       <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                         {t("profile.privateInformation")}
                       </h3>
-                      <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                      <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                         {t("profile.privateInformationDesc")}
                       </p>
                     </div>
@@ -322,7 +322,7 @@ export function ProfileSettingsPage() {
                           {t("profile.fullName")}
                         </Label>
                         <Input
-                          className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                          className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                         />
@@ -334,7 +334,7 @@ export function ProfileSettingsPage() {
                         <div className="relative flex items-center">
                           <Mail className="absolute left-4 h-5 w-5 text-slate-400 dark:text-slate-500" />
                           <Input
-                            className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-16 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                            className="h-11 w-full rounded-lg border-slate-200 bg-white pl-11 pr-16 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                             type="email"
                             value={email}
                             disabled
@@ -354,7 +354,7 @@ export function ProfileSettingsPage() {
                         {t("profile.username")}
                       </Label>
                       <Input
-                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 font-mono focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 font-mono focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                         value={username}
                         onChange={(e) => {
                           setUsername(e.target.value)
@@ -372,23 +372,23 @@ export function ProfileSettingsPage() {
 
                 {/* Right column sidebar */}
                 <div className="space-y-6 lg:col-span-1">
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted">
                     <h4 className="mb-4 flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                       <GraduationCap className="h-5 w-5 text-primary" />
                       {t("profile.academicStatus")}
                     </h4>
-                    <p className="mb-4 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mb-4 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.academicStatusDesc")}
                     </p>
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full rounded-lg border-slate-300 py-2 text-sm font-medium text-slate-700 dark:border-[#233648] dark:text-slate-300 dark:hover:bg-[#233648]/50"
+                      className="w-full rounded-lg border-slate-300 py-2 text-sm font-medium text-slate-700 dark:border-border-strong dark:text-slate-300 dark:hover:bg-border-strong/30"
                     >
                       {t("profile.verifyStatus")}
                     </Button>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted">
                     <h4 className="mb-4 flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                       <Terminal className="h-5 w-5 text-green-500" />
                       {t("profile.contributionGraph")}
@@ -406,7 +406,7 @@ export function ProfileSettingsPage() {
                         />
                       </div>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-[#92adc9]">
+                    <p className="text-xs text-slate-500 dark:text-subtle-fg">
                       {t("profile.contributionGraphDesc")}
                     </p>
                   </div>
@@ -435,11 +435,11 @@ export function ProfileSettingsPage() {
             <div className="mb-20 grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div className="space-y-8 lg:col-span-2">
                 <div className="space-y-6">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.securityPassword")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.securityPasswordDesc")}
                     </p>
                   </div>
@@ -450,7 +450,7 @@ export function ProfileSettingsPage() {
                       </Label>
                       <Input
                         type="password"
-                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                         placeholder="••••••••"
                       />
                     </div>
@@ -460,7 +460,7 @@ export function ProfileSettingsPage() {
                       </Label>
                       <Input
                         type="password"
-                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                         placeholder="••••••••"
                       />
                     </div>
@@ -470,7 +470,7 @@ export function ProfileSettingsPage() {
                       </Label>
                       <Input
                         type="password"
-                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-[#233648] dark:bg-[#182635] dark:text-white"
+                        className="h-11 w-full rounded-lg border-slate-200 bg-white px-4 focus:border-primary focus:ring-primary dark:border-border-strong dark:bg-surface-muted dark:text-white"
                         placeholder="••••••••"
                       />
                     </div>
@@ -483,39 +483,39 @@ export function ProfileSettingsPage() {
                   </div>
                 </div>
                 <div className="space-y-6 pt-4">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.securityTwoFactor")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.securityTwoFactorDesc")}
                     </p>
                   </div>
                   <Button
                     type="button"
                     variant="outline"
-                    className="rounded-lg border-slate-300 py-2 text-sm font-medium dark:border-[#233648] dark:text-slate-300 dark:hover:bg-[#233648]/50"
+                    className="rounded-lg border-slate-300 py-2 text-sm font-medium dark:border-border-strong dark:text-slate-300 dark:hover:bg-border-strong/30"
                   >
                     {t("profile.securityTwoFactorEnable")}
                   </Button>
                 </div>
                 <div className="space-y-6 pt-4">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.securitySshKeys")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.securitySshKeysDesc")}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-[#233648] dark:bg-[#182635]">
-                    <p className="mb-4 text-sm text-slate-500 dark:text-[#92adc9]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
+                    <p className="mb-4 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.securitySshKeysEmpty")}
                     </p>
                     <Button
                       type="button"
                       variant="outline"
-                      className="flex items-center gap-2 rounded-lg border-slate-300 py-2 text-sm dark:border-[#233648] dark:text-slate-300"
+                      className="flex items-center gap-2 rounded-lg border-slate-300 py-2 text-sm dark:border-border-strong dark:text-slate-300"
                     >
                       <Plus className="h-4 w-4" />
                       {t("profile.securitySshKeysAdd")}
@@ -524,12 +524,12 @@ export function ProfileSettingsPage() {
                 </div>
               </div>
               <div className="lg:col-span-1">
-                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635]">
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted">
                   <h4 className="mb-4 flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                     <Key className="h-5 w-5 text-primary" />
                     {t("profile.securitySshKeys")}
                   </h4>
-                  <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                  <p className="text-sm text-slate-500 dark:text-subtle-fg">
                     {t("profile.securitySshKeysDesc")}
                   </p>
                 </div>
@@ -542,21 +542,21 @@ export function ProfileSettingsPage() {
             <div className="mb-20 grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div className="space-y-8 lg:col-span-2">
                 <div className="space-y-6">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.notificationsEmail")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.notificationsEmailDesc")}
                     </p>
                   </div>
-                  <div className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 dark:border-[#233648] dark:bg-[#182635]">
+                  <div className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <p className="text-sm font-medium text-slate-900 dark:text-white">
                           {t("profile.notificationsRepoUpdates")}
                         </p>
-                        <p className="mt-0.5 text-xs text-slate-500 dark:text-[#92adc9]">
+                        <p className="mt-0.5 text-xs text-slate-500 dark:text-subtle-fg">
                           {t("profile.notificationsRepoUpdatesDesc")}
                         </p>
                       </div>
@@ -571,7 +571,7 @@ export function ProfileSettingsPage() {
                         <p className="text-sm font-medium text-slate-900 dark:text-white">
                           {t("profile.notificationsSecurityAlerts")}
                         </p>
-                        <p className="mt-0.5 text-xs text-slate-500 dark:text-[#92adc9]">
+                        <p className="mt-0.5 text-xs text-slate-500 dark:text-subtle-fg">
                           {t("profile.notificationsSecurityAlertsDesc")}
                         </p>
                       </div>
@@ -586,7 +586,7 @@ export function ProfileSettingsPage() {
                         <p className="text-sm font-medium text-slate-900 dark:text-white">
                           {t("profile.notificationsMarketing")}
                         </p>
-                        <p className="mt-0.5 text-xs text-slate-500 dark:text-[#92adc9]">
+                        <p className="mt-0.5 text-xs text-slate-500 dark:text-subtle-fg">
                           {t("profile.notificationsMarketingDesc")}
                         </p>
                       </div>
@@ -599,15 +599,15 @@ export function ProfileSettingsPage() {
                   </div>
                 </div>
                 <div className="space-y-6 pt-4">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.notificationsInApp")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.notificationsInAppDesc")}
                     </p>
                   </div>
-                  <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 dark:border-[#233648] dark:bg-[#182635]">
+                  <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 dark:border-border-strong dark:bg-surface-muted">
                     <span className="text-sm text-slate-900 dark:text-white">
                       {t("profile.notificationsInApp")}
                     </span>
@@ -620,12 +620,12 @@ export function ProfileSettingsPage() {
                 </div>
               </div>
               <div className="lg:col-span-1">
-                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635]">
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted">
                   <h4 className="mb-4 flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                     <Bell className="h-5 w-5 text-primary" />
                     {t("profile.notifications")}
                   </h4>
-                  <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                  <p className="text-sm text-slate-500 dark:text-subtle-fg">
                     {t("profile.notificationsEmailDesc")}
                   </p>
                 </div>
@@ -638,75 +638,75 @@ export function ProfileSettingsPage() {
             <div className="mb-20 grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div className="space-y-8 lg:col-span-2">
                 <div className="space-y-6">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.billingPlan")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.billingPlanDesc")}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-[#233648] dark:bg-[#182635]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-semibold text-slate-900 dark:text-white">
                           {t("profile.billingPlanFree")}
                         </p>
-                        <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                        <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                           {t("profile.billingPlanDesc")}
                         </p>
                       </div>
-                      <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-[#233648] dark:text-slate-300">
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 dark:bg-surface-muted dark:text-slate-300">
                         {t("profile.billingPlanFree")}
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-6 pt-4">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.billingPaymentMethod")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.billingPaymentMethodDesc")}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-[#233648] dark:bg-[#182635]">
-                    <p className="mb-4 text-sm text-slate-500 dark:text-[#92adc9]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
+                    <p className="mb-4 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.billingPaymentMethodNone")}
                     </p>
                     <Button
                       type="button"
                       variant="outline"
-                      className="rounded-lg border-slate-300 py-2 text-sm dark:border-[#233648] dark:text-slate-300 dark:hover:bg-[#233648]/50"
+                      className="rounded-lg border-slate-300 py-2 text-sm dark:border-border-strong dark:text-slate-300 dark:hover:bg-border-strong/30"
                     >
                       {t("profile.billingAddPayment")}
                     </Button>
                   </div>
                 </div>
                 <div className="space-y-6 pt-4">
-                  <div className="border-b border-slate-200 pb-2 dark:border-[#233648]">
+                  <div className="border-b border-slate-200 pb-2 dark:border-border-strong">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                       {t("profile.billingHistory")}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-[#92adc9]">
+                    <p className="mt-1 text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.billingHistoryDesc")}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-[#233648] dark:bg-[#182635]">
-                    <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
+                    <p className="text-sm text-slate-500 dark:text-subtle-fg">
                       {t("profile.billingHistoryEmpty")}
                     </p>
                   </div>
                 </div>
               </div>
               <div className="lg:col-span-1">
-                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-[#233648] dark:bg-[#182635]">
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-border-strong dark:bg-surface-muted">
                   <h4 className="mb-4 flex items-center gap-2 font-bold text-slate-900 dark:text-white">
                     <CreditCard className="h-5 w-5 text-primary" />
                     {t("profile.billing")}
                   </h4>
-                  <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                  <p className="text-sm text-slate-500 dark:text-subtle-fg">
                     {t("profile.billingPaymentMethodDesc")}
                   </p>
                 </div>
@@ -717,16 +717,16 @@ export function ProfileSettingsPage() {
       </div>
 
       {/* Sticky footer */}
-      <div className="sticky bottom-0 z-40 w-full border-t border-slate-200 bg-white py-4 dark:border-[#233648] dark:bg-[#182635]">
+      <div className="sticky bottom-0 z-40 w-full border-t border-slate-200 bg-white py-4 dark:border-border-strong dark:bg-surface-muted">
         <div className="mx-auto flex w-full max-w-[960px] items-center justify-between px-4 sm:px-10">
-          <span className="hidden text-sm text-slate-500 dark:text-[#92adc9] sm:inline-block">
+          <span className="hidden text-sm text-slate-500 dark:text-subtle-fg sm:inline-block">
             {lastSaved ? t("profile.lastSaved", { time: lastSaved }) : ""}
           </span>
           <div className="ml-auto flex gap-4">
             <Button
               type="button"
               variant="ghost"
-              className="rounded-lg px-6 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-[#233648]"
+              className="rounded-lg px-6 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-surface-muted"
             >
               {t("common.cancel")}
             </Button>

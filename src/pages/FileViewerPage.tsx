@@ -19,9 +19,6 @@ function isMarkdownPath(path: string): boolean {
   return MD_EXT.has(ext)
 }
 
-const BORDER_DARK = "#233648"
-const TEXT_MUTED = "#92adc9"
-
 export function FileViewerPage() {
   const { t } = useTranslation()
   const { repoId } = useParams<{ repoId: string }>()
@@ -79,7 +76,7 @@ export function FileViewerPage() {
 
   if (repoLoading || !repoId) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background dark:bg-[#101922]">
+      <div className="min-h-screen flex items-center justify-center bg-background dark:bg-surface-page">
         <p className="text-muted-foreground">{t("common.loading")}</p>
       </div>
     )
@@ -87,7 +84,7 @@ export function FileViewerPage() {
 
   if (error || !repo) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4 bg-background dark:bg-[#101922]">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4 bg-background dark:bg-surface-page">
         <p className="text-destructive">{error ?? t("fileViewer.fileNotFound")}</p>
         <Button variant="outline" asChild>
           <Link to={`/repo/${repoId}`}>
@@ -103,11 +100,10 @@ export function FileViewerPage() {
   const isCodeFile = !isMarkdownPath(filePath)
 
   return (
-    <div className="min-h-screen flex flex-col bg-background dark:bg-[#101922]">
+    <div className="min-h-screen flex flex-col bg-background dark:bg-surface-page">
       {/* Header: breadcrumb + back */}
       <header
-        className="flex items-center justify-between border-b px-4 md:px-6 py-3 h-14 shrink-0 z-20 bg-[#161b22]"
-        style={{ borderColor: BORDER_DARK }}
+        className="z-20 flex h-14 shrink-0 items-center justify-between border-b border-border-strong bg-surface px-4 md:px-6 py-3"
       >
         <div className="flex items-center gap-4 min-w-0">
           <Button variant="ghost" size="sm" className="shrink-0 text-muted-foreground hover:text-foreground" asChild>
@@ -122,14 +118,14 @@ export function FileViewerPage() {
             </Link>
             {breadcrumbParts.map((segment, i) => (
               <span key={i} className="flex items-center gap-2 shrink-0">
-                <span style={{ color: TEXT_MUTED }}>/</span>
+                <span className="text-subtle-fg">/</span>
                 {i === breadcrumbParts.length - 1 ? (
                   <span className="font-medium text-foreground flex items-center gap-2 truncate max-w-[200px] md:max-w-none">
                     <Lock className="size-4 text-primary shrink-0" />
                     {segment}
                   </span>
                 ) : (
-                  <span style={{ color: TEXT_MUTED }}>{segment}</span>
+                  <span className="text-subtle-fg">{segment}</span>
                 )}
               </span>
             ))}
@@ -156,8 +152,8 @@ export function FileViewerPage() {
             </div>
           ) : (
             <div className="flex-1 overflow-auto p-4 md:p-6">
-              <div className="rounded-lg border overflow-hidden bg-card" style={{ borderColor: BORDER_DARK }}>
-                <div className="px-4 py-3 border-b bg-muted/50" style={{ borderColor: BORDER_DARK }}>
+              <div className="overflow-hidden rounded-lg border border-border-strong bg-card">
+                <div className="border-b border-border-strong bg-muted/50 px-4 py-3">
                   <span className="text-sm font-semibold text-foreground">{filePath}</span>
                   {downloadUrl && (
                     <div className="mt-2 flex gap-2">
@@ -174,7 +170,7 @@ export function FileViewerPage() {
                     </div>
                   )}
                 </div>
-                <div className="p-4 prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-[#233648] prose-pre:text-green-400 prose-a:text-primary prose-img:rounded-lg prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
+                <div className="p-4 prose prose-sm dark:prose-invert max-w-none w-full min-w-0 prose-headings:font-semibold prose-p:leading-relaxed prose-pre:bg-slate-900 dark:prose-pre:bg-black prose-pre:border prose-pre:border-border-strong prose-pre:text-green-400 prose-a:text-primary prose-img:rounded-lg prose-img:max-w-full prose-img:h-auto [&_img]:max-w-full [&_img]:h-auto">
                   <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{content}</ReactMarkdown>
                 </div>
               </div>

@@ -15,14 +15,20 @@ import {
   Bug,
   ArrowRight,
   Globe,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/contexts/AuthContext"
 import { getRepo } from "@/lib/repos"
 import { listRepoFiles } from "@/lib/files"
-import { shouldIgnorePath, isFileSizeAllowed } from "@/lib/uploadIgnore"
+import {
+  extractRootGitignoreText,
+  shouldIgnorePath,
+  isFileSizeAllowed,
+} from "@/lib/uploadIgnore"
+import { collectFilesFromDataTransfer } from "@/lib/dragDropFiles"
 import { buildStoragePath } from "@/types/schema"
-import { ref, uploadBytes } from "firebase/storage"
+import { ref, uploadBytesResumable } from "firebase/storage"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { storage, db } from "@/config/firebase"
 import { detectLanguagesFromPaths } from "@/lib/techDetect"
@@ -31,6 +37,11 @@ import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
 type UploadMethod = "direct" | "git"
+
+function fileToStorageRelative(file: File): string {
+  const path = (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name
+  return path.replace(/^[^/]+?\//, "").replace(/\\/g, "/")
+}
 
 export function UploadPage() {
   const { t } = useTranslation()
@@ -48,6 +59,10 @@ export function UploadPage() {
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [currentFileName, setCurrentFileName] = useState<string | null>(null)
+  const [currentRelativePath, setCurrentRelativePath] = useState<string | null>(null)
+  const [stagingSummary, setStagingSummary] = useState<{ added: number; skipped: number } | null>(
+    null
+  )
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -61,47 +76,47 @@ export function UploadPage() {
     return null
   }
 
-  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    const selected = Array.from(e.target.files ?? [])
-    const allowed: File[] = []
+  async function processIncomingFiles(selected: File[]) {
+    if (selected.length === 0) return
+    setError(null)
+    const extraGitignore = await extractRootGitignoreText(selected)
+    let skipped = 0
+    const next: File[] = []
     for (const f of selected) {
-      const path = (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name
-      if (shouldIgnorePath(path)) continue
-      if (!isFileSizeAllowed(f.size)) {
-        setError(t("upload.fileTooLarge", { name: f.name }))
+      const wp = (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name
+      if (shouldIgnorePath(wp, extraGitignore)) {
+        skipped++
         continue
       }
-      allowed.push(f)
+      if (!isFileSizeAllowed(f.size)) {
+        setError(t("upload.fileTooLarge", { name: f.name }))
+        skipped++
+        continue
+      }
+      next.push(f)
     }
-    setFiles((prev) => [...prev, ...allowed])
-    setError(null)
+    setFiles((prev) => [...prev, ...next])
+    setStagingSummary({ added: next.length, skipped })
+  }
+
+  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const selected = Array.from(e.target.files ?? [])
     e.target.value = ""
+    void processIncomingFiles(selected)
   }
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault()
     const items = e.dataTransfer?.items
-    if (!items) return
-    const selected: File[] = []
-    for (let i = 0; i < items.length; i++) {
-      const entry = items[i].webkitGetAsEntry?.()
-      if (entry?.isFile) {
-        const file = items[i].getAsFile()
-        if (file) selected.push(file)
+    if (!items?.length) return
+    void (async () => {
+      try {
+        const selected = await collectFilesFromDataTransfer(items)
+        await processIncomingFiles(selected)
+      } catch {
+        setError(t("upload.errorUpload"))
       }
-    }
-    const allowed: File[] = []
-    for (const f of selected) {
-      const path = (f as File & { webkitRelativePath?: string }).webkitRelativePath || f.name
-      if (shouldIgnorePath(path)) continue
-      if (!isFileSizeAllowed(f.size)) {
-        setError(t("upload.fileTooLarge", { name: f.name }))
-        continue
-      }
-      allowed.push(f)
-    }
-    setFiles((prev) => [...prev, ...allowed])
-    setError(null)
+    })()
   }
 
   function handleDragOver(e: React.DragEvent) {
@@ -112,18 +127,30 @@ export function UploadPage() {
     if (!user || !repoId || files.length === 0) return
     setUploading(true)
     setError(null)
-    let done = 0
-    const total = files.length
+    const totalBytes = files.reduce((sum, f) => sum + f.size, 0) || 1
+    let completedBytes = 0
+    setProgress(0)
     try {
       const paths: string[] = []
       for (const file of files) {
         setCurrentFileName(file.name)
-        const path = (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name
-        const normalized = path.replace(/^[^/]+?\//, "").replace(/\\/g, "/")
+        const normalized = fileToStorageRelative(file)
+        setCurrentRelativePath(normalized)
         paths.push(normalized)
         const storagePath = buildStoragePath(user.uid, repoId, normalized)
         const storageRef = ref(storage, storagePath)
-        await uploadBytes(storageRef, file)
+        const task = uploadBytesResumable(storageRef, file)
+        await new Promise<void>((resolve, reject) => {
+          task.on(
+            "state_changed",
+            (snap) => {
+              const transferred = completedBytes + snap.bytesTransferred
+              setProgress(Math.min(100, Math.round((transferred / totalBytes) * 100)))
+            },
+            (err) => reject(err),
+            () => resolve()
+          )
+        })
         await addDoc(collection(db, "repos", repoId, "files"), {
           name: file.name,
           path: normalized,
@@ -131,8 +158,8 @@ export function UploadPage() {
           size: file.size,
           uploadedAt: serverTimestamp(),
         })
-        done++
-        setProgress(Math.round((done / total) * 100))
+        completedBytes += file.size
+        setProgress(Math.min(100, Math.round((completedBytes / totalBytes) * 100)))
       }
       const existingFiles = await listRepoFiles(repoId)
       const allPaths = [...paths, ...existingFiles.map((f) => f.path)]
@@ -141,43 +168,47 @@ export function UploadPage() {
         await updateRepo(repoId, { languages })
       }
       setFiles([])
+      setStagingSummary(null)
       setProgress(100)
       setCurrentFileName(null)
+      setCurrentRelativePath(null)
       navigate(`/repo/${repoId}`)
-    } catch (err) {
+    } catch {
       setError(t("upload.errorUpload"))
     } finally {
       setUploading(false)
       setProgress(0)
       setCurrentFileName(null)
+      setCurrentRelativePath(null)
     }
   }
 
   function handleCancel() {
     setFiles([])
+    setStagingSummary(null)
     setError(null)
     navigate(`/repo/${repoId}`)
   }
 
   return (
-    <div className="min-h-screen bg-background dark:bg-[#101922] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-background dark:bg-surface-page text-slate-900 dark:text-slate-100">
       <div className="mx-auto flex max-w-[1200px] flex-1 flex-col gap-6 px-4 py-5 md:px-10 lg:px-16">
         {/* Breadcrumbs */}
         <nav className="flex flex-wrap items-center gap-2">
           <Link
             to="/"
-            className="text-sm font-medium text-slate-500 transition-colors hover:text-primary dark:text-[#92adc9]"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-primary dark:text-subtle-fg"
           >
             Home
           </Link>
-          <ChevronRight className="h-4 w-4 text-slate-500 dark:text-[#92adc9]" />
+          <ChevronRight className="h-4 w-4 text-slate-500 dark:text-subtle-fg" />
           <Link
             to="/dashboard"
-            className="text-sm font-medium text-slate-500 transition-colors hover:text-primary dark:text-[#92adc9]"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-primary dark:text-subtle-fg"
           >
             {t("upload.myProjects")}
           </Link>
-          <ChevronRight className="h-4 w-4 text-slate-500 dark:text-[#92adc9]" />
+          <ChevronRight className="h-4 w-4 text-slate-500 dark:text-subtle-fg" />
           <span className="text-sm font-medium text-slate-900 dark:text-white">
             {repoName ?? t("upload.uploadRepository")}
           </span>
@@ -190,7 +221,7 @@ export function UploadPage() {
               <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-900 dark:text-white md:text-4xl">
                 {t("upload.archiveAndUpload")}
               </h1>
-              <p className="text-lg font-normal leading-normal text-slate-600 dark:text-[#92adc9]">
+              <p className="text-lg font-normal leading-normal text-slate-600 dark:text-subtle-fg">
                 {t("upload.archiveSubtitle")}
               </p>
             </div>
@@ -207,13 +238,14 @@ export function UploadPage() {
                     name="upload_method"
                     className="peer sr-only"
                     checked={uploadMethod === "direct"}
+                    disabled={uploading}
                     onChange={() => setUploadMethod("direct")}
                   />
                   <div
                     className={cn(
                       "flex h-full flex-col gap-3 rounded-xl border p-5 transition-all",
-                      "border-slate-200 dark:border-[#324d67] bg-white dark:bg-[#192633]",
-                      "hover:bg-slate-50 dark:hover:bg-[#203040]",
+                      "border-slate-200 dark:border-border-strong bg-white dark:bg-surface-muted",
+                      "hover:bg-slate-50 dark:hover:bg-surface-muted/90",
                       "peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary"
                     )}
                   >
@@ -231,7 +263,7 @@ export function UploadPage() {
                       <h2 className="mb-1 text-base font-bold text-slate-900 dark:text-white">
                         {t("upload.directUpload")}
                       </h2>
-                      <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                      <p className="text-sm text-slate-500 dark:text-subtle-fg">
                         {t("upload.directUploadDesc")}
                       </p>
                     </div>
@@ -243,13 +275,14 @@ export function UploadPage() {
                     name="upload_method"
                     className="peer sr-only"
                     checked={uploadMethod === "git"}
+                    disabled={uploading}
                     onChange={() => setUploadMethod("git")}
                   />
                   <div
                     className={cn(
                       "flex h-full flex-col gap-3 rounded-xl border p-5 transition-all",
-                      "border-slate-200 dark:border-[#324d67] bg-white dark:bg-[#192633]",
-                      "hover:bg-slate-50 dark:hover:bg-[#203040]",
+                      "border-slate-200 dark:border-border-strong bg-white dark:bg-surface-muted",
+                      "hover:bg-slate-50 dark:hover:bg-surface-muted/90",
                       "peer-checked:border-primary peer-checked:ring-1 peer-checked:ring-primary"
                     )}
                   >
@@ -267,7 +300,7 @@ export function UploadPage() {
                       <h2 className="mb-1 text-base font-bold text-slate-900 dark:text-white">
                         {t("upload.connectGit")}
                       </h2>
-                      <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                      <p className="text-sm text-slate-500 dark:text-subtle-fg">
                         {t("upload.connectGitDesc")}
                       </p>
                     </div>
@@ -279,48 +312,65 @@ export function UploadPage() {
             {/* Drop zone */}
             {uploadMethod === "direct" && (
               <div className="flex flex-col gap-4">
+                <p className="text-sm text-slate-600 dark:text-subtle-fg">{t("upload.folderNotZipHint")}</p>
                 <div
-                  className="group relative flex cursor-pointer flex-col items-center justify-center gap-6 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-16 transition-colors dark:border-[#324d67] dark:bg-[#151f2a] hover:border-primary dark:hover:border-primary"
+                  aria-busy={uploading}
+                  className={cn(
+                    "group relative flex cursor-pointer flex-col items-center justify-center gap-6 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-16 transition-colors dark:border-border-strong dark:bg-surface-page hover:border-primary dark:hover:border-primary",
+                    uploading && "pointer-events-none opacity-60"
+                  )}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
-                  onClick={() => inputRef.current?.click()}
                 >
+                  {/* pointer-events-none: all clicks go to the file input overlay; avoids double
+                      picker (native input click + parent onClick firing on bubble). */}
+                  <div className="pointer-events-none flex flex-col items-center justify-center gap-6">
+                    <div className="flex size-16 items-center justify-center rounded-full bg-slate-200 transition-transform duration-300 group-hover:scale-110 dark:bg-surface-muted">
+                      <Folder className="h-10 w-10 text-slate-500 dark:text-subtle-fg" />
+                    </div>
+                    <div className="flex flex-col items-center gap-2 text-center">
+                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                        {t("upload.dragDrop")}
+                      </p>
+                      <p className="text-sm text-slate-500 dark:text-subtle-fg">
+                        {t("upload.orBrowse")}{" "}
+                        <span className="text-primary hover:underline">{t("upload.browseFiles")}</span>{" "}
+                        {t("upload.browseFilesSuffix")}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-full bg-slate-200 px-3 py-1 dark:bg-surface-muted">
+                      <Info className="h-4 w-4 text-slate-500 dark:text-subtle-fg" />
+                      <span className="text-xs font-medium text-slate-500 dark:text-subtle-fg">
+                        {t("upload.maxFileSize")}
+                      </span>
+                    </div>
+                  </div>
                   <input
                     ref={inputRef}
                     type="file"
                     multiple
-                    className="absolute inset-0 cursor-pointer opacity-0"
+                    disabled={uploading}
+                    className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
                     onChange={handleSelect}
-                    {...(typeof window !== "undefined" &&
-                    (window as unknown as { showDirectoryPicker?: unknown }).showDirectoryPicker
-                      ? {}
-                      : { webkitdirectory: "", directory: "" })}
+                    {...({
+                      webkitdirectory: "",
+                      directory: "",
+                    } as React.InputHTMLAttributes<HTMLInputElement>)}
                   />
-                  <div className="flex size-16 items-center justify-center rounded-full bg-slate-200 transition-transform duration-300 group-hover:scale-110 dark:bg-[#233648]">
-                    <Folder className="h-10 w-10 text-slate-500 dark:text-[#92adc9]" />
-                  </div>
-                  <div className="flex flex-col items-center gap-2 text-center">
-                    <p className="text-lg font-bold text-slate-900 dark:text-white">
-                      {t("upload.dragDrop")}
-                    </p>
-                    <p className="text-sm text-slate-500 dark:text-[#92adc9]">
-                      {t("upload.orBrowse")}{" "}
-                      <span className="text-primary hover:underline">{t("upload.browseFiles")}</span>{" "}
-                      {t("upload.browseFilesSuffix")}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 rounded-full bg-slate-200 px-3 py-1 dark:bg-[#233648]">
-                    <Info className="h-4 w-4 text-slate-500 dark:text-[#92adc9]" />
-                    <span className="text-xs font-medium text-slate-500 dark:text-[#92adc9]">
-                      {t("upload.maxFileSize")}
-                    </span>
-                  </div>
                 </div>
                 {error && (
                   <p className="text-sm text-destructive">{error}</p>
                 )}
+                {stagingSummary !== null && (
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+                    {t("upload.stagingSummary", {
+                      added: stagingSummary.added,
+                      skipped: stagingSummary.skipped,
+                    })}
+                  </p>
+                )}
                 {files.length > 0 && (
-                  <p className="text-sm text-slate-500 dark:text-[#92adc9]">
+                  <p className="text-sm text-slate-500 dark:text-subtle-fg">
                     {t("upload.filesCount", { count: files.length })}
                   </p>
                 )}
@@ -328,7 +378,7 @@ export function UploadPage() {
             )}
 
             {/* Git branch & message card */}
-            <div className="flex flex-col gap-6 rounded-xl border border-slate-200 bg-white p-6 dark:border-[#324d67] dark:bg-[#192633]">
+            <div className="flex flex-col gap-6 rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <Label className="text-sm font-bold text-slate-900 dark:text-white">
@@ -336,7 +386,8 @@ export function UploadPage() {
                   </Label>
                   <select
                     aria-label={t("upload.targetBranch")}
-                    className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:border-primary focus:ring-primary dark:border-[#324d67] dark:bg-[#111a22] dark:text-white"
+                    disabled={uploading}
+                    className="h-11 w-full appearance-none rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-border-strong dark:bg-code-bg dark:text-white"
                     value={branch}
                     onChange={(e) => setBranch(e.target.value)}
                   >
@@ -351,7 +402,8 @@ export function UploadPage() {
                   </Label>
                   <input
                     type="text"
-                    className="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary dark:border-[#324d67] dark:bg-[#111a22] dark:text-white"
+                    disabled={uploading}
+                    className="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-border-strong dark:bg-code-bg dark:text-white"
                     placeholder={t("upload.versionTagPlaceholder")}
                     value={versionTag}
                     onChange={(e) => setVersionTag(e.target.value)}
@@ -363,7 +415,8 @@ export function UploadPage() {
                   {t("upload.commitMessage")}
                 </Label>
                 <textarea
-                  className="w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary dark:border-[#324d67] dark:bg-[#111a22] dark:text-white"
+                  disabled={uploading}
+                  className="w-full resize-none rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary disabled:opacity-50 dark:border-border-strong dark:bg-code-bg dark:text-white"
                   placeholder={t("upload.commitMessagePlaceholder")}
                   rows={3}
                   value={commitMessage}
@@ -374,18 +427,23 @@ export function UploadPage() {
 
             {/* Progress */}
             {uploading && (
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between text-sm text-slate-500 dark:text-[#92adc9]">
-                  <span>
+              <div className="flex flex-col gap-2 rounded-lg border border-primary/30 bg-primary/5 p-4 dark:border-primary/40 dark:bg-primary/10">
+                <div className="flex justify-between text-sm text-slate-600 dark:text-subtle-fg">
+                  <span className="min-w-0 flex-1 pr-2 font-medium text-slate-900 dark:text-white">
                     {t("upload.uploadingFile", {
                       name: currentFileName ?? "...",
                     })}
                   </span>
-                  <span>{progress}%</span>
+                  <span className="shrink-0 tabular-nums">{progress}%</span>
                 </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-[#233648]">
+                {currentRelativePath && (
+                  <p className="truncate font-mono text-xs text-slate-500 dark:text-subtle-fg">
+                    {currentRelativePath}
+                  </p>
+                )}
+                <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-surface-muted">
                   <div
-                    className="h-full rounded-full bg-primary transition-all"
+                    className="h-full rounded-full bg-primary transition-[width] duration-150 ease-out"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -399,7 +457,7 @@ export function UploadPage() {
                 variant="outline"
                 onClick={handleCancel}
                 disabled={uploading}
-                className="rounded-lg border-slate-200 px-6 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50 dark:border-[#324d67] dark:text-white dark:hover:bg-[#233648]"
+                className="rounded-lg border-slate-200 px-6 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50 dark:border-border-strong dark:text-white dark:hover:bg-surface-muted"
               >
                 {t("common.cancel")}
               </Button>
@@ -413,7 +471,11 @@ export function UploadPage() {
                 }
                 className="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/25 transition-colors hover:bg-blue-600"
               >
-                <Upload className="h-[18px] w-[18px]" />
+                {uploading ? (
+                  <Loader2 className="h-[18px] w-[18px] animate-spin" aria-hidden />
+                ) : (
+                  <Upload className="h-[18px] w-[18px]" aria-hidden />
+                )}
                 {uploading ? t("upload.uploadingProgress", { progress }) : t("upload.startUpload")}
               </Button>
             </div>
@@ -422,7 +484,7 @@ export function UploadPage() {
           {/* Sidebar */}
           <div className="flex flex-col gap-6 lg:col-span-4">
             {/* National Digital Sovereignty */}
-            <div className="relative overflow-hidden rounded-xl border border-[#324d67] bg-gradient-to-br from-[#1a2c3d] to-[#111a22] p-6">
+            <div className="relative overflow-hidden rounded-xl border border-border-strong bg-gradient-to-br from-surface to-surface-page p-6">
               <div className="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20">
                 <Globe className="h-[120px] w-[120px] text-white" />
               </div>
@@ -433,14 +495,14 @@ export function UploadPage() {
                 <h3 className="text-lg font-bold text-white">
                   {t("upload.nationalSovereignty")}
                 </h3>
-                <p className="text-sm leading-relaxed text-[#92adc9]">
+                <p className="text-sm leading-relaxed text-subtle-fg">
                   {t("upload.nationalSovereigntyDesc")}
                 </p>
                 <div className="mt-2 flex gap-2">
-                  <span className="rounded border border-[#324d67] bg-[#233648] px-2 py-1 text-xs font-mono text-[#92adc9]">
+                  <span className="rounded border border-border-strong bg-surface-muted px-2 py-1 font-mono text-xs text-subtle-fg">
                     {t("upload.locallyHosted")}
                   </span>
-                  <span className="rounded border border-[#324d67] bg-[#233648] px-2 py-1 text-xs font-mono text-[#92adc9]">
+                  <span className="rounded border border-border-strong bg-surface-muted px-2 py-1 font-mono text-xs text-subtle-fg">
                     {t("upload.aes256")}
                   </span>
                 </div>
@@ -448,7 +510,7 @@ export function UploadPage() {
             </div>
 
             {/* Archival Standards */}
-            <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-6 dark:border-[#324d67] dark:bg-[#192633]">
+            <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-6 dark:border-border-strong dark:bg-surface-muted">
               <h3 className="flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
                 <ShieldCheck className="h-5 w-5 text-emerald-500" />
                 {t("upload.archivalStandards")}
@@ -460,7 +522,7 @@ export function UploadPage() {
                     <span className="block text-sm font-semibold text-slate-900 dark:text-white">
                       {t("upload.immutableHistory")}
                     </span>
-                    <span className="text-xs text-slate-500 dark:text-[#92adc9]">
+                    <span className="text-xs text-slate-500 dark:text-subtle-fg">
                       {t("upload.immutableHistoryDesc")}
                     </span>
                   </div>
@@ -471,7 +533,7 @@ export function UploadPage() {
                     <span className="block text-sm font-semibold text-slate-900 dark:text-white">
                       {t("upload.accessControl")}
                     </span>
-                    <span className="text-xs text-slate-500 dark:text-[#92adc9]">
+                    <span className="text-xs text-slate-500 dark:text-subtle-fg">
                       {t("upload.accessControlDesc")}
                     </span>
                   </div>
@@ -482,7 +544,7 @@ export function UploadPage() {
                     <span className="block text-sm font-semibold text-slate-900 dark:text-white">
                       {t("upload.vulnerabilityScan")}
                     </span>
-                    <span className="text-xs text-slate-500 dark:text-[#92adc9]">
+                    <span className="text-xs text-slate-500 dark:text-subtle-fg">
                       {t("upload.vulnerabilityScanDesc")}
                     </span>
                   </div>

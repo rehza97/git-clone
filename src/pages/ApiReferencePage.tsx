@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 import { Code2, Copy, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { MobileDocSidebarSheet } from "@/components/layout/MobileDocSidebarSheet"
 
 const API_VERSION = "v1.2.0"
 
@@ -109,10 +110,37 @@ const navSections = [
   },
 ]
 
+function ApiSidebarNav() {
+  const { t } = useTranslation()
+  return (
+    <nav className="space-y-8">
+      {navSections.map((section) => (
+        <div key={section.title}>
+          <h3 className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t(section.title)}
+          </h3>
+          <ul className="space-y-1">
+            {section.links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  {t(link.label)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  )
+}
+
 function CodeBlock({ children, label }: { children: string; label?: string }) {
   const copy = () => navigator.clipboard.writeText(children)
   return (
-    <div className="rounded-lg border border-border bg-[#0d1117] overflow-hidden">
+    <div className="rounded-lg border border-border bg-code-bg overflow-hidden">
       {label && (
         <div className="flex items-center justify-between border-b border-slate-800 bg-slate-800/30 px-4 py-2">
           <span className="text-xs font-mono text-slate-500">{label}</span>
@@ -132,62 +160,49 @@ export function ApiReferencePage() {
   const { t } = useTranslation()
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)] flex-1 overflow-hidden">
+    <div className="flex min-h-[calc(100vh-3.5rem)] min-w-0 flex-1 overflow-hidden">
       <aside className="hidden w-64 shrink-0 overflow-y-auto border-r border-border bg-card lg:block">
         <div className="p-6">
-          <nav className="space-y-8">
-            {navSections.map((section) => (
-              <div key={section.title}>
-                <h3 className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {t(section.title)}
-                </h3>
-                <ul className="space-y-1">
-                  {section.links.map((link) => (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                      >
-                        {t(link.label)}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+          <ApiSidebarNav />
         </div>
       </aside>
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="border-b border-border px-6 py-8 lg:px-12">
-            <div className="flex items-center gap-3">
-              <div className="flex size-8 items-center justify-center rounded bg-primary/20 text-primary">
-                <Code2 className="h-5 w-5" />
+      <main className="min-w-0 flex-1 overflow-y-auto">
+        <div className="px-4 pt-4 lg:hidden">
+          <MobileDocSidebarSheet title={t("api.sidebarSheet")}>
+            <ApiSidebarNav />
+          </MobileDocSidebarSheet>
+        </div>
+        <div className="mx-auto max-w-[1600px] min-w-0">
+          <div className="border-b border-border px-4 py-6 sm:px-6 lg:px-12 lg:py-8">
+            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+              <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded bg-primary/20 text-primary">
+                  <Code2 className="h-5 w-5" />
+                </div>
+                <h1 className="min-w-0 text-xl font-bold tracking-tight sm:text-2xl">
+                  ASCAP <span className="font-normal text-muted-foreground">API</span>
+                </h1>
+                <Badge variant="secondary" className="w-fit font-mono text-xs">
+                  {API_VERSION}
+                </Badge>
               </div>
-              <h1 className="text-2xl font-bold tracking-tight">
-                ASCAP <span className="font-normal text-muted-foreground">API</span>
-              </h1>
-              <Badge variant="secondary" className="font-mono text-xs">
-                {API_VERSION}
-              </Badge>
             </div>
             <p className="mt-4 text-muted-foreground">
               {t("api.description")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link to="/dashboard">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="touch-manipulation">
                   {t("nav.dashboard")}
                 </Button>
               </Link>
               <Link to="/docs">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="touch-manipulation">
                   {t("nav.docs")}
                 </Button>
               </Link>
               <Link to="/support">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="touch-manipulation">
                   {t("nav.support")}
                 </Button>
               </Link>
@@ -307,12 +322,12 @@ export function ApiReferencePage() {
                   </>
                 )}
               </div>
-              <div className="min-w-0 flex-1 border-l border-border bg-[#0d1117]">
+              <div className="min-w-0 flex-1 border-l border-border bg-code-bg">
                 <div className="sticky top-0 p-4 lg:p-6">
                   <CodeBlock label={t("api.request")}>{ep.request}</CodeBlock>
                   <div className="mt-6">
                     {"responseType" in ep && ep.responseType ? (
-                      <div className="rounded-lg border border-border bg-[#0d1117] p-4">
+                      <div className="rounded-lg border border-border bg-code-bg p-4">
                         <div className="mb-2 text-xs font-mono text-slate-500">
                           Response (200 OK)
                         </div>

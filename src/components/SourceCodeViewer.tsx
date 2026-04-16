@@ -4,10 +4,6 @@ import { getLanguage, getLanguageLabel } from "@/lib/codeLanguage"
 import { History, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const CODE_VIEW_BG = "#0d1117"
-const BORDER_DARK = "#233648"
-const TEXT_MUTED = "#8b949e"
-
 interface SourceCodeViewerProps {
   code: string
   filePath: string
@@ -48,15 +44,15 @@ export function SourceCodeViewer({
   }, [code, lang])
 
   return (
-    <div className={`flex flex-col min-h-0 rounded-lg border overflow-hidden ${className}`} style={{ borderColor: BORDER_DARK, backgroundColor: CODE_VIEW_BG }}>
+    <div className={`flex min-h-0 flex-col overflow-hidden rounded-lg border border-border-strong bg-code-bg ${className}`}>
       {showToolbar && (
         <div
-          className="flex items-center justify-between px-4 py-3 border-b shrink-0 sticky top-0 z-10 backdrop-blur-sm"
-          style={{ borderColor: BORDER_DARK, backgroundColor: "rgba(22, 32, 42, 0.7)" }}
+          className="sticky top-0 z-10 flex shrink-0 items-center justify-between border-b border-border-strong px-4 py-3 backdrop-blur-sm"
+          style={{ backgroundColor: "rgba(22, 32, 42, 0.7)" }}
         >
           <div className="flex items-center gap-4">
             {showStats && (
-              <div className="flex items-center text-sm gap-2" style={{ color: TEXT_MUTED }}>
+              <div className="flex items-center gap-2 text-sm text-subtle-fg">
                 <History className="size-5" />
                 <span>{lineCount} lines</span>
                 <span className="opacity-70">•</span>
@@ -67,15 +63,14 @@ export function SourceCodeViewer({
             )}
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex rounded-lg border p-0.5 bg-[#161b22]" style={{ borderColor: BORDER_DARK }}>
+            <div className="flex rounded-lg border border-border-strong bg-surface p-0.5">
               <span className="px-3 py-1.5 text-xs font-medium rounded-md bg-primary/20 text-primary">Code</span>
               {rawUrl && (
                 <a
                   href={rawUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 text-xs font-medium rounded-md transition-colors hover:text-white"
-                  style={{ color: TEXT_MUTED }}
+                  className="rounded-md px-3 py-1.5 text-xs font-medium text-subtle-fg transition-colors hover:text-white"
                 >
                   Raw
                 </a>
@@ -97,7 +92,7 @@ export function SourceCodeViewer({
         <pre
           ref={preRef}
           className="line-numbers !m-0 !rounded-none !bg-transparent p-0 text-left"
-          style={{ backgroundColor: CODE_VIEW_BG }}
+          style={{ backgroundColor: "var(--code-bg)" }}
           data-start="1"
         >
           <code className={`language-${lang} line-numbers !text-sm !bg-transparent`}>{code}</code>

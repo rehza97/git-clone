@@ -18,14 +18,13 @@ export function ThemeToggle({ className }: { className?: string }) {
     <Button
       type="button"
       variant="ghost"
-      size="sm"
+      size="icon"
       className={className}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
       title={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
     >
       {mounted && isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-      <span className="ml-1 hidden sm:inline">{mounted ? (isDark ? "Light" : "Dark") : "Theme"}</span>
     </Button>
   )
 }

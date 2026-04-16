@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import {
-  Code2,
   Lock,
   GraduationCap,
   FlaskConical,
@@ -19,9 +18,6 @@ import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/AuthContext"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ThemeToggle } from "@/components/ui/theme-toggle"
-
-const REGISTER_PRIMARY = "#1173d4"
 const STEPS = [
   { key: "step1Name", id: "identity" },
   { key: "step2Name", id: "contact" },
@@ -108,36 +104,11 @@ export function RegisterPage() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden font-sans text-foreground antialiased bg-background">
-      {/* Header - matches stitch */}
-      <header className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-border px-6 py-4 lg:px-10 bg-background/90 backdrop-blur-md">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center" style={{ color: REGISTER_PRIMARY }}>
-            <Code2 className="h-7 w-7" />
-          </div>
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-foreground">ASCAP</h2>
-        </Link>
-        <div className="hidden flex-1 items-center justify-end gap-8 md:flex">
-          <nav className="flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Home</Link>
-            <Link to="/about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">About</Link>
-            <Link to="/explore" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Projects</Link>
-            <Link to="/support" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
-          </nav>
-          <ThemeToggle className="rounded-lg px-3 text-muted-foreground hover:bg-accent hover:text-accent-foreground" />
-          <Link to="/login">
-            <Button className="min-w-[84px] rounded-lg px-6 font-bold shadow-md transition-colors hover:opacity-90" style={{ backgroundColor: REGISTER_PRIMARY, boxShadow: "0 0 15px rgba(17,115,212,0.2)" }}>
-              Login
-            </Button>
-          </Link>
-        </div>
-        <Link to="/login" className="rounded-lg px-4 py-2 text-muted-foreground md:hidden">Login</Link>
-      </header>
-
       <main className="flex flex-1 justify-center px-4 py-8 md:px-6 lg:px-8">
         <div className="flex w-full max-w-[800px] flex-col gap-8">
           {/* Hero */}
           <div className="flex flex-col gap-2 pt-4">
-            <div className="mb-2 flex items-center gap-2" style={{ color: REGISTER_PRIMARY }}>
+            <div className="mb-2 flex items-center gap-2 text-primary">
               <Lock className="h-4 w-4" />
               <span className="text-xs font-bold uppercase tracking-wider">{t("register.secureRegistration")}</span>
             </div>
@@ -151,18 +122,18 @@ export function RegisterPage() {
 
           {/* Progress */}
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-            <div className="flex items-center justify-between gap-6">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
               <p className="text-base font-bold leading-normal text-foreground">
                 {t("register.stepOf", { current: step, stepName: t(stepNameKey) })}
               </p>
-              <span className="text-sm font-medium text-muted-foreground">
+              <span className="shrink-0 text-sm font-medium text-muted-foreground">
                 {t("register.percentCompleted", { percent })}
               </span>
             </div>
             <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
               <div
-                className="h-full rounded-full transition-all duration-500 ease-in-out"
-                style={{ width: `${percent}%`, backgroundColor: REGISTER_PRIMARY, boxShadow: "0 0 10px rgba(17,115,212,0.5)" }}
+                className="h-full rounded-full bg-primary shadow-[0_0_10px] shadow-primary/50 transition-all duration-500 ease-in-out"
+                style={{ width: `${percent}%` }}
               />
             </div>
           </div>
@@ -187,7 +158,7 @@ export function RegisterPage() {
                     {ROLES.map(({ value, icon: Icon, titleKey, descKey }) => (
                       <label
                         key={value}
-                        className="group relative flex cursor-pointer items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:border-[#1173d4] hover:shadow-md"
+                        className="group relative flex cursor-pointer items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:border-primary hover:shadow-md"
                       >
                         <input
                           type="radio"
@@ -195,12 +166,11 @@ export function RegisterPage() {
                           value={value}
                           checked={role === value}
                           onChange={() => setRole(value)}
-                          className="mt-1 h-5 w-5 shrink-0 border-2 border-input bg-transparent text-[#1173d4] focus:ring-[#1173d4] focus:ring-offset-0"
-                          style={{ accentColor: REGISTER_PRIMARY }}
+                          className="mt-1 h-5 w-5 shrink-0 border-2 border-input bg-transparent accent-primary text-primary focus:ring-primary focus:ring-offset-0"
                         />
                         <div className="flex min-w-0 flex-1 flex-col gap-1">
                           <div className="flex items-center gap-2">
-                            <Icon className="h-5 w-5 shrink-0" style={{ color: REGISTER_PRIMARY }} />
+                            <Icon className="h-5 w-5 shrink-0 text-primary" />
                             <p className="text-base font-bold leading-normal text-foreground">{t(titleKey)}</p>
                           </div>
                           <p className="text-sm font-normal leading-normal text-muted-foreground">{t(descKey)}</p>
@@ -218,7 +188,7 @@ export function RegisterPage() {
                       value={affiliation}
                       onChange={(e) => setAffiliation(e.target.value)}
                       placeholder={t("register.affiliationPlaceholder")}
-                      className="h-14 resize-none overflow-hidden rounded-lg border-input bg-background p-4 pr-12 text-base font-normal text-foreground shadow-sm transition-shadow placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 resize-none overflow-hidden rounded-lg border-input bg-background p-4 pr-12 text-base font-normal text-foreground shadow-sm transition-shadow placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
                     />
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">
                       <Search className="h-5 w-5" />
@@ -241,7 +211,7 @@ export function RegisterPage() {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder={t("register.fullNamePlaceholder")}
-                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
@@ -257,7 +227,7 @@ export function RegisterPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={t("register.emailPlaceholder")}
-                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                      className="h-14 rounded-lg border-input bg-background pl-10 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
@@ -278,7 +248,7 @@ export function RegisterPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t("register.passwordPlaceholder")}
-                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -292,7 +262,7 @@ export function RegisterPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder={t("register.confirmPasswordPlaceholder")}
-                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-[#1173d4] focus:ring-2 focus:ring-[#1173d4]/50"
+                    className="h-14 rounded-lg border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/50"
                   />
                   {confirmPassword && password !== confirmPassword && (
                     <p className="text-xs text-amber-400">{t("register.passwordsMismatch")}</p>
@@ -325,7 +295,7 @@ export function RegisterPage() {
                     id="accept-terms"
                     checked={acceptTerms}
                     onCheckedChange={(v) => setAcceptTerms(v === true)}
-                    className="h-4 w-4 rounded border-input bg-background text-[#1173d4] focus:ring-[#1173d4]"
+                    className="h-4 w-4 rounded border-input bg-background text-primary focus:ring-primary"
                   />
                   <Label htmlFor="accept-terms" className="text-sm text-muted-foreground">
                     {t("register.acceptTerms")}
@@ -335,20 +305,19 @@ export function RegisterPage() {
             )}
 
             {/* Actions */}
-            <div className="mt-2 flex items-center justify-end gap-4 border-t border-border pt-6">
+            <div className="mt-2 flex flex-col-reverse gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
               <Button
                 type="button"
                 variant="ghost"
                 onClick={handleCancel}
-                className="h-12 rounded-lg px-6 font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                className="h-12 w-full rounded-lg px-6 font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground sm:w-auto"
               >
                 {step === 1 ? t("register.cancel") : t("register.back")}
               </Button>
               <Button
                 type="submit"
                 disabled={!canContinue || loading}
-                className="flex h-12 items-center gap-2 rounded-lg px-8 font-bold text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
-                style={{ backgroundColor: REGISTER_PRIMARY, boxShadow: "0 0 15px rgba(17,115,212,0.2)" }}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 sm:w-auto"
               >
                 {step < 4 ? (
                   <>
@@ -365,21 +334,21 @@ export function RegisterPage() {
           </form>
 
           {/* Footer links */}
-          <div className="mt-4 flex justify-center gap-6">
-            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
+          <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-primary" onClick={(e) => e.preventDefault()}>
               {t("register.privacyPolicy")}
             </a>
-            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]" onClick={(e) => e.preventDefault()}>
+            <a href="#" className="text-xs text-muted-foreground transition-colors hover:text-primary" onClick={(e) => e.preventDefault()}>
               {t("register.termsOfService")}
             </a>
-            <Link to="/support" className="text-xs text-muted-foreground transition-colors hover:text-[#1173d4]">
+            <Link to="/support" className="text-xs text-muted-foreground transition-colors hover:text-primary">
               {t("register.helpCenter")}
             </Link>
           </div>
 
           <p className="text-center text-sm text-muted-foreground">
             {t("register.hasAccount")}{" "}
-            <Link to="/login" className="font-semibold transition-colors hover:opacity-80" style={{ color: REGISTER_PRIMARY }}>
+            <Link to="/login" className="font-semibold text-primary transition-colors hover:opacity-80">
               {t("nav.login")}
             </Link>
           </p>

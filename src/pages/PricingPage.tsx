@@ -62,7 +62,7 @@ export function PricingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Student Plan */}
-              <div className="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192633] p-8 transition-transform hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-primary/5">
+              <div className="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-muted p-8 transition-transform hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-primary/5">
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
                     <h3 className="text-slate-900 dark:text-white text-lg font-bold">
@@ -101,7 +101,7 @@ export function PricingPage() {
               </div>
 
               {/* Startup/Pro Plan */}
-              <div className="relative flex flex-col gap-6 rounded-xl border-2 border-primary bg-white dark:bg-[#192633] p-8 shadow-2xl shadow-primary/10">
+              <div className="relative flex flex-col gap-6 rounded-xl border-2 border-primary bg-white dark:bg-surface-muted p-8 shadow-2xl shadow-primary/10">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t("pricing.planPopular")}
                 </div>
@@ -140,7 +140,7 @@ export function PricingPage() {
               </div>
 
               {/* Institutional Plan */}
-              <div className="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192633] p-8 transition-transform hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-primary/5">
+              <div className="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-muted p-8 transition-transform hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-primary/5">
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
                     <h3 className="text-slate-900 dark:text-white text-lg font-bold">
@@ -191,7 +191,7 @@ export function PricingPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192633] p-6 hover:border-primary/50 transition-colors">
+              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-muted p-6 hover:border-primary/50 transition-colors">
                 <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                   <Server className="size-8" />
                 </div>
@@ -204,7 +204,7 @@ export function PricingPage() {
                   </p>
                 </div>
               </div>
-              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192633] p-6 hover:border-primary/50 transition-colors">
+              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-muted p-6 hover:border-primary/50 transition-colors">
                 <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                   <ShieldCheck className="size-8" />
                 </div>
@@ -217,7 +217,7 @@ export function PricingPage() {
                   </p>
                 </div>
               </div>
-              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192633] p-6 hover:border-primary/50 transition-colors">
+              <div className="group flex flex-col gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-muted p-6 hover:border-primary/50 transition-colors">
                 <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                   <Flag className="size-8" />
                 </div>
@@ -252,7 +252,7 @@ export function PricingPage() {
                 </Button>
                 <Button
                   asChild
-                  className="h-12 px-8 rounded-lg bg-[#0e5a9c] text-white font-bold hover:bg-[#0b487d] transition-colors border border-blue-400/30"
+                  className="h-12 rounded-lg border border-primary/30 bg-primary px-8 font-bold text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   <Link to="/support">{t("pricing.contactSales")}</Link>
                 </Button>

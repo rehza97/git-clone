@@ -1,30 +1,14 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import {
-  ShieldCheck,
-  GraduationCap,
-  Mail,
-  Lock,
-  EyeOff,
-  Eye,
-} from "lucide-react"
+import { GraduationCap, Mail, Lock, EyeOff, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/contexts/AuthContext"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { persistLanguage } from "@/i18n"
 import { Checkbox } from "@/components/ui/checkbox"
 
-const LOGIN_PRIMARY = "#1173d4"
 const LOGIN_BG = "var(--background)"
 const LOGIN_PATTERN = "radial-gradient(#1c2a38 1px, transparent 1px)"
 const LOGIN_PATTERN_SIZE = "30px 30px"
@@ -95,35 +79,10 @@ export function LoginPage() {
         backgroundSize: LOGIN_PATTERN_SIZE,
       }}
     >
-      {/* Header */}
-      <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b border-border px-6 py-4 backdrop-blur-md lg:px-10 bg-background/90">
-        <Link to="/" className="flex items-center gap-4 text-foreground">
-          <div className="flex size-8 items-center justify-center" style={{ color: LOGIN_PRIMARY }}>
-            <ShieldCheck className="h-7 w-7" />
-          </div>
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-foreground">
-            ASCAP
-          </h2>
-        </Link>
-        <div className="flex gap-3">
-          <ThemeToggle className="min-w-[84px] rounded-lg border border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent" />
-          <LanguageDropdown />
-          <Link to="/support">
-            <Button
-              variant="outline"
-              className="min-w-[84px] rounded-lg border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent"
-            >
-              {t("login.help")}
-            </Button>
-          </Link>
-        </div>
-      </header>
-
-      {/* Main */}
-      <main className="relative flex flex-1 items-center justify-center overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+      <main className="relative flex flex-1 items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         {/* Decorative blurs */}
-        <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: `${LOGIN_PRIMARY}1A` }} />
-        <div className="pointer-events-none absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full blur-3xl" style={{ backgroundColor: `${LOGIN_PRIMARY}0D` }} />
+        <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-primary/[0.05] blur-3xl" />
 
         <div className="relative z-10 w-full max-w-md space-y-8 rounded-2xl border border-border bg-card p-8 shadow-xl">
           {/* Welcome */}
@@ -229,7 +188,7 @@ export function LoginPage() {
                     id="remember-me"
                     checked={rememberMe}
                     onCheckedChange={(v) => setRememberMe(v === true)}
-                    className="h-4 w-4 rounded border-input bg-background text-[#1173d4] focus:ring-[#1173d4]"
+                    className="h-4 w-4 rounded border-input bg-background text-primary focus:ring-primary"
                   />
                   <Label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                     {t("login.rememberMe")}
@@ -238,8 +197,7 @@ export function LoginPage() {
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-medium transition-colors hover:opacity-80"
-                    style={{ color: LOGIN_PRIMARY }}
+                    className="font-medium text-primary transition-colors hover:opacity-80"
                     onClick={(e) => e.preventDefault()}
                   >
                     {t("login.forgotPassword")}
@@ -250,8 +208,7 @@ export function LoginPage() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-lg px-3 py-3.5 text-sm font-bold leading-6 text-white shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1173d4] disabled:opacity-50"
-                  style={{ backgroundColor: LOGIN_PRIMARY }}
+                  className="flex w-full justify-center rounded-lg bg-primary px-3 py-3.5 text-sm font-bold leading-6 text-primary-foreground shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
                 >
                   {loading ? t("login.signingIn") : t("login.signIn")}
                 </Button>
@@ -263,8 +220,7 @@ export function LoginPage() {
             {t("login.noAccount")}{" "}
             <Link
               to="/register"
-              className="font-semibold leading-6 transition-colors hover:opacity-80"
-              style={{ color: LOGIN_PRIMARY }}
+              className="font-semibold leading-6 text-primary transition-colors hover:opacity-80"
             >
               {t("login.registerForAccount")}
             </Link>
@@ -272,48 +228,6 @@ export function LoginPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-border py-6 text-center text-xs text-muted-foreground backdrop-blur-sm bg-background/70">
-        <p>{t("login.footerCopyright")}</p>
-        <p className="mt-1">
-          Developed by{" "}
-          <a
-            href="http://dataforgestack.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-foreground"
-          >
-            dataforgestack.com
-          </a>
-        </p>
-      </footer>
     </div>
-  )
-}
-
-function LanguageDropdown() {
-  const { i18n, t } = useTranslation()
-  const lang = i18n.language || "en"
-  const label = lang === "ar" ? "AR" : lang === "fr" ? "FR" : "EN"
-  function setLang(lng: string) {
-    i18n.changeLanguage(lng)
-    persistLanguage(lng)
-  }
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          className="min-w-[84px] rounded-lg border-border bg-transparent px-4 font-bold text-foreground hover:bg-accent"
-        >
-          {label}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLang("en")}>{t("language.en")}</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLang("fr")}>{t("language.fr")}</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLang("ar")}>{t("language.ar")}</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   )
 }

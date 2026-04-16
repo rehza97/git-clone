@@ -5,6 +5,7 @@ import { Code2, Search, ThumbsUp, ThumbsDown, MessageCircle } from "lucide-react
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { MobileDocSidebarSheet } from "@/components/layout/MobileDocSidebarSheet"
 
 const docSections = [
   {
@@ -50,50 +51,94 @@ const onThisPageLinks = [
   "docs.step3Title",
 ]
 
+function DocsPrimarySidebarNav() {
+  const { t } = useTranslation()
+  return (
+    <nav className="space-y-8">
+      {docSections.map((section) => (
+        <div key={section.titleKey}>
+          <h5 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t(section.titleKey)}
+          </h5>
+          <ul className="space-y-1">
+            {section.links.map((link) => (
+              <li key={link.labelKey}>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    to={link.href}
+                    className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                      link.active
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    }`}
+                  >
+                    {t(link.labelKey)}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                      link.active
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    }`}
+                  >
+                    {t(link.labelKey)}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  )
+}
+
 export function DocsPage() {
   const { t } = useTranslation()
   const [search, setSearch] = useState("")
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)] w-full flex-1 flex-col">
-      <div className="sticky top-0 z-10 border-b border-border bg-background/95 px-4 py-4 backdrop-blur supports-backdrop-filter:bg-background/60 lg:px-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3">
-              <div className="flex size-8 items-center justify-center rounded bg-primary/20 text-primary">
+    <div className="flex min-h-[calc(100vh-3.5rem)] w-full min-w-0 flex-1 flex-col">
+      <div className="sticky top-0 z-10 border-b border-border bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/60 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-1 flex-col gap-3 md:flex-row md:items-center md:gap-6">
+            <div className="flex min-w-0 shrink-0 items-center gap-3">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded bg-primary/20 text-primary">
                 <Code2 className="h-5 w-5" />
               </div>
-              <h1 className="text-lg font-bold tracking-tight">
+              <h1 className="truncate text-lg font-bold tracking-tight">
                 ASCAP <span className="font-normal text-muted-foreground">Docs</span>
               </h1>
             </div>
-            <div className="relative hidden w-96 md:block">
+            <div className="relative hidden min-w-0 flex-1 md:block md:max-w-md lg:max-w-96">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder={t("docs.searchPlaceholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 pr-20"
+                className="w-full pl-9 pr-20"
               />
               <kbd className="absolute right-3 top-1/2 -translate-y-1/2 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
                 Ctrl K
               </kbd>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             <Link to="/dashboard">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="touch-manipulation">
                 {t("nav.dashboard")}
               </Button>
             </Link>
             <Link to="/api">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="touch-manipulation">
                 {t("nav.api")}
               </Button>
             </Link>
             <Link to="/support">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="touch-manipulation">
                 {t("nav.support")}
               </Button>
             </Link>
@@ -101,49 +146,15 @@ export function DocsPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 items-start">
+      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-1 items-start">
         <aside className="hidden w-64 shrink-0 overflow-y-auto border-r border-border py-8 pr-6 lg:block">
-          <nav className="space-y-8">
-            {docSections.map((section) => (
-              <div key={section.titleKey}>
-                <h5 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {t(section.titleKey)}
-                </h5>
-                <ul className="space-y-1">
-                  {section.links.map((link) => (
-                    <li key={link.labelKey}>
-                      {link.href.startsWith("/") ? (
-                        <Link
-                          to={link.href}
-                          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                            link.active
-                              ? "bg-primary/10 text-primary"
-                              : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                          }`}
-                        >
-                          {t(link.labelKey)}
-                        </Link>
-                      ) : (
-                        <a
-                          href={link.href}
-                          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                            link.active
-                              ? "bg-primary/10 text-primary"
-                              : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                          }`}
-                        >
-                          {t(link.labelKey)}
-                        </a>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+          <DocsPrimarySidebarNav />
         </aside>
 
-        <main className="min-w-0 flex-1 py-8 px-4 lg:px-12">
+        <main className="min-w-0 flex-1 px-4 py-8 lg:px-12">
+          <MobileDocSidebarSheet title={t("docs.sidebarSheet")}>
+            <DocsPrimarySidebarNav />
+          </MobileDocSidebarSheet>
           <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <Link to="/docs" className="hover:text-foreground transition-colors">
               Docs
@@ -158,10 +169,10 @@ export function DocsPage() {
 
           <article className="prose prose-slate dark:prose-invert max-w-none">
             <div className="mb-10 border-b border-border pb-8">
-              <h1 className="mb-4 text-4xl font-extrabold tracking-tight">
+              <h1 className="mb-4 text-2xl font-extrabold tracking-tight sm:text-4xl">
                 {t("docs.archiving1275Title")}
               </h1>
-              <p className="text-xl text-muted-foreground">{t("docs.archiving1275Desc")}</p>
+              <p className="text-lg text-muted-foreground sm:text-xl">{t("docs.archiving1275Desc")}</p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <Badge variant="secondary">{t("docs.updatedAgo")}</Badge>
                 <Badge variant="outline">{t("docs.minRead")}</Badge>
@@ -280,10 +291,10 @@ git push -u ascap main`}</code>
 
       <Link
         to="/support"
-        className="fixed bottom-8 right-8 z-50 flex items-center gap-2 rounded-full bg-primary px-4 py-4 text-white shadow-lg transition-all hover:gap-3 hover:shadow-xl"
+        className="fixed bottom-4 right-4 z-50 flex max-w-[calc(100vw-2rem)] items-center gap-2 rounded-full bg-primary px-3 py-3 text-sm text-white shadow-lg transition-all hover:gap-3 hover:shadow-xl sm:bottom-8 sm:right-8 sm:px-4 sm:py-4 sm:text-base"
       >
-        <MessageCircle className="h-6 w-6" />
-        <span className="font-medium">{t("docs.contactSupport")}</span>
+        <MessageCircle className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
+        <span className="truncate font-medium">{t("docs.contactSupport")}</span>
       </Link>
     </div>
   )
