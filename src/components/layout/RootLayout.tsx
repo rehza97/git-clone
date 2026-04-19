@@ -11,6 +11,20 @@ export function RootLayout() {
   const { t } = useTranslation()
   const location = useLocation()
   const showAppFooter = location.pathname !== "/"
+  const footerContacts = [
+    {
+      name: "Abir",
+      email: "Abbadnacera1@gmail.com",
+      phoneDisplay: "+213 698 19 74 52",
+      phoneTel: "+213698197452",
+    },
+    {
+      name: "Brikci",
+      email: "Manel.brikci13@gmail.com",
+      phoneDisplay: "+213 670 67 61 31",
+      phoneTel: "+213670676131",
+    },
+  ]
 
   return (
     <div className="min-h-svh flex min-w-0 flex-col overflow-x-hidden">
@@ -54,6 +68,20 @@ export function RootLayout() {
                   dataforgestack.com
                 </a>
               </span>
+              <div className="mt-2 space-y-1 text-xs opacity-90">
+                {footerContacts.map((contact) => (
+                  <p key={contact.email}>
+                    <span className="font-medium">{contact.name}:</span>{" "}
+                    <a className="underline hover:opacity-100" href={`mailto:${contact.email}`}>
+                      {contact.email}
+                    </a>{" "}
+                    |{" "}
+                    <a className="underline hover:opacity-100" href={`tel:${contact.phoneTel}`}>
+                      {contact.phoneDisplay}
+                    </a>
+                  </p>
+                ))}
+              </div>
               </div>
             </div>
             <nav className="flex max-w-full flex-wrap justify-center gap-x-4 gap-y-1 text-sm sm:min-h-11 sm:justify-end sm:items-center">

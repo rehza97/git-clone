@@ -22,6 +22,21 @@ const TEAM_IMAGES = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCDW4BjymxMpb3d7kqXO6hTLaitC1lB40dRQbwk4WIBt_DAcwOzrkwX9z-4CSAu6OtXzr1Ys0wvl93z1z0qP1UYKpHztdGU34pRsSH0v2GZFdhqpxlBG9QRUBLVXfaXSyY7brJMOJnCGZih90abZMIYbTMN_h0BXGGALkNguWdOFtQCTg5smtWNQBG-7NHK6gE1c83U5g8ddBg70s6t9eYZ6qBi13fFs3nsuPm5OR3h1fb456TnRnU0xdGxZvdW0UncfQMSn2a9Gw",
 ]
 
+const foundingContacts = [
+  {
+    nameKey: "about.founder1",
+    email: "Abbadnacera1@gmail.com",
+    phoneDisplay: "+213 698 19 74 52",
+    phoneTel: "+213698197452",
+  },
+  {
+    nameKey: "about.founder2",
+    email: "Manel.brikci13@gmail.com",
+    phoneDisplay: "+213 670 67 61 31",
+    phoneTel: "+213670676131",
+  },
+]
+
 export function AboutPage() {
   const { t } = useTranslation()
   const projectGoals = t("about.projectGoals", { returnObjects: true }) as string[]
@@ -140,6 +155,20 @@ export function AboutPage() {
               <p className="mt-4 text-sm font-semibold text-primary">{t("about.supervisorLabel")}</p>
               <p className="mt-2 text-sm text-muted-foreground">{t("about.supervisorName")}</p>
               <p className="mt-4 text-sm font-semibold text-primary">{t("about.contactInfoTitle")}</p>
+              <div className="mt-2 space-y-2">
+                {foundingContacts.map((contact) => (
+                  <div key={contact.email} className="text-sm text-muted-foreground">
+                    <p className="font-medium text-foreground">{t(contact.nameKey)}</p>
+                    <a className="text-primary hover:underline" href={`mailto:${contact.email}`}>
+                      {contact.email}
+                    </a>
+                    <span className="mx-2 text-border">|</span>
+                    <a className="text-primary hover:underline" href={`tel:${contact.phoneTel}`}>
+                      {contact.phoneDisplay}
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 

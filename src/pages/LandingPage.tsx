@@ -24,6 +24,21 @@ const AVATARS = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuBk1OnJxBNXSzHEyyAKNfF7XPwDuNH6l4CEqqxP3VTeqZ3OdzLKMQS9g5H5Df0X0Zyiy2OfKhea-o1AxEwmqA04gOBYCx8sBsq-Nz-zuDm3IY55zx8waG2t5sXdNV4q4kOneDPAzKmULsPibyyZtHz2HgO45mc2pXEeR7gZa7OlLvIkILBaA8qriY15FkX_OXDlTMMyrGqIEB6jdwizRodrj44XbQanbUNWns31bEQzSUgRaAVPMFnDUsWcRcK6fX8Rv30dplu45A",
 ]
 
+const footerContacts = [
+  {
+    name: "Abir",
+    email: "Abbadnacera1@gmail.com",
+    phoneDisplay: "+213 698 19 74 52",
+    phoneTel: "+213698197452",
+  },
+  {
+    name: "Brikci",
+    email: "Manel.brikci13@gmail.com",
+    phoneDisplay: "+213 670 67 61 31",
+    phoneTel: "+213670676131",
+  },
+]
+
 export function LandingPage() {
   const { t } = useTranslation()
 
@@ -304,6 +319,20 @@ export function LandingPage() {
               <p className="mb-6 max-w-xs text-sm text-muted-foreground">
                 {t("landing.footerTagline")}
               </p>
+              <div className="mb-6 space-y-1 text-xs text-muted-foreground">
+                {footerContacts.map((contact) => (
+                  <p key={contact.email}>
+                    <span className="font-medium text-foreground">{contact.name}:</span>{" "}
+                    <a className="hover:text-primary" href={`mailto:${contact.email}`}>
+                      {contact.email}
+                    </a>{" "}
+                    |{" "}
+                    <a className="hover:text-primary" href={`tel:${contact.phoneTel}`}>
+                      {contact.phoneDisplay}
+                    </a>
+                  </p>
+                ))}
+              </div>
               <div className="flex gap-4">
                 <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Like">
                   <ThumbsUp className="h-5 w-5" />

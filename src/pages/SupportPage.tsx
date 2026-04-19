@@ -13,6 +13,21 @@ const docNavSections = [
   { titleKey: "nav.training", href: "/training" },
 ]
 
+const supportContacts = [
+  {
+    name: "Brikci",
+    email: "Manel.brikci13@gmail.com",
+    phoneDisplay: "+213 670 67 61 31",
+    phoneTel: "+213670676131",
+  },
+  {
+    name: "Abir",
+    email: "Abbadnacera1@gmail.com",
+    phoneDisplay: "+213 698 19 74 52",
+    phoneTel: "+213698197452",
+  },
+]
+
 function SupportSidebarNav() {
   const { t } = useTranslation()
   return (
@@ -114,6 +129,19 @@ export function SupportPage() {
                     <a href="mailto:support@ascap.dz">support@ascap.dz</a>
                   </Button>
                   <span className="text-sm text-muted-foreground">or use the form below</span>
+                </div>
+                <div className="space-y-2">
+                  {supportContacts.map((contact) => (
+                    <div key={contact.email} className="flex flex-wrap items-center gap-3">
+                      <span className="text-sm font-medium text-foreground">{contact.name}:</span>
+                      <Button variant="outline" asChild>
+                        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <a href={`tel:${contact.phoneTel}`}>{contact.phoneDisplay}</a>
+                      </Button>
+                    </div>
+                  ))}
                 </div>
                 <div className="rounded-lg border border-border bg-muted/30 p-4 space-y-3">
                   <Input placeholder={t("login.email")} type="email" className="max-w-md" />

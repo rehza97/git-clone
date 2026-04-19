@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import {
@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
 type UploadMethod = "direct" | "git"
+type DirectUploadMode = "files" | "folders"
 
 function fileToStorageRelative(file: File): string {
   const path = (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name
@@ -56,6 +57,7 @@ export function UploadPage() {
   const [commitMessage, setCommitMessage] = useState("")
 
   const [files, setFiles] = useState<File[]>([])
+  const [directUploadMode, setDirectUploadMode] = useState<DirectUploadMode>("folders")
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [currentFileName, setCurrentFileName] = useState<string | null>(null)
@@ -64,7 +66,6 @@ export function UploadPage() {
     null
   )
   const [error, setError] = useState<string | null>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!repoId) return
@@ -312,7 +313,31 @@ export function UploadPage() {
             {/* Drop zone */}
             {uploadMethod === "direct" && (
               <div className="flex flex-col gap-4">
-                <p className="text-sm text-slate-600 dark:text-subtle-fg">{t("upload.folderNotZipHint")}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={directUploadMode === "files" ? "default" : "outline"}
+                    disabled={uploading}
+                    onClick={() => setDirectUploadMode("files")}
+                  >
+                    {t("upload.uploadFilesOption")}
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={directUploadMode === "folders" ? "default" : "outline"}
+                    disabled={uploading}
+                    onClick={() => setDirectUploadMode("folders")}
+                  >
+                    {t("upload.uploadFoldersOption")}
+                  </Button>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-subtle-fg">
+                  {directUploadMode === "folders"
+                    ? t("upload.folderNotZipHint")
+                    : t("upload.filesOnlyHint")}
+                </p>
                 <div
                   aria-busy={uploading}
                   className={cn(
@@ -330,11 +355,15 @@ export function UploadPage() {
                     </div>
                     <div className="flex flex-col items-center gap-2 text-center">
                       <p className="text-lg font-bold text-slate-900 dark:text-white">
-                        {t("upload.dragDrop")}
+                        {t("upload.dragDropFilesOrFolders")}
                       </p>
                       <p className="text-sm text-slate-500 dark:text-subtle-fg">
                         {t("upload.orBrowse")}{" "}
-                        <span className="text-primary hover:underline">{t("upload.browseFiles")}</span>{" "}
+                        <span className="text-primary hover:underline">
+                          {directUploadMode === "folders"
+                            ? t("upload.browseFolders")
+                            : t("upload.browseFiles")}
+                        </span>{" "}
                         {t("upload.browseFilesSuffix")}
                       </p>
                     </div>
@@ -346,16 +375,17 @@ export function UploadPage() {
                     </div>
                   </div>
                   <input
-                    ref={inputRef}
                     type="file"
                     multiple
                     disabled={uploading}
                     className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
                     onChange={handleSelect}
-                    {...({
-                      webkitdirectory: "",
-                      directory: "",
-                    } as React.InputHTMLAttributes<HTMLInputElement>)}
+                    {...(directUploadMode === "folders"
+                      ? ({
+                          webkitdirectory: "",
+                          directory: "",
+                        } as React.InputHTMLAttributes<HTMLInputElement>)
+                      : {})}
                   />
                 </div>
                 {error && (
@@ -564,4 +594,3 @@ export function UploadPage() {
     </div>
   )
 }
-
